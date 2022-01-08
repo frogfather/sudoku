@@ -30,7 +30,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="8">
       <Unit0>
         <Filename Value="sudokuProj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -39,6 +39,7 @@
         <Filename Value="sudokuform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="mainForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sudokuForm"/>
       </Unit1>
@@ -59,6 +60,15 @@
         <Filename Value="cell.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="sudokuutil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sudokuUtil"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="fileutilities.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -71,6 +81,9 @@
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>

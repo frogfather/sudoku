@@ -19,6 +19,10 @@ type
     fCandidates: TIntArray;
     public
     constructor create(row, column, box: integer; candidates:TIntArray;value: integer=-1);
+    property row: integer read fRow;
+    property col: integer read fColumn;
+    property box: integer read fBox;
+    property value: integer read fValue;
   end;
 
   TCellArray = array of TCell;
