@@ -22,6 +22,7 @@ type
   end;
 
   TCellArray = array of TCell;
+  TGameArray = array of array of TCell;
 
 implementation
 

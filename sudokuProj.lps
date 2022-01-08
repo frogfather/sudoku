@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="sudokuProj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -29,8 +29,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="28"/>
-        <CursorPos X="45" Y="36"/>
+        <TopLine Value="78"/>
+        <CursorPos X="64" Y="97"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -55,12 +55,20 @@
         <Filename Value="cell.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="40" Y="25"/>
+        <TopLine Value="4"/>
+        <CursorPos X="3" Y="10"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="/usr/local/share/fpcsrc/3.2.0/rtl/objpas/fgl.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1672"/>
+        <CursorPos Y="1684"/>
+        <UsageCount Value="10"/>
+      </Unit6>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="sudokugame.pas"/>
         <Caret Line="8" Column="31"/>
@@ -97,6 +105,50 @@
         <Filename Value="sudokugame.pas"/>
         <Caret Line="36" Column="48" TopLine="24"/>
       </Position9>
+      <Position10>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="37" Column="22" TopLine="28"/>
+      </Position10>
+      <Position11>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="72" Column="79" TopLine="52"/>
+      </Position11>
+      <Position12>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="71" Column="34" TopLine="54"/>
+      </Position12>
+      <Position13>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="62" Column="25" TopLine="54"/>
+      </Position13>
+      <Position14>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="75" Column="15" TopLine="57"/>
+      </Position14>
+      <Position15>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="25" Column="52" TopLine="13"/>
+      </Position15>
+      <Position16>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="59" Column="82" TopLine="40"/>
+      </Position16>
+      <Position17>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="67" Column="34" TopLine="55"/>
+      </Position17>
+      <Position18>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="69" Column="45" TopLine="62"/>
+      </Position18>
+      <Position19>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="49" Column="42" TopLine="29"/>
+      </Position19>
+      <Position20>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="19" Column="55" TopLine="9"/>
+      </Position20>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
