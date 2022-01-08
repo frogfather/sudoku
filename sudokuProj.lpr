@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, sudokuForm, sudokugame
+  Forms, sudokuForm, sudokugame, cell
   { you can add units after this };
 
 {$R *.res}

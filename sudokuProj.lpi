@@ -30,7 +30,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="sudokuProj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -49,11 +49,16 @@
       <Unit3>
         <Filename Value="arrayutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="arrayUtils"/>
       </Unit3>
       <Unit4>
         <Filename Value="anysort.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="cell.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
