@@ -20,10 +20,36 @@ type
 
   ERepeatOptions = array of ERepeatOption;
 
-  TGameSpecialisation = record
-    //need to think about this
-    //needs to allow cages, arrows, renban, gw etc
-    //cells affected - array of - something.
+  EConstraintType = (ctBox, ctCage, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
+
+  IConstraint = interface
+  ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
+    function getName:string;
+    function getType: EConstraintType;
+    function getTarget: TCellArray;
+  end;
+
+  { TGameSpecialisation }
+
+  TGameSpecialisation = class(TInterfacedObject, IConstraint)
+    private
+    fName: string;
+    fType: EConstraintType;
+    fTarget: TCellArray;
+    public
+    function getName:string;
+    function getType:EConstraintType;
+    function getTarget:TCellArray;
+    constructor create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
+  end;
+
+  { TBoxSpecialisation }
+
+  TBoxSpecialisation = class(TGameSpecialisation)
+    private
+    fTotal:integer;
+    public
+    constructor create(bsName:string;bsTarget:TCellArray;bsTotal:integer);
   end;
 
   TGameSpecialisations = array of TGameSpecialisation;
@@ -33,9 +59,10 @@ type
   TSudokuGame = class(TInterfacedObject)
     private
     fName:string;
-    fGrid: TGameArray; //a 2D array of cells
+    fGrid: TGameArray;
+    fSpecialisations:TGameSpecialisations;
     public
-    constructor create(name:string;gameInitData:TGameInitData; candidates:TIntArray = nil);
+    constructor create(name:string;gameInitData:TGameInitData; candidates:TIntArray = nil;specialisations:TGameSpecialisations=nil);
     property grid:TGameArray read fGrid;
     property name:string read fName;
   end;
@@ -51,6 +78,39 @@ type
   end;
 
 implementation
+
+{ TBoxSpecialisation }
+
+constructor TBoxSpecialisation.create(bsName: string; bsTarget: TCellArray;
+  bsTotal: integer);
+begin
+  inherited create(bsName,ctBox,bsTarget);
+  fTotal:=bsTotal;
+end;
+
+{ TGameSpecialisation }
+
+function TGameSpecialisation.getName: string;
+begin
+  result:=fName;
+end;
+
+function TGameSpecialisation.getType: EConstraintType;
+begin
+  result:=fType;
+end;
+
+function TGameSpecialisation.getTarget: TCellArray;
+begin
+  result:=fTarget;
+end;
+
+constructor TGameSpecialisation.create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
+begin
+  fName:=gsName;
+  fType:=gsType;
+  fTarget:=gsTarget;
+end;
 
 { TOptionsCalculator }
 
@@ -82,7 +142,7 @@ end;
 
 { TSudokuGame }
 
-constructor TSudokuGame.create(name:string;gameInitData: TGameInitData; candidates: TIntArray);
+constructor TSudokuGame.create(name:string;gameInitData: TGameInitData; candidates: TIntArray;specialisations:TGameSpecialisations);
 var
   index:integer;
   row,col,box,val:integer;
@@ -92,7 +152,7 @@ begin
   if candidates <> nil then
     options:= candidates
   else options:= TIntArray.create(1,2,3,4,5,6,7,8,9); //default to 1-9
-
+  fSpecialisations:=specialisations;
   fGrid:=TGameArray.create;
   setLength(fGrid,0,0);
   for index := 0 to pred(length(gameInitData)) do

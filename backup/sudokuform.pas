@@ -54,6 +54,8 @@ begin
       gameHeight:=input[2].Split(':')[1].ToInteger
     else gameHeight:=9;
     //TODO Load additional elements
+    //if there are no specialisations, add 9 box specialisations
+
     initialiseGame(gameName,gameWidth,gameHeight)
     end;
 end;
@@ -72,7 +74,7 @@ begin
       begin
         newGameInit.row:=iYPos + 1;
         newGameInit.column:=iXPos + 1;
-        newGameInit.box:= (iYPos div 3) + (iXPos div 3) + 1;
+        newGameInit.box:= (3*(iYPos div 3)) + (iXPos div 3) + 1;
         newGameInit.value:=-1;
         newGameInitData[(iYPos * gWidth) + iXPos]:=newGameInit;
       end;

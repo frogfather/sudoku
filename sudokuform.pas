@@ -54,6 +54,8 @@ begin
       gameHeight:=input[2].Split(':')[1].ToInteger
     else gameHeight:=9;
     //TODO Load additional elements
+    //if there are no specialisations, add 9 box specialisations
+
     initialiseGame(gameName,gameWidth,gameHeight)
     end;
 end;
@@ -76,7 +78,7 @@ begin
         newGameInit.value:=-1;
         newGameInitData[(iYPos * gWidth) + iXPos]:=newGameInit;
       end;
-  sudoku:= TSudokuGame.create(gName,newGameInitData);
+  sudoku:= TSudokuGame.create(gName,newGameInitData,nil,specialisations);
   checkGameData;
 end;
 
