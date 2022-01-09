@@ -52,7 +52,7 @@ type
     constructor create(bsName:string;bsTarget:TCellArray;bsTotal:integer);
   end;
 
-  TGameSpecialisations = array of TGameSpecialisation;
+  TGameSpecialisations = array of IConstraint;
 
   { TSudokuGame }
 
@@ -63,7 +63,7 @@ type
     fSpecialisations:TGameSpecialisations;
     public
     constructor create(name:string;gameInitData:TGameInitData; candidates:TIntArray = nil;specialisations:TGameSpecialisations=nil);
-    property grid:TGameArray read fGrid;//only the numbers should be visible
+    property grid:TGameArray read fGrid;
     property name:string read fName;
   end;
 

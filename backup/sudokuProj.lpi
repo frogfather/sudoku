@@ -68,6 +68,7 @@
       <Unit7>
         <Filename Value="fileutilities.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="fileUtilities"/>
       </Unit7>
     </Units>
   </ProjectOptions>

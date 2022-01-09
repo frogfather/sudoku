@@ -18,7 +18,7 @@ type
     od1: TOpenDialog;
     procedure bLoadClick(Sender: TObject);
   private
-    procedure initialiseGame(gName:string;gWidth,gHeight:integer;specialisations: TGameSpecialisations=nil);
+    procedure initialiseGame(gName:string;gWidth,gHeight:integer;specialisations: TGameConstraints=nil);
     procedure checkGameData;
   public
 
@@ -61,7 +61,7 @@ begin
 end;
 
 procedure TmainForm.initialiseGame(gName:string; gWidth, gHeight: integer;
-  specialisations: TGameSpecialisations);
+  specialisations: TGameConstraints);
 var
   newGameInitData: TGameInitData;
   iXPos,iYPos:integer;

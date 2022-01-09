@@ -78,7 +78,7 @@ begin
         newGameInit.value:=-1;
         newGameInitData[(iYPos * gWidth) + iXPos]:=newGameInit;
       end;
-  sudoku:= TSudokuGame.create(gName,newGameInitData);
+  sudoku:= TSudokuGame.create(gName,newGameInitData,nil,specialisations);
   checkGameData;
 end;
 

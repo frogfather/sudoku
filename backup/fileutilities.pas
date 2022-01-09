@@ -102,7 +102,6 @@ end;
 
 function getNode(nodeName: string; document: TXMLDocument): TDomNode;
 begin
-  //Need to work out how to do this effectively
   result:=document.documentElement.FindNode(nodeName);
 end;
 
