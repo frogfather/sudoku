@@ -5,7 +5,7 @@ unit constraint;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils;
+  Classes, SysUtils,arrayUtils,cell;
 
 type
 
@@ -13,19 +13,23 @@ type
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
+    function getId: string;
     function getName:string;
     function getType: EConstraintType;
     function getTarget: TCellArray; //cells that this constraint applies to
+
   end;
 
   { TGameConstraint }
 
   TGameConstraint = class(TInterfacedObject, IConstraint)
     private
+    fId: string;
     fName: string;
     fType: EConstraintType;
     fTarget: TCellArray;
     public
+    function getId: string;
     function getName:string;
     function getType:EConstraintType;
     function getTarget:TCellArray;
@@ -42,6 +46,7 @@ type
   end;
 
   TGameConstraints = array of IConstraint;
+
 implementation
 { TBoxConstraint }
 

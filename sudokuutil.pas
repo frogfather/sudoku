@@ -6,6 +6,7 @@ interface
 
 uses
   Classes, SysUtils,constraint,
+  arrayUtils,
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLWrite,
@@ -20,14 +21,17 @@ type
     procedure writeXML(doc: TXMLDocument; filename: string);
     function getNode(document: TXMLDocument; nodeName: string;
           findTextValue: boolean = False): TDomNode;
-    procedure addNode(document: TXMLDocument; parent, child: string; Text: string = '');
+    function getNode(document: TXMLDocument;node:TDOMNode;
+          findTextValue: boolean = false):TDOMNode;
+    function addNode(document: TXMLDocument; parent, child: string; Text: string = '';attributes:TStringArray = nil):TDOMNode;
+    function addNode(document: TXMLDocument; parent,child:TDOMNode; Text:string=''; attributes:TStringArray = nil):TDOMNode;
     function findInXML(startNode: TDomNode; nodeName: string;
           findTextValue: boolean = False): TDomNode;
     function validateXML(document: TXMLDocument): boolean;
   public
     function loadAndValidate(filename:string):TXMLDocument;
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
-    function addConstraint(baseGameDocument:TXMLDocument;constraint:IConstraint):TXMLDocument;
+    function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
   end;
 
 implementation
@@ -60,29 +64,76 @@ begin
   Result := findInXml(startNode, nodeName, findTextValue);
 end;
 
-procedure TSudokuUtil.addNode(document: TXMLDocument; parent, child: string;
-  Text: string);
+function TSudokuUtil.getNode(document: TXMLDocument; node: TDOMNode;
+  findTextValue: boolean): TDOMNode;
+var
+  startNode:TDomNode;
+begin
+  startNode:= document.DocumentElement;
+  result:=findInXML(startNode,node.NodeName,findTextValue);
+end;
+
+function TSudokuUtil.addNode(document: TXMLDocument; parent, child: string;
+  Text: string; attributes:TStringArray = nil):TDOMNode;
 var
   parentNode, childNode, textNode: TDOMNode;
+  isRoot:boolean;
+  attrIndex:integer;
 begin
-  if parent = '' then
-  begin
-    childNode := document.CreateElement(child);
-    document.AppendChild(childNode);
-  end
-  else
-  begin
-    parentNode := getNode(document, parent);
-    if parentNode = nil then
-      exit; //TODO raise exception here
-    childNode := document.CreateElement(child);
-    if (Text <> '') then
+  isRoot:= parent = '';
+  if not isRoot then
     begin
-      textNode := document.CreateTextNode(Text);
-      childNode.AppendChild(textNode);
+    parentNode := getNode(document, parent);
+    if parentNode = nil then exit; //TODO raise exception here
     end;
-    parentNode.AppendChild(childNode);
-  end;
+
+  childNode := document.CreateElement(child);
+  if (Text <> '') then
+    begin
+    textNode := document.CreateTextNode(Text);
+    childNode.AppendChild(textNode);
+    end;
+
+  if length(attributes) > 0 then //TODO check it's an even number
+    attrIndex:=0;
+    while attrIndex < pred(length(attributes)) do
+      begin
+      TDOMElement(childNode).SetAttribute(attributes[attrIndex], attributes[attrIndex+1]);
+      attrIndex:=attrIndex + 2;
+      end;
+  if isRoot then
+    document.AppendChild(childNode)
+  else parentNode.AppendChild(childNode);
+  result:= childNode;
+end;
+
+function TSudokuUtil.addNode(document: TXMLDocument; parent, child: TDOMNode;
+  Text: string; attributes: TStringArray): TDOMNode;
+var
+  textNode: TDOMNode;
+  isRoot:boolean;
+  attrIndex:integer;
+begin
+  isRoot:= parent = nil;
+  if child = nil then exit; //TODO raise exception here
+
+  if (Text <> '') then
+    begin
+    textNode := document.CreateTextNode(Text);
+    child.AppendChild(textNode);
+    end;
+
+  if length(attributes) > 0 then //TODO check it's an even number
+    attrIndex:=0;
+    while attrIndex < pred(length(attributes)) do
+      begin
+      TDOMElement(child).SetAttribute(attributes[attrIndex], attributes[attrIndex+1]);
+      attrIndex:=attrIndex + 2;
+      end;
+  if isRoot then
+    document.AppendChild(child)
+  else parent.AppendChild(child);
+  result:= child;
 end;
 
 function TSudokuUtil.findInXML(startNode: TDomNode; nodeName: string;
@@ -138,11 +189,33 @@ begin
   result:=doc;
 end;
 
-function TSudokuUtil.addConstraint(baseGameDocument: TXMLDocument;
-  constraint: IConstraint): TXMLDocument;
+function TSudokuUtil.addConstraints(baseGameDocument: TXMLDocument;
+  constraints: TGameConstraints): TXMLDocument;
+var
+  document:TXMLDocument;
+  index:integer;
+  constraint:IConstraint;
+  nodeAttributes:TStringArray;
 begin
+  nodeAttributes:= TStringArray.create;
+
   //interface defines name, type and target
   //but subclasses will also have additional properties
+  //constraints are added to the root
+  document:=baseGameDocument; //should we copy the baseDocument instead?
+  if getNode(document,'constraints') = nil then
+     addNode(document,'sudoku','constraints');
+  for index:= 0 to pred(length(constraints)) do
+    begin
+    addToArray(nodeAttributes,'id');
+    addToArray(nodeAttributes,constraint.getId);
+    constraint:=constraints[index];
+    addNode(document,'constraints','name',constraint.getName,nodeAttributes);
+    //addNode(document,''
+
+
+    end;
+  result:=document;
 end;
 
 end.
