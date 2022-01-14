@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils,constraint,
   arrayUtils,
+  cell,
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLWrite,
@@ -193,27 +194,46 @@ function TSudokuUtil.addConstraints(baseGameDocument: TXMLDocument;
   constraints: TGameConstraints): TXMLDocument;
 var
   document:TXMLDocument;
-  index:integer;
+  index,targetIndex:integer;
   constraint:IConstraint;
-  nodeAttributes:TStringArray;
+  constraintsNode,constraintNode,childNode,textNode,targetNode:TDOMNode;
+  sType:String;
+  constraintTarget:TCellArray;
 begin
-  nodeAttributes:= TStringArray.create;
-
-  //interface defines name, type and target
-  //but subclasses will also have additional properties
-  //constraints are added to the root
   document:=baseGameDocument; //should we copy the baseDocument instead?
-  if getNode(document,'constraints') = nil then
-     addNode(document,'sudoku','constraints');
+  constraintsNode:= getNode(document,'constraints');
+  if constraintsNode = nil then
+     constraintsNode:= addNode(document,'sudoku','constraints');
+  //all the constraints should be added to the constraints node
   for index:= 0 to pred(length(constraints)) do
     begin
-    addToArray(nodeAttributes,'id');
-    addToArray(nodeAttributes,constraint.getId);
+    //add a constraint node which will have children
     constraint:=constraints[index];
-    addNode(document,'constraints','name',constraint.getName,nodeAttributes);
-    //addNode(document,''
+    constraintTarget:=constraint.getTarget;
+    constraintNode:=document.CreateElement('constraint');
+    TDOMElement(constraintNode).SetAttribute('id', constraint.getId);
 
+    childNode:=document.CreateElement('type');
+    WriteStr(sType, constraint.getType);
+    textNode:=document.CreateTextNode(sType);
+    childNode.AppendChild(textNode);
+    constraintNode.AppendChild(childNode);
 
+    childNode:=document.CreateElement('name');
+    textNode:=document.CreateTextNode(constraint.getName);
+    childNode.AppendChild(textNode);
+    constraintNode.AppendChild(childNode);
+
+    childNode:=document.CreateElement('target-cells');
+    for targetIndex:= 0 to pred(length(constraintTarget)) do
+      begin
+      targetNode:=document.CreateElement('target-cell');
+      textNode:=document.CreateTextNode(constraintTarget[targetIndex].col.ToString+':'+constraintTarget[targetIndex].row.ToString);
+      targetNode.AppendChild(textNode);
+      childNode.AppendChild(targetNode);
+      end;
+    constraintNode.AppendChild(childNode);
+    addNode(document,constraintsNode,constraintNode);
     end;
   result:=document;
 end;
