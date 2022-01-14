@@ -59,6 +59,11 @@ end;
 
 { TGameConstraint }
 
+function TGameConstraint.getId: string;
+begin
+  result:=fId;
+end;
+
 function TGameConstraint.getName: string;
 begin
   result:=fName;

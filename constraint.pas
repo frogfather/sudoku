@@ -9,7 +9,7 @@ uses
 
 type
 
-  EConstraintType = (ctBox, ctCage, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
+  EConstraintType = (ctColumn, ctRow, ctBox, ctCage, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
