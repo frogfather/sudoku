@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sudoku>
+  <name>Test Game</name>
+  <version>1.0.2</version>
+  <base-game>
+    <rows>9</rows>
+    <columns>9</columns>
+  </base-game>
+</sudoku>

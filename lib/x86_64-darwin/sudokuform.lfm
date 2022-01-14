@@ -24,6 +24,15 @@ object mainForm: TmainForm
     OnClick = bLoadClick
     TabOrder = 1
   end
+  object Button1: TButton
+    Left = 683
+    Height = 25
+    Top = 423
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
   object od1: TOpenDialog
     Left = 26
     Top = 15

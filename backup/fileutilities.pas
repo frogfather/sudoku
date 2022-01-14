@@ -12,12 +12,13 @@ uses
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLWrite,
-  laz2_XMLCfg,
-  laz2_XMLUtils,
-  laz_XMLStreaming;
+  laz2_XMLUtils;
 
 function readXML(filename:string): TXMLDocument;
-function getNode(nodeName:string; document:TXMLDocument):TDomNode;
+procedure writeXML(doc:TXMLDocument;filename:string);
+function getNode(document:TXMLDocument; nodeName:string; findTextValue:boolean=false):TDomNode;
+procedure addNode(document:TXMLDocument; parentNode,node:TDOMNode);
+function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false):TDomNode;
 function readStream(fnam: string): string;
 procedure writeStream(fnam: string; txt: string);
 function openFileAsArray(fnam: string; separator: char;removeBlankLines:Boolean=true): TStringArray;
@@ -94,15 +95,50 @@ var
   Doc: TXMLDocument;
 begin
   if FileExists(filename) then
-    begin
+    try
     ReadXMLFile(Doc, filename);
     result:=Doc;
+    except
+    //log an error
     end;
 end;
 
-function getNode(nodeName: string; document: TXMLDocument): TDomNode;
+procedure writeXML(doc: TXMLDocument; filename: string);
 begin
-  result:=document.documentElement.FindNode(nodeName);
+  writeXMLFile(doc,filename);
+end;
+
+function getNode(document:TXMLDocument; nodeName:string; findTextValue:boolean=false): TDomNode;
+var
+  startNode:TDomNode;
+begin
+  startNode:=document.DocumentElement;
+  result:=findInXml(startNode, nodeName, findTextValue);
+end;
+
+procedure addNode(document:TXMLDocument; parentNode,node:TDOMNode);
+begin
+  parentNode.AppendChild(node);
+end;
+
+function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false): TDomNode;
+var
+  count:integer;
+  currentNodeName:string;
+begin
+  result:=nil;
+
+  if findTextValue then
+    currentNodeName := startNode.textContent
+  else currentNodeName:= startNode.NodeName;
+
+  if currentNodeName = nodeName then result:= startNode
+  else if startNode.ChildNodes.Count > 0 then
+    for count:= 0 to pred(startNode.ChildNodes.Count) do
+    begin
+    result:= findInXml(startNode.ChildNodes[count],nodeName);
+    if result <> nil then exit;
+    end;
 end;
 
 //File I/O methods
