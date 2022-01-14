@@ -23,6 +23,7 @@ type
     od1: TOpenDialog;
     procedure bLoadClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -32,6 +33,7 @@ type
 var
   mainForm: TmainForm;
   sudoku:TSudokuGame;
+  utils:TSudokuUtil;
 
 implementation
 
@@ -45,25 +47,22 @@ var
 begin
   if od1.Execute then
     begin
-    gameDoc:=readXML(od1.FileName);
-    if validateXML(gameDoc) then sudoku:=TSudokuGame.create(gameDoc);
+    gameDoc:=utils.LoadAndValidate(od1.FileName);
+    sudoku:=TSudokuGame.create(gameDoc);
     end;
 end;
 
 procedure TmainForm.Button1Click(Sender: TObject);
 var
   doc:TXMLDocument;
-  rootNode:TDOMNode;
 begin
-  Doc := TXMLDocument.Create;
-  RootNode := Doc.CreateElement('sudoku');
-  Doc.Appendchild(RootNode);
-  addNode(doc,'sudoku','name','Test Game');
-  addNode(doc,'sudoku','version','1.0.3');
-  addNode(doc,'sudoku','base-game');
-  addNode(doc,'base-game','rows','9');
-  addNode(doc,'base-game','columns','9');
+  doc:=utils.generateBaseGameDocument('testGame','1.0.0',9,9);
   writeXML(doc,'/Users/cloudsoft/Code/sudoku/testFile');
+end;
+
+procedure TmainForm.FormCreate(Sender: TObject);
+begin
+  utils:=TSudokuUtil.create;
 end;
 
 

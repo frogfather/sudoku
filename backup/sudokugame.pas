@@ -5,46 +5,12 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,fileUtilities,cell,laz2_DOM;
+  Classes, SysUtils,arrayUtils,cell,constraint,laz2_DOM;
 
   type
   ERepeatOption = (roRepeatInCage,roRepeatOnDiagonal);
 
   ERepeatOptions = array of ERepeatOption;
-
-  EConstraintType = (ctBox, ctCage, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
-
-  IConstraint = interface
-  ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
-    function getName:string;
-    function getType: EConstraintType;
-    function getTarget: TCellArray;
-  end;
-
-  { TGameConstraint }
-
-  TGameConstraint = class(TInterfacedObject, IConstraint)
-    private
-    fName: string;
-    fType: EConstraintType;
-    fTarget: TCellArray;
-    public
-    function getName:string;
-    function getType:EConstraintType;
-    function getTarget:TCellArray;
-    constructor create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
-  end;
-
-  { TBoxConstraint }
-
-  TBoxConstraint = class(TGameConstraint)
-    private
-    fTotal:integer;
-    public
-    constructor create(bsName:string;bsTarget:TCellArray;bsTotal:integer);
-  end;
-
-  TGameConstraints = array of IConstraint;
 
   { TSudokuGame }
 
@@ -60,7 +26,8 @@ uses
   end;
 
   { TOptionsCalculator }
-
+  //The complicated bits. Applying all the constraints in this game, what options
+  //does this cell have
   TOptionsCalculator = class(TInterfacedObject)
     private
     fGameNumbers: TIntArray; //the numbers allowed in this game - default 1..9
@@ -71,38 +38,7 @@ uses
 
 implementation
 
-{ TBoxConstraint }
 
-constructor TBoxConstraint.create(bsName: string; bsTarget: TCellArray;
-  bsTotal: integer);
-begin
-  inherited create(bsName,ctBox,bsTarget);
-  fTotal:=bsTotal;
-end;
-
-{ TGameConstraint }
-
-function TGameConstraint.getName: string;
-begin
-  result:=fName;
-end;
-
-function TGameConstraint.getType: EConstraintType;
-begin
-  result:=fType;
-end;
-
-function TGameConstraint.getTarget: TCellArray;
-begin
-  result:=fTarget;
-end;
-
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
-begin
-  fName:=gsName;
-  fType:=gsType;
-  fTarget:=gsTarget;
-end;
 
 { TOptionsCalculator }
 
@@ -135,32 +71,9 @@ end;
 { TSudokuGame }
 
 constructor TSudokuGame.create(document:TXMLDocument);
-var
-  index:integer;
-  row,col,box,val:integer;
-  options:TIntArray;
+
 begin
-  fName:=name;
-  if candidates <> nil then
-    options:= candidates
-  else options:= TIntArray.create(1,2,3,4,5,6,7,8,9); //default to 1-9
-  fConstraints:=constraints;
-  fGrid:=TGameArray.create;
-  setLength(fGrid,0,0);
-  for index := 0 to pred(length(gameInitData)) do
-    begin
-      row:= gameInitData[index].row;
-      col:= gameInitData[index].column;
-      box:= gameInitData[index].box;
-      val:= gameInitData[index].value;
-      if row > length(fGrid)
-        then setLength(fGrid,row);
-      if col > length(fGrid[row - 1])
-        then setLength(fGrid[row - 1], col);
-      if val <> -1 then
-         fGrid[row - 1][col - 1]:=TCell.create(row,col,box, TIntArray.create(val), val)
-      else fGrid[row - 1][col - 1]:=TCell.create(row,col,box, options);
-    end;
+//the document should have been validated at this point
 end;
 
 end.

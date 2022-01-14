@@ -5,96 +5,144 @@ unit sudokuUtil;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils,constraint,
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLWrite,
   laz2_XMLUtils;
+type
+  
+  { TSudokuUtil }
 
-  //we want utils that create a game object (maybe based on an xml template) and
-  //we want to be able to save it as xml
-  function readXML(filename:string): TXMLDocument;
-  procedure writeXML(doc:TXMLDocument;filename:string);
-  function getNode(document:TXMLDocument; nodeName:string; findTextValue:boolean=false):TDomNode;
-  procedure addNode(document:TXMLDocument; parent,child:string; text:string='');
-  function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false):TDomNode;
-  function validateXML(document:TXMLDocument):boolean;
+  TSudokuUtil = class(TInterfacedObject)
+  private
+    function readXML(filename: string): TXMLDocument;
+    procedure writeXML(doc: TXMLDocument; filename: string);
+    function getNode(document: TXMLDocument; nodeName: string;
+          findTextValue: boolean = False): TDomNode;
+    procedure addNode(document: TXMLDocument; parent, child: string; Text: string = '');
+    function findInXML(startNode: TDomNode; nodeName: string;
+          findTextValue: boolean = False): TDomNode;
+    function validateXML(document: TXMLDocument): boolean;
+  public
+    function loadAndValidate(filename:string):TXMLDocument;
+    function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
+    function addConstraint(baseGameDocument:TXMLDocument;constraint:IConstraint):TXMLDocument;
+  end;
+
 implementation
+{ TSudokuUtil }
 
-function readXML(filename: string): TXMLDocument;
+function TSudokuUtil.readXML(filename: string): TXMLDocument;
 var
   Doc: TXMLDocument;
 begin
   if FileExists(filename) then
     try
-    ReadXMLFile(Doc, filename);
-    result:=Doc;
+      ReadXMLFile(Doc, filename);
+      Result := Doc;
     except
-    //log an error
+      //log an error
     end;
 end;
 
-procedure writeXML(doc: TXMLDocument; filename: string);
+procedure TSudokuUtil.writeXML(doc: TXMLDocument; filename: string);
 begin
-  writeXMLFile(doc,filename);
+  writeXMLFile(doc, filename);
 end;
 
-function getNode(document:TXMLDocument; nodeName:string; findTextValue:boolean=false): TDomNode;
+function TSudokuUtil.getNode(document: TXMLDocument; nodeName: string;
+  findTextValue: boolean): TDomNode;
 var
-  startNode:TDomNode;
+  startNode: TDomNode;
 begin
-  startNode:=document.DocumentElement;
-  result:=findInXml(startNode, nodeName, findTextValue);
+  startNode := document.DocumentElement;
+  Result := findInXml(startNode, nodeName, findTextValue);
 end;
 
-procedure addNode(document:TXMLDocument; parent,child:string;text:string = '');
+procedure TSudokuUtil.addNode(document: TXMLDocument; parent, child: string;
+  Text: string);
 var
-  parentNode,childNode,textNode:TDOMNode;
+  parentNode, childNode, textNode: TDOMNode;
 begin
   if parent = '' then
-    begin
-    childNode:= document.CreateElement(child);
+  begin
+    childNode := document.CreateElement(child);
     document.AppendChild(childNode);
-    end else
+  end
+  else
+  begin
+    parentNode := getNode(document, parent);
+    if parentNode = nil then
+      exit; //TODO raise exception here
+    childNode := document.CreateElement(child);
+    if (Text <> '') then
     begin
-    parentNode:=getNode(document,parent);
-    if parentNode = nil then exit; //TODO raise exception here
-    childNode:=document.CreateElement(child);
-    if (text <> '') then
-      begin
-      textNode:= document.CreateTextNode(text);
+      textNode := document.CreateTextNode(Text);
       childNode.AppendChild(textNode);
-      end;
-    parentNode.AppendChild(childNode);
     end;
+    parentNode.AppendChild(childNode);
+  end;
 end;
 
-function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false): TDomNode;
+function TSudokuUtil.findInXML(startNode: TDomNode; nodeName: string;
+  findTextValue: boolean): TDomNode;
 var
-  count:integer;
-  currentNodeName:string;
+  Count: integer;
+  currentNodeName: string;
 begin
-  result:=nil;
+  Result := nil;
 
   if findTextValue then
     currentNodeName := startNode.textContent
-  else currentNodeName:= startNode.NodeName;
+  else
+    currentNodeName := startNode.NodeName;
 
-  if currentNodeName = nodeName then result:= startNode
+  if currentNodeName = nodeName then
+    Result := startNode
   else if startNode.ChildNodes.Count > 0 then
-    for count:= 0 to pred(startNode.ChildNodes.Count) do
+    for Count := 0 to pred(startNode.ChildNodes.Count) do
     begin
-    result:= findInXml(startNode.ChildNodes[count],nodeName,findTextValue);
-    if result <> nil then exit;
+      Result := findInXml(startNode.ChildNodes[Count], nodeName, findTextValue);
+      if Result <> nil then
+        exit;
     end;
 end;
 
-
-function validateXML(document: TXMLDocument): boolean;
+function TSudokuUtil.validateXML(document: TXMLDocument): boolean;
 begin
   //TODO - implement this!
-  result:=true;
+    Result := True;
+end;
+
+function TSudokuUtil.loadAndValidate(filename: string): TXMLDocument;
+var
+  document:TXMLDocument;
+begin
+  document:=readXML(filename);
+  if validateXML(document) then result:=document;
+end;
+
+function TSudokuUtil.generateBaseGameDocument(name: string;version:string; rows,
+  columns: integer): TXMLDocument;
+var
+  doc:TXMLDocument;
+begin
+  doc:=TXMLDocument.Create;
+  addNode(doc,'','sudoku');
+  addNode(doc,'sudoku','name',name);
+  addNode(doc,'sudoku','version',version);
+  addNode(doc,'sudoku','base-game');
+  addNode(doc,'base-game','rows',rows.ToString);
+  addNode(doc,'base-game','columns',columns.ToString);
+  result:=doc;
+end;
+
+function TSudokuUtil.addConstraint(baseGameDocument: TXMLDocument;
+  constraint: IConstraint): TXMLDocument;
+begin
+  //interface defines name, type and target
+  //but subclasses will also have additional properties
 end;
 
 end.
-
