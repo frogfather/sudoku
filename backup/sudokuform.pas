@@ -70,48 +70,16 @@ procedure TmainForm.Button1Click(Sender: TObject);
 var
   doc:TXMLDocument;
   rootNode,parentNode,textNode:TDOMNode;
-  foundNode:TDOMNode;
 begin
   Doc := TXMLDocument.Create;
-
-    // Create a root node
-    RootNode := Doc.CreateElement('sudoku');
-    Doc.Appendchild(RootNode);
-
-    // Create a parent node
-    RootNode:= Doc.DocumentElement;
-
-    parentNode := Doc.CreateElement('name');
-    textNode := Doc.CreateTextNode('Test Game');
-    parentNode.Appendchild(textNode);
-    RootNode.Appendchild(parentNode);
-
-    // Create a child node
-    parentNode := Doc.CreateElement('version');
-    textNode := Doc.CreateTextNode('1.0.2');
-    parentNode.Appendchild(textNode);
-    RootNode.AppendChild(parentNode);
-
-    // Create a parent node
-    RootNode:= Doc.DocumentElement;
-    parentNode := Doc.CreateElement('base-game');
-    RootNode.Appendchild(parentNode);
-
-    // Create a child node
-    parentNode := Doc.CreateElement('rows');
-    textNode := Doc.CreateTextNode('9');
-    parentNode.Appendchild(textNode);
-    RootNode.ChildNodes.Item[2].AppendChild(parentNode);
-
-    // Create a child node
-    parentNode := Doc.CreateElement('columns');
-    textNode := Doc.CreateTextNode('9');
-    parentNode.Appendchild(textNode);
-    RootNode.ChildNodes.Item[2].AppendChild(parentNode);
-
-    foundNode:= getNode('columns',doc);
-    lbLog.items.add('found node '+foundNode.NodeName);
-    writeXML(doc,'/Users/cloudsoft/Code/sudoku/testFile');
+  RootNode := Doc.CreateElement('sudoku');
+  Doc.Appendchild(RootNode);
+  addNode(doc,'sudoku','name','Test Game');
+  addNode(doc,'sudoku','version','1.0.3');
+  addNode(doc,'sudoku','base-game','');
+  addNode(doc,'base-game','rows','9');
+  addNode(doc,'base-game','columns','9');
+  writeXML(doc,'/Users/cloudsoft/Code/sudoku/testFile');
 end;
 
 procedure TmainForm.initialiseGame(gName:string; gWidth, gHeight: integer;

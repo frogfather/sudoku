@@ -17,7 +17,7 @@ uses
 function readXML(filename:string): TXMLDocument;
 procedure writeXML(doc:TXMLDocument;filename:string);
 function getNode(document:TXMLDocument; nodeName:string; findTextValue:boolean=false):TDomNode;
-procedure addNode(document:TXMLDocument; parentNode,node:TDOMNode);
+procedure addNode(document:TXMLDocument; parent,child:string; text:string='');
 function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false):TDomNode;
 function readStream(fnam: string): string;
 procedure writeStream(fnam: string; txt: string);
@@ -116,9 +116,20 @@ begin
   result:=findInXml(startNode, nodeName, findTextValue);
 end;
 
-procedure addNode(document:TXMLDocument; parentNode,node:TDOMNode);
+procedure addNode(document:TXMLDocument; parent,child:string;text:string = '');
+var
+  parentNode,childNode,textNode:TDOMNode;
 begin
-  parentNode.AppendChild(node);
+  parentNode:=getNode(document,parent);
+  if parentNode = nil then exit; //add as root node if empty string
+
+  childNode:=document.CreateElement(child);
+  if (text <> '') then
+    begin
+    textNode:= document.CreateTextNode(text);
+    childNode.AppendChild(textNode);
+    end;
+  parentNode.AppendChild(childNode);
 end;
 
 function findInXML(startNode:TDomNode;nodeName:string; findTextValue:boolean=false): TDomNode;
