@@ -5,17 +5,9 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell;
-type
-  TGameInit = record
-    row:integer;
-    column:integer;
-    box:integer;
-    value:integer;
-  end;
+  Classes, SysUtils,arrayUtils,fileUtilities,cell,laz2_DOM;
 
-  TGameInitData = array of TGameInit;
-
+  type
   ERepeatOption = (roRepeatInCage,roRepeatOnDiagonal);
 
   ERepeatOptions = array of ERepeatOption;
@@ -62,7 +54,7 @@ type
     fGrid: TGameArray;
     fConstraints:TGameConstraints;
     public
-    constructor create(name:string;gameInitData:TGameInitData; candidates:TIntArray = nil;constraints:TGameConstraints=nil);
+    constructor create(document:TXMLDocument);
     property grid:TGameArray read fGrid;
     property name:string read fName;
   end;
@@ -142,33 +134,10 @@ end;
 
 { TSudokuGame }
 
-constructor TSudokuGame.create(name:string;gameInitData: TGameInitData; candidates: TIntArray;constraints:TGameConstraints);
-var
-  index:integer;
-  row,col,box,val:integer;
-  options:TIntArray;
+constructor TSudokuGame.create(document:TXMLDocument);
+
 begin
-  fName:=name;
-  if candidates <> nil then
-    options:= candidates
-  else options:= TIntArray.create(1,2,3,4,5,6,7,8,9); //default to 1-9
-  fConstraints:=constraints;
-  fGrid:=TGameArray.create;
-  setLength(fGrid,0,0);
-  for index := 0 to pred(length(gameInitData)) do
-    begin
-      row:= gameInitData[index].row;
-      col:= gameInitData[index].column;
-      box:= gameInitData[index].box;
-      val:= gameInitData[index].value;
-      if row > length(fGrid)
-        then setLength(fGrid,row);
-      if col > length(fGrid[row - 1])
-        then setLength(fGrid[row - 1], col);
-      if val <> -1 then
-         fGrid[row - 1][col - 1]:=TCell.create(row,col,box, TIntArray.create(val), val)
-      else fGrid[row - 1][col - 1]:=TCell.create(row,col,box, options);
-    end;
+//the document should have been validated at this point
 end;
 
 end.

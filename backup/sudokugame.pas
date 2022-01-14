@@ -5,17 +5,9 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell;
-type
-  TGameInit = record
-    row:integer;
-    column:integer;
-    box:integer;
-    value:integer;
-  end;
+  Classes, SysUtils,arrayUtils,fileUtilities,cell,laz2_DOM;
 
-  TGameInitData = array of TGameInit;
-
+  type
   ERepeatOption = (roRepeatInCage,roRepeatOnDiagonal);
 
   ERepeatOptions = array of ERepeatOption;
@@ -29,9 +21,9 @@ type
     function getTarget: TCellArray;
   end;
 
-  { TGameSpecialisation }
+  { TGameConstraint }
 
-  TGameSpecialisation = class(TInterfacedObject, IConstraint)
+  TGameConstraint = class(TInterfacedObject, IConstraint)
     private
     fName: string;
     fType: EConstraintType;
@@ -43,16 +35,16 @@ type
     constructor create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
   end;
 
-  { TBoxSpecialisation }
+  { TBoxConstraint }
 
-  TBoxSpecialisation = class(TGameSpecialisation)
+  TBoxConstraint = class(TGameConstraint)
     private
     fTotal:integer;
     public
     constructor create(bsName:string;bsTarget:TCellArray;bsTotal:integer);
   end;
 
-  TGameSpecialisations = array of IConstraint;
+  TGameConstraints = array of IConstraint;
 
   { TSudokuGame }
 
@@ -60,9 +52,9 @@ type
     private
     fName:string;
     fGrid: TGameArray;
-    fSpecialisations:TGameSpecialisations;
+    fConstraints:TGameConstraints;
     public
-    constructor create(name:string;gameInitData:TGameInitData; candidates:TIntArray = nil;specialisations:TGameSpecialisations=nil);
+    constructor create(document:TXMLDocument);
     property grid:TGameArray read fGrid;
     property name:string read fName;
   end;
@@ -79,33 +71,33 @@ type
 
 implementation
 
-{ TBoxSpecialisation }
+{ TBoxConstraint }
 
-constructor TBoxSpecialisation.create(bsName: string; bsTarget: TCellArray;
+constructor TBoxConstraint.create(bsName: string; bsTarget: TCellArray;
   bsTotal: integer);
 begin
   inherited create(bsName,ctBox,bsTarget);
   fTotal:=bsTotal;
 end;
 
-{ TGameSpecialisation }
+{ TGameConstraint }
 
-function TGameSpecialisation.getName: string;
+function TGameConstraint.getName: string;
 begin
   result:=fName;
 end;
 
-function TGameSpecialisation.getType: EConstraintType;
+function TGameConstraint.getType: EConstraintType;
 begin
   result:=fType;
 end;
 
-function TGameSpecialisation.getTarget: TCellArray;
+function TGameConstraint.getTarget: TCellArray;
 begin
   result:=fTarget;
 end;
 
-constructor TGameSpecialisation.create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
 begin
   fName:=gsName;
   fType:=gsType;
@@ -142,7 +134,7 @@ end;
 
 { TSudokuGame }
 
-constructor TSudokuGame.create(name:string;gameInitData: TGameInitData; candidates: TIntArray;specialisations:TGameSpecialisations);
+constructor TSudokuGame.create(document:TXMLDocument);
 var
   index:integer;
   row,col,box,val:integer;
@@ -152,7 +144,7 @@ begin
   if candidates <> nil then
     options:= candidates
   else options:= TIntArray.create(1,2,3,4,5,6,7,8,9); //default to 1-9
-  fSpecialisations:=specialisations;
+  fConstraints:=constraints;
   fGrid:=TGameArray.create;
   setLength(fGrid,0,0);
   for index := 0 to pred(length(gameInitData)) do
