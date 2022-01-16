@@ -6,7 +6,6 @@ object mainForm: TmainForm
   Caption = 'mainForm'
   ClientHeight = 486
   ClientWidth = 892
-  OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
   object lbLog: TListBox
     Left = 536
@@ -24,15 +23,6 @@ object mainForm: TmainForm
     Caption = 'Load'
     OnClick = bLoadClick
     TabOrder = 1
-  end
-  object Button1: TButton
-    Left = 683
-    Height = 25
-    Top = 423
-    Width = 75
-    Caption = 'Button1'
-    OnClick = Button1Click
-    TabOrder = 2
   end
   object od1: TOpenDialog
     Left = 26

@@ -5,7 +5,7 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell,constraint,laz2_DOM;
+  Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,laz2_DOM;
 
   type
   ERepeatOption = (roRepeatInCage,roRepeatOnDiagonal);
@@ -17,9 +17,13 @@ uses
   TSudokuGame = class(TInterfacedObject)
     private
     fName:string;
+    fVersion:string;
     fGrid: TGameArray;
     fConstraints:TGameConstraints;
+    function loadGameCells:TCellArray;
+    procedure generateCells(cells: TCellArray=nil; candidates:TIntArray=nil);
     public
+    constructor create(name:string;dimensions:TPoint);
     constructor create(document:TXMLDocument);
     property grid:TGameArray read fGrid;
     property name:string read fName;
@@ -37,8 +41,6 @@ uses
   end;
 
 implementation
-
-
 
 { TOptionsCalculator }
 
@@ -69,11 +71,62 @@ begin
 end;
 
 { TSudokuGame }
-
-constructor TSudokuGame.create(document:TXMLDocument);
-
+//create without file
+constructor TSudokuGame.create(name:string;dimensions:TPoint);
 begin
-//the document should have been validated at this point
+  fConstraints:=nil;
+  fGrid:=TGameArray.create;
+  fName:=name;
+  setLength(fGrid,dimensions.X,dimensions.Y);
+
+end;
+//create from file
+constructor TSudokuGame.create(document:TXMLDocument);
+var
+  rows,columns:integer;
+  sCandidates:string;
+  candidates:TIntArray;
+  gameCells:TCellArray;
+begin
+  fGrid:= TGameArray.create;
+  fName:= getNodeValue(document,'name');
+  fVersion:= getNodeValue(document,'version');
+  rows:=getNodeValue(document,'rows').ToInteger;
+  columns:= getNodeValue(document,'columns').ToInteger;
+  setLength(fGrid,columns,rows);
+  sCandidates:=getNodeValue(document,'candidates');
+  gameCells:= loadGameCells;
+  if (sCandidates <> '') then
+    candidates:=toIntArray(sCandidates.Split(','))
+  else candidates:=nil;
+  generateCells(candidates);
+
+  //if the document contains cell data then we need to use that
+  //otherwise a standard cell layout can be assumed
+
+end;
+
+function TSudokuGame.loadGameCells: TCellArray;
+begin
+  //TODO - implement this
+  result:=nil;
+end;
+
+procedure TSudokuGame.generateCells(cells: TCellArray=nil; candidates:TIntArray=nil);
+var
+  columns,colIndex,rows,rowIndex,box:integer;
+begin
+  //need to be able to customise box number
+  if length(fGrid) = 0 then exit;
+  columns:=length(fGrid);
+  rows:=length(fGrid[0]);
+    for colIndex:= 0 to pred(columns) do
+      for rowIndex:= 0 to pred(rows) do
+        begin
+        //create a cell and put it into this position
+        box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
+        fGrid[colIndex][rowIndex] := TCell.create(rowIndex+1,colIndex+1,box,candidates);
+        end;
 end;
 
 end.
