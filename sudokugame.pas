@@ -20,13 +20,18 @@ uses
     fVersion:string;
     fGrid: TGameArray;
     fConstraints:TGameConstraints;
+    fStarted:boolean;
+    fCustomCells:boolean;
     function loadGameCells:TCellArray;
-    procedure generateCells(cells: TCellArray=nil; candidates:TIntArray=nil);
+    procedure setCells(cells: TCellArray; candidates:TIntArray);
+    function toDocument:TXMLDocument;
     public
-    constructor create(name:string;dimensions:TPoint);
+    constructor create(name:string;dimensions:TPoint;candidates:TIntArray=nil;cells:TCellArray=nil);
     constructor create(document:TXMLDocument);
+    procedure saveToFile(filename:string);
     property grid:TGameArray read fGrid;
     property name:string read fName;
+    property started:boolean read fStarted;
   end;
 
   { TOptionsCalculator }
@@ -72,13 +77,14 @@ end;
 
 { TSudokuGame }
 //create without file
-constructor TSudokuGame.create(name:string;dimensions:TPoint);
+constructor TSudokuGame.create(name:string;dimensions:TPoint;candidates:TIntArray=nil;cells:TCellArray=nil);
 begin
   fConstraints:=nil;
   fGrid:=TGameArray.create;
   fName:=name;
   setLength(fGrid,dimensions.X,dimensions.Y);
-
+  setCells(cells,candidates);
+  fStarted:=false;
 end;
 //create from file
 constructor TSudokuGame.create(document:TXMLDocument);
@@ -89,17 +95,26 @@ var
   gameCells:TCellArray;
 begin
   fGrid:= TGameArray.create;
+  //required
   fName:= getNodeValue(document,'name');
   fVersion:= getNodeValue(document,'version');
   rows:=getNodeValue(document,'rows').ToInteger;
   columns:= getNodeValue(document,'columns').ToInteger;
   setLength(fGrid,columns,rows);
+  //optional. sCandidates will be csv
   sCandidates:=getNodeValue(document,'candidates');
-  gameCells:= loadGameCells;
+  gameCells:= loadGameCells;//not written yet
   if (sCandidates <> '') then
     candidates:=toIntArray(sCandidates.Split(','))
   else candidates:=nil;
-  generateCells(gameCells, candidates);
+  setCells(gameCells, candidates);
+  fStarted:=false;
+end;
+
+procedure TSudokuGame.saveToFile(filename: string);
+begin
+  //need to convert the game to a document
+  writeXML(toDocument,filename);
 end;
 
 function TSudokuGame.loadGameCells: TCellArray;
@@ -108,17 +123,21 @@ begin
   result:=nil;
 end;
 
-procedure TSudokuGame.generateCells(cells: TCellArray=nil; candidates:TIntArray=nil);
+procedure TSudokuGame.setCells(cells: TCellArray; candidates:TIntArray);
 var
   columns,colIndex,rows,rowIndex,box:integer;
   cellIndex:integer;
+  cellCandidates:TIntArray;
 begin
-  //if there are cells we need to put them in the right places in the grid
+  if candidates=nil then
+    cellCandidates:= TIntArray.create(1,2,3,4,5,6,7,8,9)
+  else cellCandidates:= candidates;
+  fCustomCells:= cells <> nil;
+  //if there are cells we'll assume there are the right number (Validation needed!)
   if (cells <> nil) then
     begin
     for cellIndex:=0 to pred(length(cells)) do
       begin
-      //cell x,y will go in the grid at position x-1,y-1
       colIndex:=cells[cellIndex].col - 1;
       rowIndex:=cells[cellIndex].row - 1;
       fGrid[colIndex][rowIndex]:= cells[cellIndex];
@@ -132,9 +151,27 @@ begin
       for rowIndex:= 0 to pred(rows) do
         begin
         box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
-        fGrid[colIndex][rowIndex] := TCell.create(rowIndex+1,colIndex+1,box,candidates);
+        fGrid[colIndex][rowIndex] := TCell.create(rowIndex+1,colIndex+1,box,cellCandidates);
         end;
     end;
+end;
+
+function TSudokuGame.toDocument: TXMLDocument;
+var
+  doc:TXMLDocument;
+begin
+  if length(fGrid) = 0 then exit; //should throw error
+  doc:=TXMLDocument.Create;
+  addNode(doc,'','sudoku');
+  addNode(doc,'sudoku','name',fName);
+  addNode(doc,'sudoku','version',fVersion);
+  addNode(doc,'sudoku','base-game');
+  addNode(doc,'base-game','rows',length(fGrid[0]).ToString);
+  addNode(doc,'base-game','columns',length(fGrid).ToString);
+  //add the cells if they are non standard
+
+  addConstraints(doc, fConstraints);
+  result:=doc;
 end;
 
 end.

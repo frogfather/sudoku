@@ -6,10 +6,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls
-  ,sudokuGame,sudokuUtil,arrayUtils,cell,constraint,
+  ,sudokuGame,sudokuUtil,arrayUtils,
   laz2_DOM,
   laz2_XMLRead,
-  laz2_XMLWrite,
   laz2_XMLUtils;
 
 type

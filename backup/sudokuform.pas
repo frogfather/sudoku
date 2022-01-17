@@ -9,7 +9,6 @@ uses
   ,sudokuGame,sudokuUtil,arrayUtils,cell,constraint,
   laz2_DOM,
   laz2_XMLRead,
-  laz2_XMLWrite,
   laz2_XMLUtils;
 
 type
@@ -18,12 +17,9 @@ type
 
   TmainForm = class(TForm)
     bLoad: TButton;
-    Button1: TButton;
     lbLog: TListBox;
     od1: TOpenDialog;
     procedure bLoadClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -50,26 +46,6 @@ begin
     sudoku:=TSudokuGame.create(gameDoc);
     end;
 end;
-
-procedure TmainForm.Button1Click(Sender: TObject);
-var
-  doc,fullDoc:TXMLDocument;
-  gameConstraints:TDOMNodeArray;
-begin
-  doc:=generateBaseGameDocument('testGame','1.0.0',9,9);
-  //create a new node for each constraint
-  gameConstraints:=TDOMNodeArray.create;
-
-  fullDoc:=utils.addConstraints(doc, gameConstraints);
-  writeXML(fullDoc,'/Users/cloudsoft/Code/sudoku/testFile');
-end;
-
-procedure TmainForm.FormCreate(Sender: TObject);
-begin
-  utils:=TSudokuUtil.create;
-end;
-
-
 
 end.
 

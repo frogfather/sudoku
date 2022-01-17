@@ -31,7 +31,7 @@ type
     function loadAndValidate(filename:string):TXMLDocument;
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
-
+    function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
 implementation
 { TSudokuUtil }
 
@@ -72,8 +72,13 @@ begin
 end;
 
 function getNodeValue(document: TXMLDocument; nodeName: string): string;
+var
+  node:TDOMNode;
 begin
-  result:=getNode(document,nodeName).NodeName;
+  node:=getNode(document,nodeName);
+  if node = nil then
+    result:= ''
+  else result:=getNode(document,nodeName).NodeName;
 end;
 
 function addNode(document: TXMLDocument; parent, child: string;
@@ -205,6 +210,12 @@ begin
   for index:=0 to pred(length(constraints)) do
       addNode(baseGameDocument,constraintsNode,constraints[index]);
   result:=baseGameDocument;
+end;
+
+function addConstraints(baseGameDocument: TXMLDocument;
+  constraints: TGameConstraints): TXMLDocument;
+begin
+
 end;
 
 end.
