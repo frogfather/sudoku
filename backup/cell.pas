@@ -22,6 +22,8 @@ type
     public
     constructor create(row, column, box: integer; candidates:TIntArray;value: integer=-1);
     procedure setValue(newValue:integer);
+    procedure updateEdgeMarks(newValues:TIntArray);
+    procedure updateCentreMarks(newValues:TIntArray);
     property row: integer read fRow;
     property col: integer read fColumn;
     property box: integer read fBox;
@@ -49,6 +51,16 @@ end;
 procedure TCell.setValue(newValue: integer);
 begin
   fValue:=newValue;
+end;
+
+procedure TCell.updateEdgeMarks(newValues: TIntArray);
+begin
+  fEdgeMarks:=newValues;
+end;
+
+procedure TCell.updateCentreMarks(newValues: TIntArray);
+begin
+  fCentreMarks:=newValues;
 end;
 
 end.

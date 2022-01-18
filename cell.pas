@@ -30,6 +30,7 @@ type
     property value: integer read fValue;
     property centreMarks: TIntArray read fCentreMarks;
     property edgeMarks: TIntArray read fEdgeMarks;
+    property candidates:TIntArray read fCandidates;
   end;
 
   TCellArray = array of TCell;

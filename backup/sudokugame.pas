@@ -29,6 +29,8 @@ uses
     constructor create(name:string;dimensions:TPoint;candidates:TIntArray=nil;cells:TCellArray=nil);
     constructor create(document:TXMLDocument);
     procedure saveToFile(filename:string);
+    procedure start;
+    procedure reset;
     property grid:TGameArray read fGrid;
     property name:string read fName;
     property started:boolean read fStarted;
@@ -103,7 +105,7 @@ begin
   setLength(fGrid,columns,rows);
   //optional. sCandidates will be csv
   sCandidates:=getNodeValue(document,'candidates');
-  gameCells:= loadGameCells;
+  gameCells:= loadGameCells;//not written yet
   if (sCandidates <> '') then
     candidates:=toIntArray(sCandidates.Split(','))
   else candidates:=nil;
@@ -115,6 +117,16 @@ procedure TSudokuGame.saveToFile(filename: string);
 begin
   //need to convert the game to a document
   writeXML(toDocument,filename);
+end;
+
+procedure TSudokuGame.start;
+begin
+  fstarted:=true;
+end;
+
+procedure TSudokuGame.reset;
+begin
+
 end;
 
 function TSudokuGame.loadGameCells: TCellArray;
@@ -168,9 +180,11 @@ begin
   addNode(doc,'sudoku','base-game');
   addNode(doc,'base-game','rows',length(fGrid[0]).ToString);
   addNode(doc,'base-game','columns',length(fGrid).ToString);
-  //add the cells if they are non standard
-
-  addConstraints(doc, fConstraints);
+  //if there are custom cells or if the game is started we should save the cells
+  if fCustomCells or fStarted then
+    addCells(doc, fGrid);
+  if (fConstraints <> nil) then
+     addConstraints(doc, fConstraints);
   result:=doc;
 end;
 

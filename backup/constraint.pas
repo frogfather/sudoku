@@ -9,14 +9,14 @@ uses
 
 type
 
-  EConstraintType = (ctBox, ctCage, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
+  EConstraintType = (ctTarget, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
     function getId: string;
     function getName:string;
     function getType: EConstraintType;
-    function getTarget: TCellArray; //cells that this constraint applies to
+    function getSubject: TCellArray; //cells that this constraint applies to
 
   end;
 
@@ -27,34 +27,35 @@ type
     fId: string;
     fName: string;
     fType: EConstraintType;
-    fTarget: TCellArray;
+    fSubject: TCellArray;
     public
     function getId: string;
     function getName:string;
     function getType:EConstraintType;
-    function getTarget:TCellArray;
-    constructor create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
-  end;
-
-  { TBoxConstraint }
-
-  TBoxConstraint = class(TGameConstraint)
-    private
-    fTotal:integer;
-    public
-    constructor create(bsName:string;bsTarget:TCellArray;bsTotal:integer);
+    function getSubject:TCellArray;
+    constructor create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
   end;
 
   TGameConstraints = array of IConstraint;
 
-implementation
-{ TBoxConstraint }
+  { TTargetConstraint }
 
-constructor TBoxConstraint.create(bsName: string; bsTarget: TCellArray;
-  bsTotal: integer);
+  TTargetConstraint = class(TGameConstraint)
+  private
+  fTarget:string;
+  public
+  constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string);
+  end;
+
+implementation
+
+{ TTargetConstraint }
+
+constructor TTargetConstraint.create(gsName: string; gsSubject: TCellArray;
+  gsTarget: string);
 begin
-  inherited create(bsName,ctBox,bsTarget);
-  fTotal:=bsTotal;
+  inherited create(gsName,ctTarget,gsSubject);
+  fTarget:=gsTarget;
 end;
 
 { TGameConstraint }
@@ -74,16 +75,16 @@ begin
   result:=fType;
 end;
 
-function TGameConstraint.getTarget: TCellArray;
+function TGameConstraint.getSubject: TCellArray;
 begin
-  result:=fTarget;
+  result:=fSubject;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsTarget:TCellArray);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
 begin
   fName:=gsName;
   fType:=gsType;
-  fTarget:=gsTarget;
+  fSubject:=gsSubject;
 end;
 end.
 

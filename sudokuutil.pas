@@ -32,6 +32,8 @@ type
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
+    function addCells(doc:TXMLDocument;grid:TGameArray):TXMLDocument;
+    function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
 
@@ -223,10 +225,60 @@ begin
      constraintsNode:= addNode(baseGameDocument,'sudoku','constraints');
   for index:=0 to pred(length(constraints)) do
     begin
+
     //convert the constraint to a constraint node
     //quite complicated!
+    //all have id, name, type and target (list of cells)
+    //<constraint>
+    //<constraint-type/>
+    //<constraint-name/>
+    //<constraint-id/>
+    //<constraint-targets (could just be a list of numbers)
+    //
     end;
   result:=baseGameDocument;
+end;
+
+function addCells(doc: TXMLDocument; grid: TGameArray
+  ): TXMLDocument;
+var
+  col,row:integer;
+  curCell:TCell;
+  cellsNode,cellNode:TDOMNode;
+begin
+  cellsNode:=getNode(doc,'cells');
+  if cellsNode = nil then
+    cellsNode:= addNode(doc,'sudoku','cells');
+  if length(grid) = 0 then exit;
+  for col:=0 to pred(length(grid)) do
+    for row:=0 to pred(length(grid[0])) do
+      begin
+      curCell:=grid[col][row];
+      cellNode:=addChildToNode(doc,cellsNode,'cell');
+      addChildToNode(doc,cellNode,'row',curCell.row.ToString);
+      addChildToNode(doc,cellNode,'column',curCell.col.ToString);
+      addChildToNode(doc,cellNode,'box',curCell.box.ToString);
+      addChildToNode(doc,cellNode,'value',curCell.value.ToString);
+      addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
+      addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
+      addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+      end;
+  result:=doc;
+end;
+
+function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;
+  textValue:string=''): TDOMNode;
+var
+  newNode,textNode:TDOMNode;
+begin
+  newNode:=doc.CreateElement(child);
+  if textValue <> '' then
+    begin
+    textNode:=doc.CreateTextNode(textValue);
+    newNode.AppendChild(textNode);
+    end;
+  parent.AppendChild(newNode);
+  result:=newNode;
 end;
 
 end.

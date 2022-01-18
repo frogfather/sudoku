@@ -330,7 +330,6 @@ begin
     if index < pred(length(input)) then
       output:=output + ',';
     end;
-  result:=output;
 end;
 
 procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
