@@ -100,8 +100,9 @@ begin
   for index:=0 to pred(node.GetChildCount) do
     if node.ChildNodes[index].NodeName = child then
       begin
-
-      result:=node.ChildNodes[index].FirstChild.TextContent;
+      if node.ChildNodes[index].GetChildCount > 0 then
+         result:=node.ChildNodes[index].FirstChild.TextContent
+      else result:= node.ChildNodes[index].TextContent;
       exit;
       end;
   result:='';

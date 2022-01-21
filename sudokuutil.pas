@@ -53,6 +53,7 @@ end;
 
 procedure writeXML(doc: TXMLDocument; filename: string);
 begin
+  if doc = nil then exit;
   writeXMLFile(doc, filename);
 end;
 

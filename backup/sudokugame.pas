@@ -23,9 +23,10 @@ uses
     fStarted:boolean;
     fCustomCells:boolean;
     fCandidateSet: TIntArray;
+    fDocument: TXMLDocument;
     function loadGameCells(document:TXMLDocument;candidates:TIntArray):TCellArray;
     procedure setCells(cells: TCellArray; candidates:TIntArray);
-    function toDocument:TXMLDocument;
+    function generateGameDocument:TXMLDocument;
     property candidateSet: TIntArray read fCandidateSet;
     public
     constructor create(name:string;dimensions:TPoint;candidates:TIntArray=nil;cells:TCellArray=nil);
@@ -36,6 +37,7 @@ uses
     property grid:TGameArray read fGrid;
     property name:string read fName;
     property started:boolean read fStarted;
+    property document: TXMLDocument read fDocument;
   end;
 
   { TOptionsCalculator }
@@ -72,10 +74,6 @@ begin
     begin
     output[index]:=cells[index];
     end;
-
-  //now, work out if it is possible to reach the target
-  //we have cells each of which have a list of candidates that are allowed
-
   result:=output;
 end;
 
@@ -90,6 +88,7 @@ begin
   setLength(fGrid,dimensions.X,dimensions.Y);
   setCells(cells,candidates);
   fStarted:=false;
+  fDocument:=nil;
 end;
 //create from file
 constructor TSudokuGame.create(document:TXMLDocument);
@@ -99,6 +98,7 @@ var
   candidates:TIntArray;
   gameCells:TCellArray;
 begin
+  fDoc:=document;
   fGrid:= TGameArray.create;
   //required
   fName:= getNodeValue(document,'name');
@@ -113,14 +113,15 @@ begin
   else candidates:= TIntArray.create(1,2,3,4,5,6,7,8,9);
   fCandidateSet:= candidates;
   gameCells:= loadGameCells(document,candidates);
+  fCustomCells:=gameCells <> nil;
   setCells(gameCells, candidates);
   fStarted:=false;
 end;
 
 procedure TSudokuGame.saveToFile(filename: string);
 begin
-  //need to convert the game to a document
-  writeXML(toDocument,filename);
+  generateGameDocument;
+  writeXML(fDocument,filename);
 end;
 
 procedure TSudokuGame.start;
@@ -201,7 +202,7 @@ begin
     end;
 end;
 
-function TSudokuGame.toDocument: TXMLDocument;
+function TSudokuGame.generateGameDocument: TXMLDocument;
 var
   doc:TXMLDocument;
 begin
@@ -218,6 +219,7 @@ begin
     doc:= addCells(doc, fGrid);
   if (fConstraints <> nil) then
     doc:= addConstraints(doc, fConstraints);
+  fDocument:=doc;
   result:=doc;
 end;
 

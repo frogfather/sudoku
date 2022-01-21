@@ -54,7 +54,7 @@ var
   game:TSudokuGame;
 begin
   game:=TSudokuGame.create('myGame',TPoint.Create(9,9));
-  game.start;
+  //game.start;
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 
