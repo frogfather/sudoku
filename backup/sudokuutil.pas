@@ -23,6 +23,7 @@ type
     function getNode(document: TXMLDocument;node:TDOMNode;
           findTextValue: boolean = false):TDOMNode;
     function getNodeValue(document:TXMLDocument;nodeName:string):string;
+    function getChildNodeValue(node:TDOMNode; child:string):string;
     function addNode(document: TXMLDocument; parent, child: string; Text: string = '';attributes:TStringArray = nil):TDOMNode;
     function addNode(document: TXMLDocument; parent,child:TDOMNode; Text:string=''; attributes:TStringArray = nil):TDOMNode;
     function findInXML(startNode: TDomNode; nodeName: string;
@@ -79,8 +80,31 @@ var
 begin
   node:=getNode(document,nodeName);
   if node = nil then
-    result:= ''
-  else result:=getNode(document,nodeName).NodeName;
+    begin
+    result:= '';
+    exit;
+    end
+  else
+    begin
+     if node.GetChildCount > 0 then
+       result:= node.FirstChild.TextContent
+     else result:= node.TextContent;
+    end;
+
+end;
+
+function getChildNodeValue(node: TDOMNode; child: string): string;
+var
+  index:integer;
+begin
+  for index:=0 to pred(node.GetChildCount) do
+    if node.ChildNodes[index].NodeName = child then
+      begin
+
+      result:=node.ChildNodes[index].FirstChild.TextContent;
+      exit;
+      end;
+  result:='';
 end;
 
 function addNode(document: TXMLDocument; parent, child: string;
@@ -262,7 +286,6 @@ begin
       addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
       addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
       addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
-
       end;
   result:=doc;
 end;

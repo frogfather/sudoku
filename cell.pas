@@ -20,7 +20,11 @@ type
     fCentreMarks: TIntArray;
     fCandidates: TIntArray;
     public
-    constructor create(row, column, box: integer; candidates:TIntArray;value: integer=-1);
+    constructor create(row, column, box: integer;
+      candidates:TIntArray;
+      edgeMarks: TIntArray=nil;
+      centreMarks:TIntArray=nil;
+      value: integer=-1);
     procedure setValue(newValue:integer);
     procedure updateEdgeMarks(newValues:TIntArray);
     procedure updateCentreMarks(newValues:TIntArray);
@@ -40,12 +44,18 @@ implementation
 
 { TCell }
 
-constructor TCell.create(row, column, box: integer; candidates:TIntArray;value: integer=-1);
+constructor TCell.create(row, column, box: integer;
+  candidates:TIntArray;
+  edgeMarks: TIntArray=nil;
+  centreMarks:TIntArray=nil;
+  value: integer=-1);
 begin
   fRow:=row;
   fColumn:=column;
   fBox:=box;
   fCandidates:=candidates;
+  fcentreMarks:= centreMarks;
+  fEdgeMarks:= edgeMarks;
   fValue:=value;
 end;
 

@@ -30,6 +30,7 @@ function arrPos(arrInput:TIntArray; element:integer):integer;
 function arrPos(arrInput:TStringArray; element:string):integer;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
+function CSVToIntArray(input:string):TIntArray;
 procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
@@ -331,6 +332,25 @@ begin
       output:=output + ',';
     end;
   result:=output;
+end;
+
+function CSVToIntArray(input: string): TIntArray;
+var
+  strArray:TStringArray;
+  output:TIntArray;
+  index:integer;
+begin
+  //should check these are integers
+  result:=nil;
+  if pos(',',input) > 0 then
+    begin
+    strArray:=input.Split(',');
+    output:=TIntArray.create;
+    setLength(output,length(strArray));
+    for index:=0 to pred(length(strArray)) do
+      output[index]:= strArray[index].ToInteger;
+    result:=output;
+    end;
 end;
 
 procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);

@@ -22,9 +22,11 @@ uses
     fConstraints:TGameConstraints;
     fStarted:boolean;
     fCustomCells:boolean;
-    function loadGameCells:TCellArray;
+    fCandidateSet: TIntArray;
+    function loadGameCells(document:TXMLDocument;candidates:TIntArray):TCellArray;
     procedure setCells(cells: TCellArray; candidates:TIntArray);
     function toDocument:TXMLDocument;
+    property candidateSet: TIntArray read fCandidateSet;
     public
     constructor create(name:string;dimensions:TPoint;candidates:TIntArray=nil;cells:TCellArray=nil);
     constructor create(document:TXMLDocument);
@@ -83,6 +85,7 @@ constructor TSudokuGame.create(name:string;dimensions:TPoint;candidates:TIntArra
 begin
   fConstraints:=nil;
   fGrid:=TGameArray.create;
+  fCandidateSet:=candidates;
   fName:=name;
   setLength(fGrid,dimensions.X,dimensions.Y);
   setCells(cells,candidates);
@@ -103,12 +106,13 @@ begin
   rows:=getNodeValue(document,'rows').ToInteger;
   columns:= getNodeValue(document,'columns').ToInteger;
   setLength(fGrid,columns,rows);
-  //optional. sCandidates will be csv
+
   sCandidates:=getNodeValue(document,'candidates');
-  gameCells:= loadGameCells;//not written yet
   if (sCandidates <> '') then
     candidates:=toIntArray(sCandidates.Split(','))
-  else candidates:=nil;
+  else candidates:= TIntArray.create(1,2,3,4,5,6,7,8,9);
+  fCandidateSet:= candidates;
+  gameCells:= loadGameCells(document,candidates);
   setCells(gameCells, candidates);
   fStarted:=false;
 end;
@@ -129,10 +133,39 @@ begin
 
 end;
 
-function TSudokuGame.loadGameCells: TCellArray;
+function TSudokuGame.loadGameCells(document:TXMLDocument;candidates:TIntArray): TCellArray;
+var
+  cellsNode,cellNode:TDOMNode;
+  output:TCellArray;
+  index:integer;
+  row,column,box,value:integer;
+  edgeMarks,centreMarks,cellCandidates:TIntArray;
+  sCandidates:string;
 begin
-  //TODO - implement this
-  result:=nil;
+  //child of sudoku
+  cellsNode:=getNode(document,'cells');
+  //
+  if cellsNode <> nil then
+    begin
+    output:=TCellArray.create;
+    setLength(output,cellsNode.GetChildCount);
+    for index:= 0 to pred(cellsNode.GetChildCount) do
+      begin
+      cellNode:=cellsNode.ChildNodes[index];
+      row:= getChildNodeValue(cellNode,'row').ToInteger;
+      column:=getChildNodeValue(cellNode,'column').ToInteger;
+      box:=getChildNodeValue(cellNode,'box').ToInteger;
+      value:= getChildNodeValue(cellNode,'value').ToInteger;
+      edgeMarks:= CSVToIntArray(getChildNodeValue(cellNode,'edgeMarks'));
+      centreMarks:= CSVToIntArray(getChildNodeValue(cellNode,'centreMarks'));
+      sCandidates:= getChildNodeValue(cellNode,'candidates');
+      if sCandidates <> '' then
+        cellCandidates:=candidates
+      else cellCandidates:= CSVToIntArray(sCandidates);
+      output[index]:=TCell.create(row,column,box,cellCandidates,edgeMarks,centreMarks,value);
+      end;
+    end else output:=nil;
+  result:=output;
 end;
 
 procedure TSudokuGame.setCells(cells: TCellArray; candidates:TIntArray);
@@ -182,9 +215,9 @@ begin
   addNode(doc,'base-game','columns',length(fGrid).ToString);
   //if there are custom cells or if the game is started we should save the cells
   if fCustomCells or fStarted then
-    addCells(doc, fGrid);
+    doc:= addCells(doc, fGrid);
   if (fConstraints <> nil) then
-     addConstraints(doc, fConstraints);
+    doc:= addConstraints(doc, fConstraints);
   result:=doc;
 end;
 
