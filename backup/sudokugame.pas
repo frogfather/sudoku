@@ -20,7 +20,7 @@ uses
     private
     fName:string;
     fVersion:string;
-    fGrid: TGameArray;
+    fCells: TCellArray;
     fConstraints:TGameConstraints;
     fStarted:boolean;
     fCustomCells:boolean;
@@ -43,7 +43,7 @@ uses
     procedure saveToFile(filename:string);
     procedure start;
     procedure reset;
-    property grid:TGameArray read fGrid;
+    property cells:TCellArray read fcells;
     property name:string read fName;
     property started:boolean read fStarted;
     property document: TXMLDocument read fDocument;
@@ -171,7 +171,6 @@ begin
     candidateSet,
     cells,
     newConstraints);
-
 end;
 
 procedure TSudokuGame.saveToFile(filename: string);
