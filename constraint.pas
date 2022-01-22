@@ -43,8 +43,9 @@ type
   TTargetConstraint = class(TGameConstraint)
   private
   fTarget:string;
+  fAllowRepeats:boolean;
   public
-  constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string);
+  constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string;gsRepeats:boolean=false);
   end;
 
   { TRenbanConstraint }
@@ -60,10 +61,11 @@ implementation
 
 { TTargetConstraint }
 constructor TTargetConstraint.create(gsName: string; gsSubject: TCellArray;
-  gsTarget: string);
+  gsTarget: string;gsRepeats:boolean=false);
 begin
   inherited create(gsName,ctTarget,gsSubject);
   fTarget:=gsTarget;
+  fAllowRepeats:=gsRepeats;
 end;
 
 { TGameConstraint }

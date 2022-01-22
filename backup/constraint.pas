@@ -9,7 +9,7 @@ uses
 
 type
 
-  EConstraintType = (ctTarget, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
+  EConstraintType = (ctTarget, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
@@ -39,7 +39,7 @@ type
   TGameConstraints = array of IConstraint;
 
   { TTargetConstraint }
-
+  //row, column, box, cage, arrow
   TTargetConstraint = class(TGameConstraint)
   private
   fTarget:string;
@@ -47,10 +47,18 @@ type
   constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string);
   end;
 
+  { TRenbanConstraint }
+  //subject cells must be from a sequence
+  { TWhisperConstraint }
+  //subject cells must have a difference of at least the target amount
+  { TBetweenConstraint }
+  //Target cells must be between the two target cells
+  { TLockoutConstraint }
+  //Target cells must not be between the two target cells
+
 implementation
 
 { TTargetConstraint }
-
 constructor TTargetConstraint.create(gsName: string; gsSubject: TCellArray;
   gsTarget: string);
 begin
