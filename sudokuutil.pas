@@ -33,7 +33,7 @@ type
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
-    function addCells(doc:TXMLDocument;grid:TGameArray):TXMLDocument;
+    function addCells(doc:TXMLDocument;cells:TCellArray;gameDimensions:TPoint):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
@@ -265,8 +265,9 @@ begin
   result:=baseGameDocument;
 end;
 
-function addCells(doc: TXMLDocument; grid: TGameArray
-  ): TXMLDocument;
+function addCells(doc:TXMLDocument;
+  cells:TCellArray;
+  gameDimensions:TPoint): TXMLDocument;
 var
   col,row:integer;
   curCell:TCell;
@@ -275,11 +276,11 @@ begin
   cellsNode:=getNode(doc,'cells');
   if cellsNode = nil then
     cellsNode:= addNode(doc,'sudoku','cells');
-  if length(grid) = 0 then exit;
-  for col:=0 to pred(length(grid)) do
-    for row:=0 to pred(length(grid[0])) do
+  if length(cells) = 0 then exit;
+  for col:=0 to pred(gameDimensions.X) do
+    for row:=0 to pred(gameDimensions.Y) do
       begin
-      curCell:=grid[col][row];
+      curCell:=cells[row * gameDimensions.X + col];
       cellNode:=addChildToNode(doc,cellsNode,'cell');
       addChildToNode(doc,cellNode,'row',curCell.row.ToString);
       addChildToNode(doc,cellNode,'column',curCell.col.ToString);

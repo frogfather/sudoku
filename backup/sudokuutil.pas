@@ -33,7 +33,7 @@ type
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
-    function addCells(doc:TXMLDocument;grid:TGameArray):TXMLDocument;
+    function addCells(doc:TXMLDocument;cells:TCellArray;gameDimensions:TPoint):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
@@ -53,6 +53,7 @@ end;
 
 procedure writeXML(doc: TXMLDocument; filename: string);
 begin
+  if doc = nil then exit;
   writeXMLFile(doc, filename);
 end;
 
@@ -264,8 +265,9 @@ begin
   result:=baseGameDocument;
 end;
 
-function addCells(doc: TXMLDocument; grid: TGameArray
-  ): TXMLDocument;
+function addCells(doc:TXMLDocument;
+  cells:TCellArray;
+  gameDimensions:TPoint): TXMLDocument;
 var
   col,row:integer;
   curCell:TCell;
@@ -274,7 +276,7 @@ begin
   cellsNode:=getNode(doc,'cells');
   if cellsNode = nil then
     cellsNode:= addNode(doc,'sudoku','cells');
-  if length(grid) = 0 then exit;
+  if length(cells) = 0 then exit;
   for col:=0 to pred(length(grid)) do
     for row:=0 to pred(length(grid[0])) do
       begin

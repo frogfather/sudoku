@@ -20,7 +20,8 @@ uses
     private
     fName:string;
     fVersion:string;
-    fGrid: TGameArray;
+    fDimensions:TPoint;
+    fCells: TCellArray;
     fConstraints:TGameConstraints;
     fStarted:boolean;
     fCustomCells:boolean;
@@ -30,10 +31,11 @@ uses
     procedure setCells(cells: TCellArray; candidates:TIntArray);
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
+    property dimensions:TPoint read fDimensions;
     public
     constructor create(
       name:string;
-      dimensions:TPoint;
+      gameDimensions:TPoint;
       candidates:TIntArray=nil;
       cells:TCellArray=nil;
       constraints:TGameConstraints=nil);
@@ -43,7 +45,7 @@ uses
     procedure saveToFile(filename:string);
     procedure start;
     procedure reset;
-    property grid:TGameArray read fGrid;
+    property cells:TCellArray read fCells;
     property name:string read fName;
     property started:boolean read fStarted;
     property document: TXMLDocument read fDocument;
@@ -90,7 +92,7 @@ end;
 //create without file
 constructor TSudokuGame.create(
   name:string;
-  dimensions:TPoint;
+  gameDimensions:TPoint;
   candidates:TIntArray=nil;
   cells:TCellArray=nil;
   constraints:TGameConstraints=nil);
@@ -98,13 +100,13 @@ var
   largestDimension,index:integer;
 begin
   fConstraints:=nil;
-  fGrid:=TGameArray.create;
+  fCells:=TCellArray.create;
   fCandidateSet:=candidates;
   fName:=name;
-  setLength(fGrid,dimensions.X,dimensions.Y);
+  fDimensions:=gameDimensions;
+  setLength(fCells,dimensions.X * dimensions.Y);
   if (candidates = nil) and (dimensions <> defaultDimensions) then
     begin
-    //candidates should be the larger of the dimensions
     largestDimension:=dimensions.X;
     if dimensions.Y > largestDimension then
       largestDimension:= dimensions.Y;
@@ -127,14 +129,15 @@ var
   gameCells:TCellArray;
 begin
   fDocument:=document;
-  fGrid:= TGameArray.create;
+  fCells:= TCellArray.create;
   //required
   fName:= getNodeValue(document,'name');
   fVersion:= getNodeValue(document,'version');
   rows:=getNodeValue(document,'rows').ToInteger;
   columns:= getNodeValue(document,'columns').ToInteger;
-  setLength(fGrid,columns,rows);
-
+  setLength(fCells,columns * rows);
+  fDimensions.X:= columns;
+  fDimensions.Y:= rows;
   sCandidates:=getNodeValue(document,'candidates');
   if (sCandidates <> '') then
     candidates:=toIntArray(sCandidates.Split(','))
@@ -150,16 +153,8 @@ end;
 function TSudokuGame.addConstraint(gameConstraint: iConstraint): TSudokuGame;
 var
   newConstraints:TGameConstraints;
-  cells:TCellArray;
-  row,col:integer;
 begin
-  if length(grid) = 0 then exit;
-  //copy the cells from the grid
-  cells:=TCellArray.create;
-  setLength(cells,length(grid)*length(grid[0]));
-  for row:= 0 to pred(length(grid)) do
-    for col:= 0 to pred(length(grid[0])) do
-      cells[(row * length(grid)) + col]:= grid[col][row];
+  if length(cells) = 0 then exit;
   if fConstraints <> nil then
     newConstraints:= fconstraints
   else newConstraints:= TGameConstraints.create;
@@ -167,7 +162,7 @@ begin
   newConstraints[pred(length(newConstraints))]:= gameConstraint;
   result:= TSudokuGame.create(
     fname,
-    TPoint.Create(length(fGrid),length(fGrid[0])),
+    dimensions,
     candidateSet,
     cells,
     newConstraints);
@@ -226,34 +221,26 @@ end;
 
 procedure TSudokuGame.setCells(cells: TCellArray; candidates:TIntArray);
 var
-  columns,colIndex,rows,rowIndex,box:integer;
-  cellIndex:integer;
+  rows,columns,box:integer;
+  rowIndex,colIndex:integer;
   cellCandidates:TIntArray;
 begin
   if candidates=nil then
     cellCandidates:= TIntArray.create(1,2,3,4,5,6,7,8,9)
   else cellCandidates:= candidates;
   fCustomCells:= (cells <> nil) or (candidates <> nil);
-  //if there are cells we'll assume there are the right number (Validation needed!)
   if (cells <> nil) then
+    fCells:= cells
+  else
     begin
-    for cellIndex:=0 to pred(length(cells)) do
-      begin
-      colIndex:=cells[cellIndex].col - 1;
-      rowIndex:=cells[cellIndex].row - 1;
-      fGrid[colIndex][rowIndex]:= cells[cellIndex];
-      end;
-    end else
-    begin
-    if length(fGrid) = 0 then exit;
-    columns:=length(fGrid);
-    rows:=length(fGrid[0]);
+    columns:=dimensions.X;
+    rows:=dimensions.Y;
     for colIndex:= 0 to pred(columns) do
       for rowIndex:= 0 to pred(rows) do
-        begin
-        box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
-        fGrid[colIndex][rowIndex] := TCell.create(rowIndex+1,colIndex+1,box,cellCandidates);
-        end;
+      begin
+      box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
+      fCells[(rowIndex * dimensions.X) + colIndex] := TCell.create(rowIndex+1,colIndex+1,box,cellCandidates);
+      end;
     end;
 end;
 
@@ -261,17 +248,17 @@ function TSudokuGame.generateGameDocument: TXMLDocument;
 var
   doc:TXMLDocument;
 begin
-  if length(fGrid) = 0 then exit; //should throw error
+  if length(fCells) = 0 then exit; //should throw error
   doc:=TXMLDocument.Create;
   addNode(doc,'','sudoku');
   addNode(doc,'sudoku','name',fName);
   addNode(doc,'sudoku','version',fVersion);
   addNode(doc,'sudoku','base-game');
-  addNode(doc,'base-game','rows',length(fGrid[0]).ToString);
-  addNode(doc,'base-game','columns',length(fGrid).ToString);
+  addNode(doc,'base-game','rows',dimensions.Y.ToString);
+  addNode(doc,'base-game','columns',dimensions.X.ToString);
   //if there are custom cells or if the game is started we should save the cells
   if fCustomCells or fStarted then
-    doc:= addCells(doc, fGrid);
+    doc:= addCells(doc, cells, dimensions);
   if (fConstraints <> nil) then
     doc:= addConstraints(doc, fConstraints);
   fDocument:=doc;
