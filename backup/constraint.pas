@@ -9,14 +9,14 @@ uses
 
 type
 
-  EConstraintType = (ctTarget, ctArrow, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
+  EConstraintType = (ctTarget, ctRenban, ctWhisper, ctBetween, ctLockout);//tba
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
     function getId: string;
     function getName:string;
     function getType: EConstraintType;
-    function getSubject: TCellArray; //cells that this constraint applies to
+    function getCandidates: TCellArray; //cells that this constraint applies to
 
   end;
 
@@ -27,35 +27,46 @@ type
     fId: string;
     fName: string;
     fType: EConstraintType;
-    fSubject: TCellArray;
+    fCandidates: TCellArray;
     public
     function getId: string;
     function getName:string;
     function getType:EConstraintType;
-    function getSubject:TCellArray;
-    constructor create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
+    function getCandidates:TCellArray;
+    constructor create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
   end;
 
   TGameConstraints = array of IConstraint;
 
   { TTargetConstraint }
-
+  //row, column, box, cage, arrow
   TTargetConstraint = class(TGameConstraint)
   private
   fTarget:string;
+  fAllowRepeats:boolean;
   public
-  constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string);
+  target: string read fTarget;
+  constructor create(gsName:string;gsCandidates:TCellArray;gsTarget:string;gsRepeats:boolean=false);
   end;
+
+  { TRenbanConstraint }
+  //subject cells must be from a sequence
+  { TWhisperConstraint }
+  //subject cells must have a difference of at least the target amount
+  { TBetweenConstraint }
+  //Target cells must be between the two target cells
+  { TLockoutConstraint }
+  //Target cells must not be between the two target cells
 
 implementation
 
 { TTargetConstraint }
-
-constructor TTargetConstraint.create(gsName: string; gsSubject: TCellArray;
-  gsTarget: string);
+constructor TTargetConstraint.create(gsName: string; gsCandidates: TCellArray;
+  gsTarget: string;gsRepeats:boolean=false);
 begin
-  inherited create(gsName,ctTarget,gsSubject);
+  inherited create(gsName,ctTarget,gsCandidates);
   fTarget:=gsTarget;
+  fAllowRepeats:=gsRepeats;
 end;
 
 { TGameConstraint }
@@ -75,16 +86,16 @@ begin
   result:=fType;
 end;
 
-function TGameConstraint.getSubject: TCellArray;
+function TGameConstraint.getCandidates: TCellArray;
 begin
-  result:=fSubject;
+  result:=fCandidates;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
 begin
   fName:=gsName;
   fType:=gsType;
-  fSubject:=gsSubject;
+  fCandidates:=gsCandidates;
 end;
 end.
 

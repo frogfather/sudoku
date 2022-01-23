@@ -5,7 +5,7 @@ unit gameTest;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,sudokuGame;
+  Classes, SysUtils, fpcunit, testutils, testregistry,sudokuGame,sudokuUtil;
 
 type
 
@@ -20,15 +20,17 @@ type
   published
     procedure DefaultGameDimensions;
     procedure GameName;
-    procedure SavedDefaultGame;
+    procedure DocumentHasNoCellsIfDefault;
+    procedure DocumentHasCellsIfStarted;
+    procedure DocumentHasCellsIfNonStandard;
   end;
 
 implementation
 
 procedure TGameTest.DefaultGameDimensions;
 begin
-  assertEquals(length(fGame.grid),9);
-  assertEquals(length(fGame.grid[0]),9);
+  assertEquals(fGame.dimensions.X,9);
+  assertEquals(fGame.dimensions.Y,9);
 end;
 
 procedure TGameTest.GameName;
@@ -36,14 +38,31 @@ begin
   assertEquals(fGame.name,'testGame');
 end;
 
-procedure TGameTest.SavedDefaultGame;
+procedure TGameTest.DocumentHasNoCellsIfDefault;
+
 begin
-  //fGame.saveToFile();
+  fGame.generateGameDocument;
+  assertNull(getNode(fGame.Document,'cells'));
+end;
+
+procedure TGameTest.DocumentHasCellsIfStarted;
+begin
+  fGame.start;
+  fGame.generateGameDocument;
+  assertNotNull(getNode(fGame.document,'cells'));
+end;
+
+procedure TGameTest.DocumentHasCellsIfNonStandard;
+var
+  nsGame:TSudokuGame;
+begin
+  nsGame:=TSudokuGame.create('testGame',TPoint.Create(6,7));
+  nsGame.generateGameDocument;
+  assertNotNull(getNode(nsGame.document,'cells'));
 end;
 
 procedure TGameTest.SetUp;
 begin
-//create a new game
 fGame:=TSudokuGame.create('testGame',TPoint.Create(9,9));
 end;
 
