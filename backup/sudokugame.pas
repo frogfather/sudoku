@@ -31,7 +31,6 @@ uses
     procedure setCells(cells: TCellArray; candidates:TIntArray);
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
-    property dimensions:TPoint read fDimensions;
     public
     constructor create(
       name:string;
@@ -40,7 +39,7 @@ uses
       cells:TCellArray=nil;
       constraints:TGameConstraints=nil);
     constructor create(document:TXMLDocument);
-    function addConstraint(gameConstraint:iConstraint):TSudokuGame;
+    procedure addConstraint(gameConstraint:iConstraint);
     function generateGameDocument:TXMLDocument;
     procedure saveToFile(filename:string);
     procedure start;
@@ -48,12 +47,11 @@ uses
     property cells:TCellArray read fCells;
     property name:string read fName;
     property started:boolean read fStarted;
+    property dimensions:TPoint read fDimensions;
     property document: TXMLDocument read fDocument;
   end;
 
   { TOptionsCalculator }
-  //The complicated bits. Applying all the constraints in this game, what options
-  //does this cell have
   TOptionsCalculator = class(TInterfacedObject)
     private
     fGameNumbers: TIntArray; //the numbers allowed in this game - default 1..9
@@ -78,7 +76,6 @@ var
   output:TCellArray;
   index:integer;
 begin
-  //copy the cells provided
   output:=TCellArray.create;
   setLength(output,length(cells));
   for index:=0 to pred(length(cells)) do
@@ -150,22 +147,13 @@ begin
   fStarted:=false;
 end;
 
-function TSudokuGame.addConstraint(gameConstraint: iConstraint): TSudokuGame;
-var
-  newConstraints:TGameConstraints;
+procedure TSudokuGame.addConstraint(gameConstraint: iConstraint);
 begin
-  if length(cells) = 0 then exit;
-  if fConstraints <> nil then
-    newConstraints:= fconstraints
-  else newConstraints:= TGameConstraints.create;
-  setLength(newConstraints,length(newConstraints)+1);
-  newConstraints[pred(length(newConstraints))]:= gameConstraint;
-  result:= TSudokuGame.create(
-    fname,
-    dimensions,
-    candidateSet,
-    cells,
-    newConstraints);
+  if started or (length(cells) = 0) then exit;
+  if fConstraints = nil then
+    fConstraints:= TGameConstraints.create;
+  setLength(fConstraints,length(fConstraints)+1);
+  fConstraints[pred(length(fConstraints))]:= gameConstraint;
 end;
 
 procedure TSudokuGame.saveToFile(filename: string);
@@ -247,6 +235,7 @@ end;
 function TSudokuGame.generateGameDocument: TXMLDocument;
 var
   doc:TXMLDocument;
+  cellsNode:TDOMNode;
 begin
   if length(fCells) = 0 then exit; //should throw error
   doc:=TXMLDocument.Create;
@@ -258,7 +247,12 @@ begin
   addNode(doc,'base-game','columns',dimensions.X.ToString);
   //if there are custom cells or if the game is started we should save the cells
   if fCustomCells or fStarted then
-    doc:= addCells(doc, fGrid);
+    begin
+    cellsNode:=getNode(doc,'cells');
+    if cellsNode = nil then
+      cellsNode:= addNode(doc,'sudoku','cells');
+    doc:= addCells(doc,cellsNode, cells, dimensions);
+    end;
   if (fConstraints <> nil) then
     doc:= addConstraints(doc, fConstraints);
   fDocument:=doc;

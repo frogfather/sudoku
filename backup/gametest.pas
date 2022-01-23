@@ -22,14 +22,15 @@ type
     procedure GameName;
     procedure DocumentHasNoCellsIfDefault;
     procedure DocumentHasCellsIfStarted;
+    procedure DocumentHasCellsIfNonStandard;
   end;
 
 implementation
 
 procedure TGameTest.DefaultGameDimensions;
 begin
-  assertEquals(length(fGame.grid),9);
-  assertEquals(length(fGame.grid[0]),9);
+  assertEquals(dimensions.X,9);
+  assertEquals(dimensions.Y,9);
 end;
 
 procedure TGameTest.GameName;
@@ -49,6 +50,15 @@ begin
   fGame.start;
   fGame.generateGameDocument;
   assertNotNull(getNode(fGame.document,'cells'));
+end;
+
+procedure TGameTest.DocumentHasCellsIfNonStandard;
+var
+  nsGame:TSudokuGame;
+begin
+  nsGame:=TSudokuGame.create('testGame',TPoint.Create(6,7));
+  nsGame.generateGameDocument;
+  assertNotNull(getNode(nsGame.document,'cells'));
 end;
 
 procedure TGameTest.SetUp;

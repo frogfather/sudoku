@@ -23,6 +23,7 @@ type
     function getNode(document: TXMLDocument;node:TDOMNode;
           findTextValue: boolean = false):TDOMNode;
     function getNodeValue(document:TXMLDocument;nodeName:string):string;
+    function getNodeValue(document:TXMLDocument;parent:TDOMNode;nodeName:string):string;
     function getChildNodeValue(node:TDOMNode; child:string):string;
     function addNode(document: TXMLDocument; parent, child: string; Text: string = '';attributes:TStringArray = nil):TDOMNode;
     function addNode(document: TXMLDocument; parent,child:TDOMNode; Text:string=''; attributes:TStringArray = nil):TDOMNode;
@@ -33,7 +34,7 @@ type
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
-    function addCells(doc:TXMLDocument;cells:TCellArray;gameDimensions:TPoint):TXMLDocument;
+    function addCells(doc:TXMLDocument;parent:TDOMNode;cells:TCellArray):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
@@ -92,6 +93,23 @@ begin
      else result:= node.TextContent;
     end;
 
+end;
+
+function getNodeValue(document: TXMLDocument; parent: TDOMNode; nodeName: string
+  ): string;
+var
+  index:integer;
+begin
+  result:='';
+  if parent.GetChildCount = 0 then exit;
+  for index:= 0 to pred(parent.GetChildCount) do
+    begin
+    if parent.ChildNodes[index].NodeName = nodeName then
+      begin
+      result:=parent.childNodes[index].TextContent;
+      exit;
+      end;
+    end;
 end;
 
 function getChildNodeValue(node: TDOMNode; child: string): string;
@@ -243,45 +261,45 @@ end;
 function addConstraints(baseGameDocument: TXMLDocument;
   constraints: TGameConstraints): TXMLDocument;
 var
-  constraintsNode:TDomNode;
+  constraintsNode,constraintNode,candidatesNode:TDomNode;
+  currConstraint:iConstraint;
   index:integer;
+  typeString:String;
+  propertyValue:string;
 begin
   constraintsNode:= getNode(baseGameDocument,'constraints');
   if constraintsNode = nil then
      constraintsNode:= addNode(baseGameDocument,'sudoku','constraints');
   for index:=0 to pred(length(constraints)) do
     begin
+    currConstraint:=constraints[index];
+    writeStr(typeString,currConstraint.getType);
+    constraintNode:= addChildToNode(baseGameDocument,constraintsNode,'constraint');
+    addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
+    candidatesNode:=addChildToNode(baseGameDocument,constraintNode,'constraint-candidates');
+    addCells(baseGameDocument,candidatesNode,currConstraint.getCandidates);
+    //now add any specialisations
+    propertyValue:=
 
-    //convert the constraint to a constraint node
-    //quite complicated!
-    //all have id, name, type and target (list of cells)
-    //<constraint>
-    //<constraint-type/>
-    //<constraint-name/>
-    //<constraint-id/>
-    //<constraint-targets (could just be a list of numbers)
-    //
     end;
   result:=baseGameDocument;
 end;
 
 function addCells(doc:TXMLDocument;
-  cells:TCellArray;
-  gameDimensions:TPoint): TXMLDocument;
+  parent:TDOMNode;
+  cells:TCellArray): TXMLDocument;
 var
-  col,row:integer;
+  index:integer;
   curCell:TCell;
-  cellsNode,cellNode:TDOMNode;
+  cellNode:TDOMNode;
 begin
-  cellsNode:=getNode(doc,'cells');
-  if cellsNode = nil then
-    cellsNode:= addNode(doc,'sudoku','cells');
   if length(cells) = 0 then exit;
-  for col:=0 to pred(length(grid)) do
-    for row:=0 to pred(length(grid[0])) do
+  for index:= 0 to pred(length(cells)) do
       begin
-      curCell:=grid[col][row];
-      cellNode:=addChildToNode(doc,cellsNode,'cell');
+      curCell:=cells[index];
+      cellNode:=addChildToNode(doc,parent,'cell');
       addChildToNode(doc,cellNode,'row',curCell.row.ToString);
       addChildToNode(doc,cellNode,'column',curCell.col.ToString);
       addChildToNode(doc,cellNode,'box',curCell.box.ToString);

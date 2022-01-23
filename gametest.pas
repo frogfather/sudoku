@@ -29,8 +29,8 @@ implementation
 
 procedure TGameTest.DefaultGameDimensions;
 begin
-  assertEquals(length(fGame.grid),9);
-  assertEquals(length(fGame.grid[0]),9);
+  assertEquals(fGame.dimensions.X,9);
+  assertEquals(fGame.dimensions.Y,9);
 end;
 
 procedure TGameTest.GameName;

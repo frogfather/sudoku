@@ -16,7 +16,7 @@ type
     function getId: string;
     function getName:string;
     function getType: EConstraintType;
-    function getSubject: TCellArray; //cells that this constraint applies to
+    function getCandidates: TCellArray; //cells that this constraint applies to
 
   end;
 
@@ -27,13 +27,13 @@ type
     fId: string;
     fName: string;
     fType: EConstraintType;
-    fSubject: TCellArray;
+    fCandidates: TCellArray;
     public
     function getId: string;
     function getName:string;
     function getType:EConstraintType;
-    function getSubject:TCellArray;
-    constructor create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
+    function getCandidates:TCellArray;
+    constructor create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
   end;
 
   TGameConstraints = array of IConstraint;
@@ -45,7 +45,8 @@ type
   fTarget:string;
   fAllowRepeats:boolean;
   public
-  constructor create(gsName:string;gsSubject:TCellArray;gsTarget:string;gsRepeats:boolean=false);
+  property target: string read fTarget;
+  constructor create(gsName:string;gsCandidates:TCellArray;gsTarget:string;gsRepeats:boolean=false);
   end;
 
   { TRenbanConstraint }
@@ -60,10 +61,10 @@ type
 implementation
 
 { TTargetConstraint }
-constructor TTargetConstraint.create(gsName: string; gsSubject: TCellArray;
+constructor TTargetConstraint.create(gsName: string; gsCandidates: TCellArray;
   gsTarget: string;gsRepeats:boolean=false);
 begin
-  inherited create(gsName,ctTarget,gsSubject);
+  inherited create(gsName,ctTarget,gsCandidates);
   fTarget:=gsTarget;
   fAllowRepeats:=gsRepeats;
 end;
@@ -85,16 +86,16 @@ begin
   result:=fType;
 end;
 
-function TGameConstraint.getSubject: TCellArray;
+function TGameConstraint.getCandidates: TCellArray;
 begin
-  result:=fSubject;
+  result:=fCandidates;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsSubject:TCellArray);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
 begin
   fName:=gsName;
   fType:=gsType;
-  fSubject:=gsSubject;
+  fCandidates:=gsCandidates;
 end;
 end.
 
