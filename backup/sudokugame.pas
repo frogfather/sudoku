@@ -14,6 +14,8 @@ uses
 
   ERepeatOptions = array of ERepeatOption;
 
+  ECalculateOption = (coEqual, coLess, coGreater, coNot);
+
   { TSudokuGame }
 
   TSudokuGame = class(TInterfacedObject)
@@ -57,7 +59,11 @@ uses
     fGameNumbers: TIntArray; //the numbers allowed in this game - default 1..9
     public
     constructor create(gameNumbers:TIntArray=nil);
-    function getCandidates(const cells:TCellArray;target:integer;repeatOptions:ERepeatOptions):TCellArray;
+    function calculate(
+      const cells:TCellArray;
+      target:integer;
+      repeatOptions:ERepeatOptions;
+      operation:ECalculateOption=coEqual):TCellArray;
   end;
 
 implementation
@@ -71,7 +77,11 @@ begin
   else fGameNumbers:= TIntArray.create(1,2,3,4,5,6,7,8,9);
 end;
 
-function TOptionsCalculator.getCandidates(const cells: TCellArray;target:integer;repeatOptions:ERepeatOptions): TCellArray;
+function TOptionsCalculator.calculate(
+  const cells: TCellArray;
+  target:integer;
+  repeatOptions:ERepeatOptions;
+  operation:ECalculateOption): TCellArray;
 var
   output:TCellArray;
   index:integer;
@@ -80,6 +90,7 @@ begin
   setLength(output,length(cells));
   for index:=0 to pred(length(cells)) do
     begin
+    //apply constraint
     output[index]:=cells[index];
     end;
   result:=output;
@@ -251,7 +262,7 @@ begin
     cellsNode:=getNode(doc,'cells');
     if cellsNode = nil then
       cellsNode:= addNode(doc,'sudoku','cells');
-    doc:= addCells(doc,cellsNode, cells, dimensions);
+    doc:= addCells(doc,cellsNode, cells);
     end;
   if (fConstraints <> nil) then
     doc:= addConstraints(doc, fConstraints);
