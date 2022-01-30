@@ -14,6 +14,7 @@ uses
   laz2_XMLUtils;
 type
   TDOMNodeArray = array of TDOMNode;
+  TProcHandler = procedure();
 
 
     function readXML(filename: string): TXMLDocument;
@@ -309,7 +310,8 @@ begin
       addChildToNode(doc,cellNode,'value',curCell.value.ToString);
       addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
       addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-      addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+      //need to convert array of sudokuNumber to xml
+      //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
       end;
   result:=doc;
 end;

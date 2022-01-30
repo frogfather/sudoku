@@ -29,7 +29,6 @@ uses
     fCustomCells:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
-    fConstraintsChanged: TNotifyEvent;
     procedure cellChangeHandler(sender:TObject);
     function loadGameCells(document:TXMLDocument;candidates:TIntArray):TCellArray;
     procedure setCells(cells: TCellArray; candidates:TIntArray);
@@ -225,6 +224,7 @@ begin
     changedNr:= currentCell.changedCandidate;
     writeln('Number changed '+changedNr.value.ToString+' useInCalc now '+boolToStr(changedNr.usedInCalc));
     //Now recalculate constraints and signal affected cells
+    fConstraintsChanged(self);
     end;
 end;
 
@@ -258,7 +258,7 @@ begin
         cellCandidates:=candidates
       else cellCandidates:= CSVToIntArray(sCandidates);
       output[index]:=TCell.create(row,column,box,
-      @cellChangeHandler,fConstraintsChanged,cellCandidates,edgeMarks,centreMarks,value);
+      @cellChangeHandler,cellCandidates,edgeMarks,centreMarks,value);
       end;
     end else output:=nil;
   result:=output;
@@ -284,7 +284,9 @@ begin
       for rowIndex:= 0 to pred(rows) do
       begin
       box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
-      fCells[(rowIndex * dimensions.X) + colIndex] := TCell.create(rowIndex+1,colIndex+1,box,@cellChangeHandler,cellCandidates);
+      fCells[(rowIndex * dimensions.X) + colIndex]
+        := TCell.create(rowIndex+1,colIndex+1,box,
+        @cellChangeHandler,cellCandidates);
       end;
     end;
 end;

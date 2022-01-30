@@ -8,6 +8,7 @@ uses
   Classes, SysUtils,arrayUtils;
 type
 
+  TProcHandler = procedure();
   { TSudokuNumber }
   TSudokuNumber = class(TInterfacedObject)
     private
@@ -48,12 +49,14 @@ type
     fEdgeMarks: TIntArray;
     fCentreMarks: TIntArray;
     fCandidates: TSudokuNumbers;
-    fNumberStateChanged: TNotifyEvent;
-    //To signal to the game that a number in this cell has changed
     fChangedCandidate: TSudokuNumber;
+
+    //To signal to the game that a number in this cell has changed
+    fNumberStateChanged: TNotifyEvent;
+
     //To pick up signal from a sudokuNumber in this cell
     procedure numberChangeHandler(sender:TObject);
-    procedure gameChangeHandler(sender:TObject);
+
     public
     constructor create(row, column, box: integer;
       numberStateHandler:TNotifyEvent;
@@ -109,18 +112,13 @@ begin
     else
       writeln('number '+value.tostring+' signalled change - not used in calculation');
     end;
+  fChangedCandidate:=sender as TSudokuNumber;
   //then signal the game which will work out constraints
   fNumberStateChanged(self);
 end;
 
-procedure TCell.gameChangeHandler(sender: TObject);
-begin
-  writeLn('game signalled a change to cell '+row.ToString+':'+col.ToString);
-end;
-
 constructor TCell.create(row, column, box: integer;
   numberStateHandler:TNotifyEvent;
-  gameStateChangedHandler:TNotifyEvent;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
   centreMarks:TIntArray=nil;
@@ -141,6 +139,7 @@ begin
   fcentreMarks:= centreMarks;
   fEdgeMarks:= edgeMarks;
   fValue:=value;
+  fNumberStateChanged:=numberStateHandler;
 end;
 
 procedure TCell.setValue(newValue: integer);
