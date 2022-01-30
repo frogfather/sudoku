@@ -1,0 +1,72 @@
+unit observer_interfaces;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils;
+type
+  IObserver = interface
+    ['{a4350679-517f-4c72-b3f8-5cf7abfdf2be}']
+      procedure Update(Subject: IInterface);
+    end;
+
+  ISubject = interface
+    ['{18dbf567-b454-418e-b3dd-d076eb395837}']
+    procedure Attach(Observer: IObserver);
+    procedure Detach(Observer: IObserver);
+    procedure Notify;
+    end;
+
+    { TSubject }
+
+  TSubject = class(TInterfacedObject, ISubject)
+  private
+    fController: Pointer;
+    fObservers: IInterfaceList;
+    procedure Attach(Observer: IObserver);
+    procedure Detach(Observer: IObserver);
+    procedure Notify;
+  public
+    constructor Create(const Controller: IInterface);
+  end;
+implementation
+
+{ TSubject }
+
+constructor TSubject.Create(const Controller: IInterface);
+begin
+  inherited Create;
+  fController := Pointer(Controller);
+end;
+
+procedure TSubject.Attach(Observer: IObserver);
+begin
+if fObservers = nil then
+fObservers := TInterfaceList.Create;
+fObservers.Add(Observer);
+end;
+
+procedure TSubject.Detach(Observer: IObserver);
+begin
+form1.lbLog.items.add('TSubject.detach called');
+if fObservers <> nil then
+  begin
+  fObservers.Remove(Observer);
+  if fObservers.Count = 0 then
+  fObservers := nil;
+  end;
+end;
+
+procedure TSubject.Notify;
+var
+i: Integer;
+begin
+  if fObservers <> nil then
+  for i := 0 to Pred(fObservers.Count) do
+  (fObservers[i] as IObserver).Update(IInterface (fController));
+end;
+
+end.
+
