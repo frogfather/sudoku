@@ -25,12 +25,14 @@ type
     fNotifyChange:TNotifyEvent;
     protected
     property parent: TObject read fParent;
-    property usedInCalc: boolean read fUsedInCalc write fUsedInCalc;
     property available: boolean read fAvailable write fAvailable;
     property exclude: boolean read fExclude write fExclude;
-    property value: integer read fValue;
     public
+    procedure useInCalc(bVal:boolean);
     constructor create(aOwner:TObject;changeHandler:TNotifyEvent;initValue:integer=-1);
+    property value: integer read fValue;
+    property usedInCalc: boolean read fUsedInCalc;
+
   end;
 
   TSudokuNumbers = array of TSudokuNumber;
@@ -46,9 +48,16 @@ type
     fEdgeMarks: TIntArray;
     fCentreMarks: TIntArray;
     fCandidates: TSudokuNumbers;
-    procedure changeHandler(sender:TObject);
+    fNumberStateChanged: TNotifyEvent;
+    //To signal to the game that a number in this cell has changed
+    fChangedCandidate: TSudokuNumber;
+    //To pick up signal from a sudokuNumber in this cell
+    procedure numberChangeHandler(sender:TObject);
+    procedure gameChangeHandler(sender:TObject);
     public
     constructor create(row, column, box: integer;
+      numberStateHandler:TNotifyEvent;
+      gameStateChangedHandler:TNotifyEvent;
       candidates:TIntArray;
       edgeMarks: TIntArray=nil;
       centreMarks:TIntArray=nil;
@@ -63,6 +72,7 @@ type
     property centreMarks: TIntArray read fCentreMarks;
     property edgeMarks: TIntArray read fEdgeMarks;
     property candidates:TSudokuNumbers read fCandidates;
+    property changedCandidate: TSudokuNumber read fChangedCandidate;
   end;
 
   TCellArray = array of TCell;
@@ -71,6 +81,12 @@ type
 implementation
 
 { TSudokuNumber }
+
+procedure TSudokuNumber.useInCalc(bVal: boolean);
+begin
+  fUsedInCalc:=bVal;
+  fNotifyChange(self);
+end;
 
 constructor TSudokuNumber.create(aOwner:TObject;changeHandler:TNotifyEvent;initValue: integer);
 begin
@@ -84,12 +100,27 @@ end;
 
 { TCell }
 
-procedure TCell.changeHandler(sender: TObject);
+procedure TCell.numberChangeHandler(sender: TObject);
 begin
-  writeln('a cell signalled a change');
+  if sender is TSudokuNumber then with sender as TSudokuNumber do
+    begin
+    if usedInCalc = true then
+      writeln('number '+value.tostring+' signalled change - used in calculation')
+    else
+      writeln('number '+value.tostring+' signalled change - not used in calculation');
+    end;
+  //then signal the game which will work out constraints
+  fNumberStateChanged(self);
+end;
+
+procedure TCell.gameChangeHandler(sender: TObject);
+begin
+  writeLn('game signalled a change to cell '+row.ToString+':'+col.ToString);
 end;
 
 constructor TCell.create(row, column, box: integer;
+  numberStateHandler:TNotifyEvent;
+  gameStateChangedHandler:TNotifyEvent;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
   centreMarks:TIntArray=nil;
@@ -105,7 +136,7 @@ begin
   sudokuNos:=TSudokuNumbers.create;
   setLength(sudokuNos,length(candidates));
   for index:=0 to pred(length(candidates)) do
-    sudokuNos[index]:= TSudokuNumber.create(self,candidates[index]);
+    sudokuNos[index]:= TSudokuNumber.create(self,@numberChangeHandler,candidates[index]);
   fCandidates:=sudokuNos;
   fcentreMarks:= centreMarks;
   fEdgeMarks:= edgeMarks;

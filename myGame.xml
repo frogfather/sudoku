@@ -6,6 +6,656 @@
     <rows>9</rows>
     <columns>9</columns>
   </base-game>
+  <cells>
+    <cell>
+      <row>1</row>
+      <column>1</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>2</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>3</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>4</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>5</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>6</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>7</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>8</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>1</row>
+      <column>9</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>1</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>2</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>3</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>4</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>5</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>6</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>7</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>8</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>2</row>
+      <column>9</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>1</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>2</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>3</column>
+      <box>1</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>4</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>5</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>6</column>
+      <box>2</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>7</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>8</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>3</row>
+      <column>9</column>
+      <box>3</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>1</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>2</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>3</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>4</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>5</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>6</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>7</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>8</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>4</row>
+      <column>9</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>1</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>2</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>3</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>4</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>5</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>6</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>7</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>8</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>5</row>
+      <column>9</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>1</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>2</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>3</column>
+      <box>4</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>4</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>5</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>6</column>
+      <box>5</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>7</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>8</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>6</row>
+      <column>9</column>
+      <box>6</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>1</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>2</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>3</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>4</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>5</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>6</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>7</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>8</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>7</row>
+      <column>9</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>1</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>2</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>3</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>4</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>5</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>6</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>7</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>8</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>8</row>
+      <column>9</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>1</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>2</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>3</column>
+      <box>7</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>4</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>5</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>6</column>
+      <box>8</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>7</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>8</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+    <cell>
+      <row>9</row>
+      <column>9</column>
+      <box>9</box>
+      <value>-1</value>
+      <edgeMarks/>
+      <centre-marks/>
+    </cell>
+  </cells>
   <constraints>
     <constraint>
       <constraint-type>ctTarget</constraint-type>
@@ -19,7 +669,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -28,7 +677,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -37,7 +685,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -46,7 +693,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -55,7 +701,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -64,7 +709,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -73,7 +717,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -82,7 +725,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -91,7 +733,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -108,7 +749,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -117,7 +757,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -126,7 +765,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -135,7 +773,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -144,7 +781,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -153,7 +789,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -162,7 +797,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -171,7 +805,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -180,7 +813,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -197,7 +829,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -206,7 +837,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -215,7 +845,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -224,7 +853,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -233,7 +861,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -242,7 +869,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -251,7 +877,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -260,7 +885,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -269,7 +893,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -286,7 +909,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -295,7 +917,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -304,7 +925,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -313,7 +933,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -322,7 +941,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -331,7 +949,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -340,7 +957,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -349,7 +965,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -358,7 +973,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -375,7 +989,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -384,7 +997,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -393,7 +1005,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -402,7 +1013,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -411,7 +1021,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -420,7 +1029,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -429,7 +1037,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -438,7 +1045,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -447,7 +1053,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -464,7 +1069,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -473,7 +1077,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -482,7 +1085,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -491,7 +1093,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -500,7 +1101,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -509,7 +1109,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -518,7 +1117,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -527,7 +1125,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -536,7 +1133,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -553,7 +1149,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -562,7 +1157,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -571,7 +1165,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -580,7 +1173,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -589,7 +1181,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -598,7 +1189,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -607,7 +1197,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -616,7 +1205,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -625,7 +1213,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -642,7 +1229,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -651,7 +1237,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -660,7 +1245,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -669,7 +1253,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -678,7 +1261,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -687,7 +1269,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -696,7 +1277,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -705,7 +1285,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -714,7 +1293,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -731,7 +1309,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -740,7 +1317,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -749,7 +1325,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -758,7 +1333,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -767,7 +1341,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -776,7 +1349,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -785,7 +1357,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -794,7 +1365,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -803,7 +1373,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -820,7 +1389,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -829,7 +1397,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -838,7 +1405,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -847,7 +1413,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -856,7 +1421,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -865,7 +1429,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -874,7 +1437,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -883,7 +1445,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -892,7 +1453,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -909,7 +1469,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -918,7 +1477,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -927,7 +1485,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -936,7 +1493,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -945,7 +1501,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -954,7 +1509,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -963,7 +1517,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -972,7 +1525,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -981,7 +1533,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -998,7 +1549,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1007,7 +1557,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1016,7 +1565,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1025,7 +1573,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1034,7 +1581,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1043,7 +1589,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1052,7 +1597,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1061,7 +1605,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1070,7 +1613,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1087,7 +1629,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1096,7 +1637,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1105,7 +1645,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1114,7 +1653,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1123,7 +1661,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1132,7 +1669,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1141,7 +1677,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1150,7 +1685,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1159,7 +1693,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1176,7 +1709,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1185,7 +1717,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1194,7 +1725,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1203,7 +1733,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1212,7 +1741,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1221,7 +1749,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1230,7 +1757,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1239,7 +1765,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1248,7 +1773,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1265,7 +1789,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1274,7 +1797,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1283,7 +1805,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1292,7 +1813,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1301,7 +1821,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1310,7 +1829,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1319,7 +1837,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1328,7 +1845,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1337,7 +1853,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1354,7 +1869,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1363,7 +1877,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1372,7 +1885,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1381,7 +1893,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1390,7 +1901,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1399,7 +1909,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1408,7 +1917,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1417,7 +1925,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1426,7 +1933,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1443,7 +1949,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1452,7 +1957,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1461,7 +1965,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1470,7 +1973,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1479,7 +1981,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1488,7 +1989,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1497,7 +1997,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1506,7 +2005,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1515,7 +2013,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1532,7 +2029,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1541,7 +2037,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1550,7 +2045,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1559,7 +2053,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1568,7 +2061,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1577,7 +2069,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -1586,7 +2077,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -1595,7 +2085,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -1604,7 +2093,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1621,7 +2109,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1630,7 +2117,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1639,7 +2125,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1648,7 +2133,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1657,7 +2141,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1666,7 +2149,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1675,7 +2157,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1684,7 +2165,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1693,7 +2173,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1710,7 +2189,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1719,7 +2197,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1728,7 +2205,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1737,7 +2213,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1746,7 +2221,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1755,7 +2229,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1764,7 +2237,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1773,7 +2245,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1782,7 +2253,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1799,7 +2269,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1808,7 +2277,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>1</row>
@@ -1817,7 +2285,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1826,7 +2293,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1835,7 +2301,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>2</row>
@@ -1844,7 +2309,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1853,7 +2317,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1862,7 +2325,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>3</row>
@@ -1871,7 +2333,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1888,7 +2349,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1897,7 +2357,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1906,7 +2365,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1915,7 +2373,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1924,7 +2381,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -1933,7 +2389,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1942,7 +2397,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1951,7 +2405,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -1960,7 +2413,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -1977,7 +2429,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1986,7 +2437,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -1995,7 +2445,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2004,7 +2453,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2013,7 +2461,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2022,7 +2469,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2031,7 +2477,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2040,7 +2485,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2049,7 +2493,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -2066,7 +2509,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -2075,7 +2517,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>4</row>
@@ -2084,7 +2525,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2093,7 +2533,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2102,7 +2541,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>5</row>
@@ -2111,7 +2549,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2120,7 +2557,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2129,7 +2565,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>6</row>
@@ -2138,7 +2573,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -2155,7 +2589,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2164,7 +2597,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2173,7 +2605,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2182,7 +2613,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2191,7 +2621,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2200,7 +2629,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2209,7 +2637,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2218,7 +2645,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2227,7 +2653,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -2244,7 +2669,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2253,7 +2677,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2262,7 +2685,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2271,7 +2693,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2280,7 +2701,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2289,7 +2709,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2298,7 +2717,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2307,7 +2725,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2316,7 +2733,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>
@@ -2333,7 +2749,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2342,7 +2757,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>7</row>
@@ -2351,7 +2765,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2360,7 +2773,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2369,7 +2781,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>8</row>
@@ -2378,7 +2789,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2387,7 +2797,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2396,7 +2805,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
         <cell>
           <row>9</row>
@@ -2405,7 +2813,6 @@
           <value>-1</value>
           <edgeMarks/>
           <centre-marks/>
-          <candidates>1,2,3,4,5,6,7,8,9</candidates>
         </cell>
       </constraint-candidates>
       <target>45</target>

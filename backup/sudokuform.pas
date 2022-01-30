@@ -83,19 +83,19 @@ begin
     begin
     constraintCells:=getConstraintCells(row,-1,-1);
     lbLog.items.add('constraint cells '+length(constraintCells).ToString);
-    newConstraint:=TTargetConstraint.create('row'+row.ToString,constraintCells,'45');
+    newConstraint:=TTargetConstraint.create('row'+(row+1).ToString,constraintCells,'45');
     game.addConstraint(newConstraint);
     end;
   for col:=0 to 8 do
     begin
     constraintCells:=getConstraintCells(-1,col,-1);
-    newConstraint:=TTargetConstraint.create('col'+col.ToString,constraintCells,'45');
+    newConstraint:=TTargetConstraint.create('col'+(col+1).ToString,constraintCells,'45');
     game.addConstraint(newConstraint);
     end;
   for box:=0 to 8 do
     begin
     constraintCells:=getConstraintCells(-1,-1,box);
-    newConstraint:=TTargetConstraint.create('box'+box.ToString,constraintCells,'45');
+    newConstraint:=TTargetConstraint.create('box'+(box+1).ToString,constraintCells,'45');
     game.addConstraint(newConstraint);
     end;
 
