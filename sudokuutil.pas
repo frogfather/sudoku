@@ -309,7 +309,8 @@ begin
       addChildToNode(doc,cellNode,'value',curCell.value.ToString);
       addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
       addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-      addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+      //need to convert array of sudokuNumber to xml
+      //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
       end;
   result:=doc;
 end;

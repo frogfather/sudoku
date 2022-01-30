@@ -281,8 +281,11 @@ begin
     candidatesNode:=addChildToNode(baseGameDocument,constraintNode,'constraint-candidates');
     addCells(baseGameDocument,candidatesNode,currConstraint.getCandidates);
     //now add any specialisations
-    propertyValue:=
-
+    if currConstraint is TTargetConstraint then
+      with currConstraint as TTargetConstraint do
+        begin
+        addChildToNode(baseGameDocument,constraintNode,'target', target);
+        end;
     end;
   result:=baseGameDocument;
 end;

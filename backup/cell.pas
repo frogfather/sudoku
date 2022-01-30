@@ -22,6 +22,7 @@ type
     //What cell does this belong to?
     fParent:TObject;
     //Properties are all accessible by the containing cell only
+    fNotifyChange:TNotifyEvent;
     protected
     property parent: TObject read fParent;
     property usedInCalc: boolean read fUsedInCalc write fUsedInCalc;
@@ -29,8 +30,10 @@ type
     property exclude: boolean read fExclude write fExclude;
     property value: integer read fValue;
     public
-    constructor create(aOwner:TObject;initValue:integer=-1);
+    constructor create(aOwner:TObject;changeHandler:TNotifyEvent;initValue:integer=-1);
   end;
+
+  TSudokuNumbers = array of TSudokuNumber;
   
   { TCell }
 
@@ -42,7 +45,8 @@ type
     fValue: integer;
     fEdgeMarks: TIntArray;
     fCentreMarks: TIntArray;
-    fCandidates: TIntArray;
+    fCandidates: TSudokuNumbers;
+    procedure changeHandler(sender:TObject);
     public
     constructor create(row, column, box: integer;
       candidates:TIntArray;
@@ -58,7 +62,7 @@ type
     property value: integer read fValue;
     property centreMarks: TIntArray read fCentreMarks;
     property edgeMarks: TIntArray read fEdgeMarks;
-    property candidates:TIntArray read fCandidates;
+    property candidates:TSudokuNumbers read fCandidates;
   end;
 
   TCellArray = array of TCell;
@@ -68,27 +72,41 @@ implementation
 
 { TSudokuNumber }
 
-constructor TSudokuNumber.create(aOwner:TObject;initValue: integer);
+constructor TSudokuNumber.create(aOwner:TObject;changeHandler:TNotifyEvent;initValue: integer);
 begin
   fParent:=aOwner;
-  fValue:= value;
+  fValue:= initValue;
   fUsedInCalc:= false;
   fAvailable:= true;
   fExclude:= false;
+  fNotifyChange:= changeHandler;
 end;
 
 { TCell }
+
+procedure TCell.changeHandler(sender: TObject);
+begin
+  writeln('a cell signalled a change');
+end;
 
 constructor TCell.create(row, column, box: integer;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
   centreMarks:TIntArray=nil;
   value: integer=-1);
+var
+  sudokuNos: TSudokuNumbers;
+  index:integer;
 begin
   fRow:=row;
   fColumn:=column;
   fBox:=box;
-  fCandidates:=candidates;
+  //convert candidates into SudokuNumbers
+  sudokuNos:=TSudokuNumbers.create;
+  setLength(sudokuNos,length(candidates));
+  for index:=0 to pred(length(candidates)) do
+    sudokuNos[index]:= TSudokuNumber.create(self,candidates[index]);
+  fCandidates:=sudokuNos;
   fcentreMarks:= centreMarks;
   fEdgeMarks:= edgeMarks;
   fValue:=value;
