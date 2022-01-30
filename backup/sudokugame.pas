@@ -26,7 +26,7 @@ uses
 
   { TSudokuGame }
 
-  TSudokuGame = class(TInterfacedObject, ISubject)
+  TSudokuGame = class(TInterfacedObject, ISubject, ISudokuGame)
     private
     fName:string;
     fVersion:string;

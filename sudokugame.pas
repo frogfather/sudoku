@@ -16,14 +16,6 @@ uses
 
   ECalculateOption = (coEqual, coLess, coGreater, coNot);
 
-  { ISudokuGame }
-  ISudokuGame = interface
-  ['{9fe1c027-7133-499e-bc17-4697bfbef54b}']
-    procedure addConstraint(gameConstraint:iConstraint);
-    function generateGameDocument:TXMLDocument;
-  end;
-
-
   { TSudokuGame }
 
   TSudokuGame = class(TInterfacedObject, ISubject, ISudokuGame)

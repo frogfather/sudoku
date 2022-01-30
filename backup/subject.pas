@@ -5,7 +5,7 @@ unit subject;
 interface
 
 uses
-  Classes, SysUtils,laz2_DOM;
+  Classes, SysUtils;
 type
   IObserver = interface
     ['{a4350679-517f-4c72-b3f8-5cf7abfdf2be}']
