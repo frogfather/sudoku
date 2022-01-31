@@ -5,7 +5,7 @@ unit cell;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,subject;
+  Classes, SysUtils,arrayUtils;
 type
 
   TProcHandler = procedure();
@@ -13,34 +13,21 @@ type
   TSudokuNumber = class(TInterfacedObject)
     private
     fValue:integer;
-    //set by number itself if it is being used in a calculation
-    fUsedInCalc:boolean;
-    //is the number available either for display or calculation
     fAvailable:boolean;
-    //If another number has signalled that it is used in a calculation
-    //and constraints prevent this one being used in the calculation.
     fExclude:boolean;
-    //What cell does this belong to?
-    fParent:TObject;
-    //Properties are all accessible by the containing cell only
-    fNotifyChange:TNotifyEvent;
     protected
-    property parent: TObject read fParent;
     property available: boolean read fAvailable write fAvailable;
     property exclude: boolean read fExclude write fExclude;
     public
-    procedure useInCalc(bVal:boolean);
-    constructor create(aOwner:TObject;changeHandler:TNotifyEvent;initValue:integer=-1);
+    constructor create(aOwner:TObject;initValue:integer=-1);
     property value: integer read fValue;
-    property usedInCalc: boolean read fUsedInCalc;
-
   end;
 
   TSudokuNumbers = array of TSudokuNumber;
   
   { TCell }
 
-  TCell = class(TInterfacedObject,IObserver)
+  TCell = class(TInterfacedObject)
     private
     fRow: integer;
     fColumn: integer;
@@ -50,14 +37,8 @@ type
     fCentreMarks: TIntArray;
     fCandidates: TSudokuNumbers;
     fChangedCandidate: TSudokuNumber;
-    //To signal to the game that a number in this cell has changed
-    fNumberStateChanged: TNotifyEvent;
-    //To pick up signal from a sudokuNumber in this cell
-    procedure numberChangeHandler(sender:TObject);
-    procedure Update(subject: IInterface);
     public
     constructor create(row, column, box: integer;
-      numberStateHandler:TNotifyEvent;
       candidates:TIntArray;
       edgeMarks: TIntArray=nil;
       centreMarks:TIntArray=nil;
@@ -82,52 +63,17 @@ implementation
 
 { TSudokuNumber }
 
-procedure TSudokuNumber.useInCalc(bVal: boolean);
-begin
-  fUsedInCalc:=bVal;
-  fNotifyChange(self);
-end;
 
-constructor TSudokuNumber.create(aOwner:TObject;changeHandler:TNotifyEvent;initValue: integer);
+constructor TSudokuNumber.create(aOwner:TObject;initValue: integer);
 begin
-  fParent:=aOwner;
   fValue:= initValue;
-  fUsedInCalc:= false;
   fAvailable:= true;
   fExclude:= false;
-  fNotifyChange:= changeHandler;
 end;
 
 { TCell }
 
-procedure TCell.numberChangeHandler(sender: TObject);
-begin
-  if sender is TSudokuNumber then with sender as TSudokuNumber do
-    begin
-    if usedInCalc = true then
-      writeln('number '+value.tostring+' signalled change - used in calculation')
-    else
-      writeln('number '+value.tostring+' signalled change - not used in calculation');
-    end;
-  fChangedCandidate:=sender as TSudokuNumber;
-  //then signal the game which will work out constraints
-  fNumberStateChanged(self);
-end;
-
-procedure TCell.Update(subject: IInterface);
-var
-Obj: ISudokuGame;
-begin
-Subject.QueryInterface(ISudokuGame, Obj);
-if Obj <> nil then
-  begin
-  //would be nice if we could have some info on what
-  //numbers to exclude here
-  end;
-end;
-
 constructor TCell.create(row, column, box: integer;
-  numberStateHandler:TNotifyEvent;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
   centreMarks:TIntArray=nil;
@@ -143,27 +89,29 @@ begin
   sudokuNos:=TSudokuNumbers.create;
   setLength(sudokuNos,length(candidates));
   for index:=0 to pred(length(candidates)) do
-    sudokuNos[index]:= TSudokuNumber.create(self,@numberChangeHandler,candidates[index]);
+    sudokuNos[index]:= TSudokuNumber.create(self,candidates[index]);
   fCandidates:=sudokuNos;
   fcentreMarks:= centreMarks;
   fEdgeMarks:= edgeMarks;
   fValue:=value;
-  fNumberStateChanged:=numberStateHandler;
 end;
 
 procedure TCell.setValue(newValue: integer);
 begin
   fValue:=newValue;
+  fNumberStateChanged(self);
 end;
 
 procedure TCell.updateEdgeMarks(newValues: TIntArray);
 begin
   fEdgeMarks:=newValues;
+  fNumberStateChanged(self);
 end;
 
 procedure TCell.updateCentreMarks(newValues: TIntArray);
 begin
   fCentreMarks:=newValues;
+  fNumberStateChanged(self);
 end;
 
 end.

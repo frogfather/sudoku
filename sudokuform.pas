@@ -100,7 +100,6 @@ begin
     end;
 
   game.start;
-  game.cells[3].candidates[3].useInCalc(true);
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

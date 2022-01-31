@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, sudokuForm, sudokugame, cell, sudokuUtil, constraint;
+  Forms, sudokuForm, sudokugame, cell, sudokuUtil, constraint,
+  optionsCalculator, repeat_options, calculate_option;
 
 {$R *.res}
 

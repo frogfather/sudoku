@@ -5,16 +5,12 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,laz2_DOM;
+  Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
+  laz2_DOM,optionsCalculator,repeat_options;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
 
   type
-  ERepeatOption = (roRepeatInCage,roRepeatOnDiagonal);
-
-  ERepeatOptions = array of ERepeatOption;
-
-  ECalculateOption = (coEqual, coLess, coGreater, coNot);
 
   { TSudokuGame }
 
@@ -29,7 +25,6 @@ uses
     fCustomCells:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
-    procedure cellChangeHandler(sender:TObject);
     function loadGameCells(document:TXMLDocument;candidates:TIntArray):TCellArray;
     procedure setCells(cells: TCellArray; candidates:TIntArray);
     property version: string read fVersion;
@@ -54,70 +49,8 @@ uses
     property document: TXMLDocument read fDocument;
   end;
 
-  { TOptionsCalculator }
-  TOptionsCalculator = class(TInterfacedObject)
-    private
-    fGameNumbers: TIntArray; //the numbers allowed in this game - default 1..9
-    function doCalculate(
-      indices:TIntArray;
-      cells:TCellArray;
-      target:integer;
-      repeatOptions:ERepeatOptions;
-      operation:ECalculateOption):TStringArray;
-    public
-    constructor create(gameNumbers:TIntArray=nil);
-    function calculate(
-      const cells:TCellArray;
-      target:integer;
-      repeatOptions:ERepeatOptions;
-      operation:ECalculateOption=coEqual):TCellArray;
-  end;
-
 implementation
 
-{ TOptionsCalculator }
-
-function TOptionsCalculator.doCalculate(indices: TIntArray; cells: TCellArray;
-  target: integer; repeatOptions: ERepeatOptions; operation: ECalculateOption
-  ): TStringArray;
-begin
-
-end;
-
-constructor TOptionsCalculator.create(gameNumbers: TIntArray);
-begin
-  if gameNumbers <> nil then
-    fGameNumbers:=gameNumbers
-  else fGameNumbers:= TIntArray.create(1,2,3,4,5,6,7,8,9);
-end;
-
-function TOptionsCalculator.calculate(
-  const cells: TCellArray;
-  target:integer;
-  repeatOptions:ERepeatOptions;
-  operation:ECalculateOption): TCellArray;
-var
-  output:TCellArray;
-  indices:TIntArray;
-  index:integer;
-  matches:TStringArray;
-begin
-  //we want to pass in an array of cells
-  //and work out whether or not we can achieve the
-  //required result using the candidates of these cells
-  //So the result should be a set of 'results' where each
-  //result is a sequence of numbers
-  //For each cell, choose the next available number
-  //and then call again
-  output:=TCellArray.create;
-  setLength(output,length(cells));
-  indices:= TIntArray.create;
-  setLength(indices,length(cells));
-  for index:=0 to pred(length(indices)) do
-    indices[index]:=0;
-  matches:= doCalculate(indices,cells,target,repeatOptions,operation);
-  result:=output;
-end;
 
 { TSudokuGame }
 //create without file
@@ -208,29 +141,6 @@ begin
 
 end;
 
-procedure TSudokuGame.cellChangeHandler(sender: TObject);
-var
-  currentCell:TCell;
-  changedNr: TSudokuNumber;
-begin
-  if sender is TCell then
-    begin
-    currentCell:=sender as TCell;
-    //Only the game has information about constraints
-    //we need to re-run constraint calculations
-    //if a given cell has usedInCalc set true then
-    //other cells may have to exclude that number
-    //The game should signal to all affected cells that that number
-    //cannot be used.
-    writeln('Cell '+currentcell.row.ToString+' '+currentCell.col.ToString+' signalled a change');
-    changedNr:= currentCell.changedCandidate;
-    writeln('Number changed '+changedNr.value.ToString+' useInCalc now '+boolToStr(changedNr.usedInCalc));
-    //Now recalculate constraints and signal affected cells
-    //Need some kind of pub/sub setup here
-
-    end;
-end;
-
 function TSudokuGame.loadGameCells(document:TXMLDocument;candidates:TIntArray): TCellArray;
 var
   cellsNode,cellNode:TDOMNode;
@@ -240,9 +150,7 @@ var
   edgeMarks,centreMarks,cellCandidates:TIntArray;
   sCandidates:string;
 begin
-  //child of sudoku
   cellsNode:=getNode(document,'cells');
-  //
   if cellsNode <> nil then
     begin
     output:=TCellArray.create;
@@ -261,7 +169,7 @@ begin
         cellCandidates:=candidates
       else cellCandidates:= CSVToIntArray(sCandidates);
       output[index]:=TCell.create(row,column,box,
-      @cellChangeHandler,cellCandidates,edgeMarks,centreMarks,value);
+      cellCandidates,edgeMarks,centreMarks,value);
       end;
     end else output:=nil;
   result:=output;
@@ -289,7 +197,7 @@ begin
       box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
       fCells[(rowIndex * dimensions.X) + colIndex]
         := TCell.create(rowIndex+1,colIndex+1,box,
-        @cellChangeHandler,cellCandidates);
+        cellCandidates);
       end;
     end;
 end;
