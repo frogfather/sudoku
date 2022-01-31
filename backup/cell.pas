@@ -121,7 +121,8 @@ begin
 Subject.QueryInterface(ISudokuGame, Obj);
 if Obj <> nil then
   begin
-  //
+  //would be nice if we could have some info on what
+  //numbers to exclude here
   end;
 end;
 

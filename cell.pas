@@ -5,7 +5,7 @@ unit cell;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,subject;
+  Classes, SysUtils,arrayUtils;
 type
 
   TProcHandler = procedure();
@@ -40,7 +40,7 @@ type
   
   { TCell }
 
-  TCell = class(TInterfacedObject,IObserver)
+  TCell = class(TInterfacedObject)
     private
     fRow: integer;
     fColumn: integer;
@@ -54,7 +54,6 @@ type
     fNumberStateChanged: TNotifyEvent;
     //To pick up signal from a sudokuNumber in this cell
     procedure numberChangeHandler(sender:TObject);
-    procedure Update(subject: IInterface);
     public
     constructor create(row, column, box: integer;
       numberStateHandler:TNotifyEvent;
@@ -112,18 +111,6 @@ begin
   fChangedCandidate:=sender as TSudokuNumber;
   //then signal the game which will work out constraints
   fNumberStateChanged(self);
-end;
-
-procedure TCell.Update(subject: IInterface);
-var
-Obj: ISudokuGame;
-begin
-Subject.QueryInterface(ISudokuGame, Obj);
-if Obj <> nil then
-  begin
-  //would be nice if we could have some info on what
-  //numbers to exclude here
-  end;
 end;
 
 constructor TCell.create(row, column, box: integer;

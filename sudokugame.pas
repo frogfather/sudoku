@@ -5,7 +5,7 @@ unit sudokugame;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,subject,laz2_DOM;
+  Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,laz2_DOM;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
 
@@ -18,7 +18,7 @@ uses
 
   { TSudokuGame }
 
-  TSudokuGame = class(TInterfacedObject, ISubject, ISudokuGame)
+  TSudokuGame = class(TInterfacedObject)
     private
     fName:string;
     fVersion:string;
@@ -29,13 +29,11 @@ uses
     fCustomCells:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
-    fSubject: ISubject;
     procedure cellChangeHandler(sender:TObject);
     function loadGameCells(document:TXMLDocument;candidates:TIntArray):TCellArray;
     procedure setCells(cells: TCellArray; candidates:TIntArray);
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
-    property Subject: ISubject read fSubject implements ISubject;
     public
     constructor create(
       name:string;
@@ -133,7 +131,6 @@ var
   largestDimension,index:integer;
 begin
   inherited create;
-  fSubject:=TSubject.Create(self);
   fConstraints:=nil;
   fCells:=TCellArray.create;
   fCandidateSet:=candidates;
@@ -164,7 +161,6 @@ var
   gameCells:TCellArray;
 begin
   inherited create;
-  fSubject:=TSubject.Create(self);
   fDocument:=document;
   fCells:= TCellArray.create;
   //required
@@ -231,7 +227,7 @@ begin
     writeln('Number changed '+changedNr.value.ToString+' useInCalc now '+boolToStr(changedNr.usedInCalc));
     //Now recalculate constraints and signal affected cells
     //Need some kind of pub/sub setup here
-    subject.Notify;
+
     end;
 end;
 
