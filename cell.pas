@@ -56,7 +56,7 @@ type
     property changedCandidate: TSudokuNumber read fChangedCandidate;
   end;
 
-  TCellArray = array of TCell;
+  TCells = array of TCell;
   TGameArray = array of array of TCell;
 
 implementation

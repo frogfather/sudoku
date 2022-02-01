@@ -99,19 +99,16 @@ end;
 procedure TCell.setValue(newValue: integer);
 begin
   fValue:=newValue;
-  fNumberStateChanged(self);
 end;
 
 procedure TCell.updateEdgeMarks(newValues: TIntArray);
 begin
   fEdgeMarks:=newValues;
-  fNumberStateChanged(self);
 end;
 
 procedure TCell.updateCentreMarks(newValues: TIntArray);
 begin
   fCentreMarks:=newValues;
-  fNumberStateChanged(self);
 end;
 
 end.

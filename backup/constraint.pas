@@ -5,7 +5,7 @@ unit constraint;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell;
+  Classes, SysUtils,arrayUtils,cell,region;
 
 type
 
@@ -16,7 +16,7 @@ type
     function getId: string;
     function getName:string;
     function getType: EConstraintType;
-    function getCandidates: TCellArray; //cells that this constraint applies to
+    function getRegions: TRegions; //cells that this constraint applies to
 
   end;
 
@@ -27,13 +27,17 @@ type
     fId: string;
     fName: string;
     fType: EConstraintType;
-    fCandidates: TCellArray;
+    fRegions: TRegions;
     public
     function getId: string;
     function getName:string;
     function getType:EConstraintType;
-    function getCandidates:TCellArray;
-    constructor create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
+    function getRegions:TRegions;
+    constructor create(
+      gsName:string;
+      gsType:EConstraintType;
+      gsRegions:TRegions;
+      gsRepeats:boolean=false);
   end;
 
   TGameConstraints = array of IConstraint;
@@ -45,8 +49,8 @@ type
   fTarget:string;
   fAllowRepeats:boolean;
   public
-  target: string read fTarget;
-  constructor create(gsName:string;gsCandidates:TCellArray;gsTarget:string;gsRepeats:boolean=false);
+  property target: string read fTarget;
+  constructor create(gsName:string;gsRegions:TRegions;gsTarget:string;gsRepeats:boolean=false);
   end;
 
   { TRenbanConstraint }
@@ -61,10 +65,13 @@ type
 implementation
 
 { TTargetConstraint }
-constructor TTargetConstraint.create(gsName: string; gsCandidates: TCellArray;
-  gsTarget: string;gsRepeats:boolean=false);
+constructor TTargetConstraint.create(
+    gsName: string;
+    gsRegions: TRegions;
+    gsTarget: string;
+    gsRepeats:boolean=false);
 begin
-  inherited create(gsName,ctTarget,gsCandidates);
+  inherited create(gsName,ctTarget,gsRegions);
   fTarget:=gsTarget;
   fAllowRepeats:=gsRepeats;
 end;
@@ -86,16 +93,16 @@ begin
   result:=fType;
 end;
 
-function TGameConstraint.getCandidates: TCellArray;
+function TGameConstraint.getRegions: TRegions;
 begin
-  result:=fCandidates;
+  result:=fRegions;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsCandidates:TCellArray);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsRegions:TRegions);
 begin
   fName:=gsName;
   fType:=gsType;
-  fCandidates:=gsCandidates;
+  fRegions:=gsRegions;
 end;
 end.
 

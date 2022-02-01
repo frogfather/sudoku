@@ -8,6 +8,7 @@ uses
   Classes, SysUtils,constraint,
   arrayUtils,
   cell,
+  region,
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLWrite,
@@ -34,7 +35,7 @@ type
     function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
-    function addCells(doc:TXMLDocument;parent:TDOMNode;cells:TCellArray):TXMLDocument;
+    function addRegions(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
@@ -279,7 +280,7 @@ begin
     addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
     addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
     candidatesNode:=addChildToNode(baseGameDocument,constraintNode,'constraint-candidates');
-    addCells(baseGameDocument,candidatesNode,currConstraint.getCandidates);
+    addRegions(baseGameDocument,candidatesNode,currConstraint.getRegions);
     //now add any specialisations
     if currConstraint is TTargetConstraint then
       with currConstraint as TTargetConstraint do
@@ -290,27 +291,39 @@ begin
   result:=baseGameDocument;
 end;
 
-function addCells(doc:TXMLDocument;
+function addRegions(doc:TXMLDocument;
   parent:TDOMNode;
-  cells:TCellArray): TXMLDocument;
+  regions:TRegions): TXMLDocument;
 var
-  index:integer;
+  index,cellIndex:integer;
+  curRegion:TRegion;
   curCell:TCell;
-  cellNode:TDOMNode;
+  regionNode,cellsNode,cellNode:TDOMNode;
 begin
-  if length(cells) = 0 then exit;
-  for index:= 0 to pred(length(cells)) do
+  if length(regions) = 0 then exit;
+  for index:= 0 to pred(length(regions)) do
       begin
-      curCell:=cells[index];
-      cellNode:=addChildToNode(doc,parent,'cell');
-      addChildToNode(doc,cellNode,'row',curCell.row.ToString);
-      addChildToNode(doc,cellNode,'column',curCell.col.ToString);
-      addChildToNode(doc,cellNode,'box',curCell.box.ToString);
-      addChildToNode(doc,cellNode,'value',curCell.value.ToString);
-      addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-      addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-      //need to convert array of sudokuNumber to xml
-      //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+      //for each region there will be a name, an id and a list of cells
+      curRegion:=regions[index];
+      regionNode:=addChildToNode(doc,parent,'region');
+      addChildToNode(doc,regionNode,'region-name',curRegion.name);
+      addChildToNode(doc,regionNode,'region-id',curRegion.id);
+      if (length(curRegion.regionCells)>0) then
+        begin
+        cellsNode:= addChildToNode(doc,regionNode,'cells');
+        for cellIndex:=0 to pred(length(curRegion.regionCells)) do
+          begin
+          cellNode:=addChildToNode(doc,cellsNode,'cell');
+          addChildToNode(doc,cellNode,'row',curCell.row.ToString);
+          addChildToNode(doc,cellNode,'column',curCell.col.ToString);
+          addChildToNode(doc,cellNode,'box',curCell.box.ToString);
+          addChildToNode(doc,cellNode,'value',curCell.value.ToString);
+          addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
+          addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
+          //need to convert array of sudokuNumber to xml
+          //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+          end;
+        end;
       end;
   result:=doc;
 end;
