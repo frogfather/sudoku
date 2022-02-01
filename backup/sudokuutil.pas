@@ -305,12 +305,12 @@ begin
       begin
       //for each region there will be a name, an id and a list of cells
       curRegion:=regions[index];
-      regionNode:=addChildToNode(doc,regionsNode,'region');
+      regionNode:=addChildToNode(doc,parent,'region');
       addChildToNode(doc,regionNode,'region-name',curRegion.name);
       addChildToNode(doc,regionNode,'region-id',curRegion.id);
       if (length(curRegion.regionCells)>0) then
         begin
-        cellsNode:= addChildToNode(doc,regionNode,'cells');
+        cellsNode:= addChildToNode(doc,regionNode,'region-cells');
         for cellIndex:=0 to pred(length(curRegion.regionCells)) do
           begin
           cellNode:=addChildToNode(doc,cellsNode,'cell');

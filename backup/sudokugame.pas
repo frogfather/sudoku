@@ -262,7 +262,9 @@ begin
   if length(regions) > 0 then
     begin
     regionsNode:=getNode(doc,'regions');
-    addRegions(doc,
+    if (regionsNode = nil) then
+      regionsNode:= addNode(doc,'sudoku','regions');
+    addRegions(doc,regionsNode,regions);
     end;
   fDocument:=doc;
   result:=doc;

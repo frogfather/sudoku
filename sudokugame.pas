@@ -147,7 +147,7 @@ end;
 
 procedure TSudokuGame.addRegion(gameRegion: TRegion);
 begin
-  if started or (length(regions)=0) then exit;
+  if started then exit;
   if fRegions = nil then
     fRegions:= TRegions.create;
   setLength(fRegions,length(fRegions)+1);

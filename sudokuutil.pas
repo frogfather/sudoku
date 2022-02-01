@@ -310,9 +310,10 @@ begin
       addChildToNode(doc,regionNode,'region-id',curRegion.id);
       if (length(curRegion.regionCells)>0) then
         begin
-        cellsNode:= addChildToNode(doc,regionNode,'cells');
+        cellsNode:= addChildToNode(doc,regionNode,'region-cells');
         for cellIndex:=0 to pred(length(curRegion.regionCells)) do
           begin
+          curCell:=curRegion.regionCells[cellIndex];
           cellNode:=addChildToNode(doc,cellsNode,'cell');
           addChildToNode(doc,cellNode,'row',curCell.row.ToString);
           addChildToNode(doc,cellNode,'column',curCell.col.ToString);

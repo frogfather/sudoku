@@ -15,11 +15,11 @@ Type
       fName:string;
       fId:string;
       fCells:TCells;
-      property regionCells: TCells read fCells;
     public
       constructor create(regionName,regionId:string;cells:TCells);
       property name: String read fName;
       property id: string read fId;
+      property regionCells: TCells read fCells;
   end;
 
   TRegions = array of TRegion;

@@ -29,8 +29,8 @@ implementation
 
 constructor TRegion.create(regionName,regionId:string;cells: TCells);
 begin
-  fName:= name;
-  fId:=id;
+  fName:= regionName;
+  fId:=regionId;
   fCells:=cells;
 end;
 
