@@ -29,6 +29,7 @@ type
 
   TCell = class(TInterfacedObject)
     private
+    fCellId: TGUID;
     fRow: integer;
     fColumn: integer;
     fBox: integer;
@@ -43,9 +44,17 @@ type
       edgeMarks: TIntArray=nil;
       centreMarks:TIntArray=nil;
       value: integer=-1);
+    constructor create(row, column, box: integer;
+      id:TGUID;
+      candidates:TIntArray;
+      edgeMarks: TIntArray=nil;
+      centreMarks:TIntArray=nil;
+      value: integer=-1);
+
     procedure setValue(newValue:integer);
     procedure updateEdgeMarks(newValues:TIntArray);
     procedure updateCentreMarks(newValues:TIntArray);
+    property cellId: TGUID read fCellId;
     property row: integer read fRow;
     property col: integer read fColumn;
     property box: integer read fBox;
@@ -72,7 +81,7 @@ begin
 end;
 
 { TCell }
-
+//For new game: cellId is a new GUID
 constructor TCell.create(row, column, box: integer;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
@@ -82,6 +91,30 @@ var
   sudokuNos: TSudokuNumbers;
   index:integer;
 begin
+  createGUID(fCellId);
+  fRow:=row;
+  fColumn:=column;
+  fBox:=box;
+  //convert candidates into SudokuNumbers
+  sudokuNos:=TSudokuNumbers.create;
+  setLength(sudokuNos,length(candidates));
+  for index:=0 to pred(length(candidates)) do
+    sudokuNos[index]:= TSudokuNumber.create(self,candidates[index]);
+  fCandidates:=sudokuNos;
+  fcentreMarks:= centreMarks;
+  fEdgeMarks:= edgeMarks;
+  fValue:=value;
+end;
+
+//For game loaded from file: cellId is from saved data
+constructor TCell.create(row, column, box: integer; id: TGUID;
+  candidates: TIntArray; edgeMarks: TIntArray; centreMarks: TIntArray;
+  value: integer);
+var
+  sudokuNos: TSudokuNumbers;
+  index:integer;
+begin
+  fCellId:=id;
   fRow:=row;
   fColumn:=column;
   fBox:=box;
