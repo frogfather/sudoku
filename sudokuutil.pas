@@ -308,6 +308,8 @@ begin
       regionNode:=addChildToNode(doc,parent,'region');
       addChildToNode(doc,regionNode,'region-name',curRegion.name);
       addChildToNode(doc,regionNode,'region-id',curRegion.id);
+      //TODO regionId should be GUID
+      //region-cells should be a list of references to cells
       if (length(curRegion.regionCells)>0) then
         begin
         cellsNode:= addChildToNode(doc,regionNode,'region-cells');

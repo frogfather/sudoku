@@ -100,11 +100,23 @@ begin
     begin
     regionCells:=getCells(row,-1,-1);
     regionName:='Row'+(row+1).ToString;
-    //TODO check id is unique
     newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
     game.addRegion(newRegion);
     end;
-
+  for col:=0 to 8 do
+    begin
+    regionCells:=getCells(-1,col,-1);
+    regionName:='Col'+(col+1).ToString;
+    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    game.addRegion(newRegion);
+    end;
+  for box:=0 to 8 do
+    begin
+    regionCells:=getCells(-1,-1,box);
+    regionName:='Box'+(box+1).ToString;
+    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    game.addRegion(newRegion);
+    end;
   //for row:=0 to 8 do
   //  begin
   //  constraintCells:=getConstraintCells(row,-1,-1);

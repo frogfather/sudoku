@@ -133,6 +133,7 @@ begin
     begin
     curCell:=gameCells[cellIndex];
     cellNode:=addChildToNode(document,parent,'cell');
+    addChildToNode(document,cellNode,'cellId',curCell.cellId.ToString);
     addChildToNode(document,cellNode,'row',curCell.row.ToString);
     addChildToNode(document,cellNode,'column',curCell.col.ToString);
     addChildToNode(document,cellNode,'box',curCell.box.ToString);
@@ -183,6 +184,8 @@ function TSudokuGame.loadGameCells(document:TXMLDocument;candidates:TIntArray): 
 var
   cellsNode,cellNode:TDOMNode;
   output:TCells;
+  sCellId:string;
+  gCellId:TGUID;
   index:integer;
   row,column,box,value:integer;
   edgeMarks,centreMarks,cellCandidates:TIntArray;
@@ -196,6 +199,10 @@ begin
     for index:= 0 to pred(cellsNode.GetChildCount) do
       begin
       cellNode:=cellsNode.ChildNodes[index];
+      sCellId:= getChildNodeValue(cellNode,'cellId');
+      //TODO check result
+      tryStringToGuid(sCellId,gCellId);
+
       row:= getChildNodeValue(cellNode,'row').ToInteger;
       column:=getChildNodeValue(cellNode,'column').ToInteger;
       box:=getChildNodeValue(cellNode,'box').ToInteger;
@@ -206,7 +213,7 @@ begin
       if sCandidates <> '' then
         cellCandidates:=candidates
       else cellCandidates:= CSVToIntArray(sCandidates);
-      output[index]:=TCell.create(row,column,box,
+      output[index]:=TCell.create(row,column,box,gCellId,
       cellCandidates,edgeMarks,centreMarks,value);
       end;
     end else output:=nil;

@@ -147,7 +147,7 @@ end;
 
 procedure TSudokuGame.addRegion(gameRegion: TRegion);
 begin
-  if started or (length(regions)=0) then exit;
+  if started then exit;
   if fRegions = nil then
     fRegions:= TRegions.create;
   setLength(fRegions,length(fRegions)+1);
@@ -183,6 +183,8 @@ function TSudokuGame.loadGameCells(document:TXMLDocument;candidates:TIntArray): 
 var
   cellsNode,cellNode:TDOMNode;
   output:TCells;
+  sCellId:string;
+  gCellId:TGUID;
   index:integer;
   row,column,box,value:integer;
   edgeMarks,centreMarks,cellCandidates:TIntArray;
@@ -196,6 +198,10 @@ begin
     for index:= 0 to pred(cellsNode.GetChildCount) do
       begin
       cellNode:=cellsNode.ChildNodes[index];
+      sCellId:= getChildNodeValue(cellNode,'cellId');
+      //TODO check result
+      tryStringToGuid(sCellId,gCellId);
+
       row:= getChildNodeValue(cellNode,'row').ToInteger;
       column:=getChildNodeValue(cellNode,'column').ToInteger;
       box:=getChildNodeValue(cellNode,'box').ToInteger;
@@ -206,7 +212,7 @@ begin
       if sCandidates <> '' then
         cellCandidates:=candidates
       else cellCandidates:= CSVToIntArray(sCandidates);
-      output[index]:=TCell.create(row,column,box,
+      output[index]:=TCell.create(row,column,box,gCellId,
       cellCandidates,edgeMarks,centreMarks,value);
       end;
     end else output:=nil;
