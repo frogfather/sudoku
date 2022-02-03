@@ -98,7 +98,7 @@ begin
   result:=fRegions;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsRegions:TRegions);
+constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsRegions:TRegions;gsRepeats:boolean=false);
 begin
   fName:=gsName;
   fType:=gsType;

@@ -20,7 +20,9 @@ type
     function readXML(filename: string): TXMLDocument;
     procedure writeXML(doc: TXMLDocument; filename: string);
     function getNode(document: TXMLDocument; nodeName: string;
-          findTextValue: boolean = False): TDomNode;
+          findTextValue: boolean = False;
+          parent:TDOMNode=nil;
+          addIfNotFound:boolean=false): TDomNode;
     function getNode(document: TXMLDocument;node:TDOMNode;
           findTextValue: boolean = false):TDOMNode;
     function getNodeValue(document:TXMLDocument;nodeName:string):string;
@@ -32,10 +34,7 @@ type
           findTextValue: boolean = False): TDomNode;
     function validateXML(document: TXMLDocument): boolean;
     function loadAndValidate(filename:string):TXMLDocument;
-    function generateBaseGameDocument(name:string;version:string;rows,columns:integer):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
-    function addConstraints(baseGameDocument:TXMLDocument;constraints:TGameConstraints):TXMLDocument;
-    function addRegions(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
 implementation
 { TSudokuUtil }
@@ -59,22 +58,28 @@ begin
   writeXMLFile(doc, filename);
 end;
 
-function getNode(document: TXMLDocument; nodeName: string;
-  findTextValue: boolean): TDomNode;
+function getNode(
+  document: TXMLDocument;
+  nodeName: string;
+  findTextValue: boolean=false;
+  parent:TDOMNode=nil;
+  addIfNotFound:boolean=false): TDomNode;
 var
-  startNode: TDomNode;
+  startNode,foundNode: TDomNode;
+
 begin
-  startNode := document.DocumentElement;
-  Result := findInXml(startNode, nodeName, findTextValue);
+  if parent = nil then
+     startNode := document.DocumentElement
+  else startNode:= parent;
+  foundNode := findInXml(startNode, nodeName, findTextValue);
+  if (foundNode = nil) and (addIfNotFound) then
+    addNode(document,startNode.TextContent,nodeName);
 end;
 
 function getNode(document: TXMLDocument; node: TDOMNode;
   findTextValue: boolean): TDOMNode;
-var
-  startNode:TDomNode;
 begin
-  startNode:= document.DocumentElement;
-  result:=findInXML(startNode,node.NodeName,findTextValue);
+  result:=getNode(document,node.NodeName,findTextValue);
 end;
 
 function getNodeValue(document: TXMLDocument; nodeName: string): string;
@@ -231,21 +236,6 @@ begin
   if validateXML(document) then result:=document;
 end;
 
-function generateBaseGameDocument(name: string;version:string; rows,
-  columns: integer): TXMLDocument;
-var
-  doc:TXMLDocument;
-begin
-  doc:=TXMLDocument.Create;
-  addNode(doc,'','sudoku');
-  addNode(doc,'sudoku','name',name);
-  addNode(doc,'sudoku','version',version);
-  addNode(doc,'sudoku','base-game');
-  addNode(doc,'base-game','rows',rows.ToString);
-  addNode(doc,'base-game','columns',columns.ToString);
-  result:=doc;
-end;
-
 function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray): TXMLDocument;
 var
   constraintsNode:TDOMNode;
@@ -259,75 +249,6 @@ begin
   result:=baseGameDocument;
 end;
 
-function addConstraints(baseGameDocument: TXMLDocument;
-  constraints: TGameConstraints): TXMLDocument;
-var
-  constraintsNode,constraintNode,candidatesNode:TDomNode;
-  currConstraint:iConstraint;
-  index:integer;
-  typeString:String;
-  propertyValue:string;
-begin
-  constraintsNode:= getNode(baseGameDocument,'constraints');
-  if constraintsNode = nil then
-     constraintsNode:= addNode(baseGameDocument,'sudoku','constraints');
-  for index:=0 to pred(length(constraints)) do
-    begin
-    currConstraint:=constraints[index];
-    writeStr(typeString,currConstraint.getType);
-    constraintNode:= addChildToNode(baseGameDocument,constraintsNode,'constraint');
-    addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
-    addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
-    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
-    candidatesNode:=addChildToNode(baseGameDocument,constraintNode,'constraint-candidates');
-    addRegions(baseGameDocument,candidatesNode,currConstraint.getRegions);
-    //now add any specialisations
-    if currConstraint is TTargetConstraint then
-      with currConstraint as TTargetConstraint do
-        begin
-        addChildToNode(baseGameDocument,constraintNode,'target', target);
-        end;
-    end;
-  result:=baseGameDocument;
-end;
-
-function addRegions(doc:TXMLDocument;
-  parent:TDOMNode;
-  regions:TRegions): TXMLDocument;
-var
-  index,cellIndex:integer;
-  curRegion:TRegion;
-  curCell:TCell;
-  regionNode,cellsNode,cellNode:TDOMNode;
-begin
-  if length(regions) = 0 then exit;
-  for index:= 0 to pred(length(regions)) do
-      begin
-      //for each region there will be a name, an id and a list of cells
-      curRegion:=regions[index];
-      regionNode:=addChildToNode(doc,parent,'region');
-      addChildToNode(doc,regionNode,'region-name',curRegion.name);
-      addChildToNode(doc,regionNode,'region-id',curRegion.id);
-      if (length(curRegion.regionCells)>0) then
-        begin
-        cellsNode:= addChildToNode(doc,regionNode,'region-cells');
-        for cellIndex:=0 to pred(length(curRegion.regionCells)) do
-          begin
-          curCell:=curRegion.regionCells[cellIndex];
-          cellNode:=addChildToNode(doc,cellsNode,'cell');
-          addChildToNode(doc,cellNode,'row',curCell.row.ToString);
-          addChildToNode(doc,cellNode,'column',curCell.col.ToString);
-          addChildToNode(doc,cellNode,'box',curCell.box.ToString);
-          addChildToNode(doc,cellNode,'value',curCell.value.ToString);
-          addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-          addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-          //need to convert array of sudokuNumber to xml
-          //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
-          end;
-        end;
-      end;
-  result:=doc;
-end;
 
 function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;
   textValue:string=''): TDOMNode;

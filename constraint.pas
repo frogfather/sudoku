@@ -40,7 +40,7 @@ type
       gsRepeats:boolean=false);
   end;
 
-  TGameConstraints = array of IConstraint;
+  TConstraints = array of IConstraint;
 
   { TTargetConstraint }
   //row, column, box, cage, arrow
