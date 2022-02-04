@@ -25,14 +25,14 @@ uses
     fStarted:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
-    fOptionsCalculator: TOptionsCalculator;
     function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
     procedure setCells(cells: TCells; candidates:TIntArray);
+    function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
+    function addNumbersToCell(numbers:TIntArray):TCell;
     function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
     function addConstraintsToDocument(baseGameDocument:TXMLDocument;constraints:TConstraints):TXMLDocument;
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
-    property regions:TRegions read fRegions;
     property constraints: TConstraints read fConstraints;
     public
     constructor create(
@@ -42,7 +42,6 @@ uses
       cells:TCells=nil;
       gConstraints:TConstraints=nil);
     constructor create(document:TXMLDocument);
-    function addCells(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
     procedure addRegion(gameRegion:TRegion);
     procedure addConstraint(gameConstraint:iConstraint);
     function generateGameDocument:TXMLDocument;
@@ -51,6 +50,7 @@ uses
     procedure reset;
     property cells:TCells read fCells;
     property name:string read fName;
+    property regions:TRegions read fRegions;
     property started:boolean read fStarted;
     property dimensions:TPoint read fDimensions;
     property document: TXMLDocument read fDocument;
@@ -91,7 +91,6 @@ begin
   fStarted:=false;
   fConstraints:=constraints;
   fDocument:=nil;
-  fOptionsCalculator:= TOptionsCalculator.create(candidates);
 end;
 //create from file
 constructor TSudokuGame.create(document:TXMLDocument);
@@ -120,11 +119,10 @@ begin
   gameCells:= readCellsFromFile(document,candidates);
   setCells(gameCells, candidates);
   //add constraints
-  fOptionsCalculator:= TOptionsCalculator.create(candidates);
   fStarted:=false;
 end;
 
-function TSudokuGame.addCells(document:TXMLDocument;parent:TDOMNode;gameCells: TCells):TXMLDocument;
+function TSudokuGame.addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells: TCells):TXMLDocument;
 var
   cellIndex:integer;
   cellNode:TDOMNode;
@@ -258,7 +256,7 @@ begin
   if length(regions) = 0 then exit;
   for index:= 0 to pred(length(regions)) do
       begin
-      //for each region there will be a name, an id and a list of cells
+      //for each region there will be a name, an id and a list of cell references
       curRegion:=regions[index];
       regionNode:=addChildToNode(doc,parent,'region');
       addChildToNode(doc,regionNode,'region-name',curRegion.name);
@@ -272,14 +270,7 @@ begin
           begin
           curCell:=curRegion.regionCells[cellIndex];
           cellNode:=addChildToNode(doc,cellsNode,'cell');
-          addChildToNode(doc,cellNode,'row',curCell.row.ToString);
-          addChildToNode(doc,cellNode,'column',curCell.col.ToString);
-          addChildToNode(doc,cellNode,'box',curCell.box.ToString);
-          addChildToNode(doc,cellNode,'value',curCell.value.ToString);
-          addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-          addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-          //need to convert array of sudokuNumber to xml
-          //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
+          addChildToNode(doc,cellNode,'cell-id',curCell.cellId.ToString);
           end;
         end;
       end;
@@ -293,7 +284,6 @@ var
   currConstraint:iConstraint;
   index:integer;
   typeString:String;
-  propertyValue:string;
 begin
   constraintsNode:= getNode(baseGameDocument,'constraints');
   if constraintsNode = nil then
@@ -318,6 +308,11 @@ begin
   result:=baseGameDocument;
 end;
 
+function TSudokuGame.addNumbersToCell(numbers: TIntArray): TCell;
+begin
+
+end;
+
 function TSudokuGame.generateGameDocument: TXMLDocument;
 var
   doc:TXMLDocument;
@@ -333,7 +328,7 @@ begin
   addNode(doc,'base-game','columns',dimensions.X.ToString);
     begin
     cellsNode:=getNode(doc,'cells',false,nil,true);
-    doc:= addCells(doc,cellsNode, cells);
+    doc:= addCellsToDocument(doc,cellsNode, cells);
     end;
   if length(regions) > 0 then
     begin
