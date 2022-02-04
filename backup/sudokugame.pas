@@ -6,10 +6,10 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM,optionsCalculator,repeat_options,region;
+  laz2_DOM,repeat_options,region;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
-
+  const gameVersion: string = '0.0.2';
   type
 
   { TSudokuGame }
@@ -71,6 +71,7 @@ var
   largestDimension,index:integer;
 begin
   inherited create;
+  fVersion:=gameVersion;
   fConstraints:=nil;
   fCells:=TCells.create;
   fCandidateSet:=candidates;
@@ -259,7 +260,7 @@ begin
     writeStr(typeString,currConstraint.getType);
     constraintNode:= addChildToNode(baseGameDocument,parent,'constraint');
     //All constraint types will have id, name, type, regions
-    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId.ToString);
     addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
     addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
     constraintRegions:= currConstraint.getRegions;

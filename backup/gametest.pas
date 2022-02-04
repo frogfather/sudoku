@@ -5,7 +5,7 @@ unit gameTest;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,sudokuGame,sudokuUtil;
+  Classes, SysUtils, fpcunit, testutils, testregistry,sudokuGame,sudokuUtil,laz2_DOM;
 
 type
 
@@ -20,17 +20,15 @@ type
   published
     procedure DefaultGameDimensions;
     procedure GameName;
-    procedure DocumentHasNoCellsIfDefault;
-    procedure DocumentHasCellsIfStarted;
-    procedure DocumentHasCellsIfNonStandard;
+    procedure SavedDocument;
   end;
 
 implementation
 
 procedure TGameTest.DefaultGameDimensions;
 begin
-  assertEquals(dimensions.X,9);
-  assertEquals(dimensions.Y,9);
+  assertEquals(fGame.dimensions.X,9);
+  assertEquals(fGame.dimensions.Y,9);
 end;
 
 procedure TGameTest.GameName;
@@ -38,28 +36,25 @@ begin
   assertEquals(fGame.name,'testGame');
 end;
 
-procedure TGameTest.DocumentHasNoCellsIfDefault;
-
-begin
-  fGame.generateGameDocument;
-  assertNull(getNode(fGame.Document,'cells'));
-end;
-
-procedure TGameTest.DocumentHasCellsIfStarted;
-begin
-  fGame.start;
-  fGame.generateGameDocument;
-  assertNotNull(getNode(fGame.document,'cells'));
-end;
-
-procedure TGameTest.DocumentHasCellsIfNonStandard;
+procedure TGameTest.SavedDocument;
 var
-  nsGame:TSudokuGame;
+  savedGame:TXMLDocument;
+  baseGameNode:TDOMNode;
+  nameNodeValue,versionNodeValue,rowsNodeValue,columnsNodeValue: string;
 begin
-  nsGame:=TSudokuGame.create('testGame',TPoint.Create(6,7));
-  nsGame.generateGameDocument;
-  assertNotNull(getNode(nsGame.document,'cells'));
+  savedGame:=fGame.generateGameDocument;
+  nameNodeValue:=getNodeValue(savedGame,'name');
+  versionNodeValue:= getNodeValue(savedGame,'version');
+  baseGameNode:=getNode(savedGame,'base-game');
+  rowsNodeValue:=getNodeValue(savedGame,baseGameNode,'rows');
+  columnsNodeValue:=getNodeValue(savedGame,baseGameNode,'columns');
+  assertEquals('testGame', nameNodeValue);
+  assertEquals(gameVersion, versionNodeValue);
+  assertEquals(rowsNodeValue,'9');
+  assertEquals(columnsNodeValue,'8');
 end;
+
+
 
 procedure TGameTest.SetUp;
 begin

@@ -96,6 +96,7 @@ begin
     regionName:='Col'+(col+1).ToString;
     newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for box:=0 to 8 do
     begin
@@ -103,9 +104,8 @@ begin
     regionName:='Box'+(box+1).ToString;
     newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
-  //add constraints
-
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

@@ -54,11 +54,9 @@ end;
 procedure TmainForm.Button1Click(Sender: TObject);
 var
   game:TSudokuGame;
-  newConstraint:iConstraint;
   row,col,box:integer;
   regionCells:TCells;
   newRegion:TRegion;
-  newRegions:TRegions;
   regionName:string;
 
   function getCells(row,col,box:integer):TCells;
@@ -106,8 +104,6 @@ begin
     game.addRegion(newRegion);
     game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
-  //add constraints
-
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

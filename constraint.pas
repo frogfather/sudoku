@@ -5,7 +5,7 @@ unit constraint;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell,region;
+  Classes, SysUtils,arrayUtils,region;
 
 type
 
@@ -16,7 +16,7 @@ type
     function getId: TGUID;
     function getName:string;
     function getType: EConstraintType;
-    function getRegions: TRegions; //cells that this constraint applies to
+    function getRegions: TRegions;
   end;
 
   { TGameConstraint }
@@ -35,14 +35,12 @@ type
     constructor create(
       gsName:string;
       gsType:EConstraintType;
-      gsRegions:TRegions;
-      gsRepeats:boolean=false);
+      gsRegions:TRegions);
     constructor create(
       gsId: TGUID;
       gsName:string;
       gsType:EConstraintType;
-      gsRegions:TRegions;
-      gsRepeats:boolean=false);
+      gsRegions:TRegions);
   end;
 
   TConstraints = array of IConstraint;
@@ -76,10 +74,9 @@ constructor TGameConstraint.create(
       gsId: TGUID;
       gsName:string;
       gsType:EConstraintType;
-      gsRegions:TRegions;
-      gsRepeats:boolean=false);
+      gsRegions:TRegions);
 begin
-  createGUID(fId);
+  fId:= gsId;
   fName:=gsName;
   fType:=gsType;
   fRegions:=gsRegions;
@@ -88,9 +85,9 @@ end;
 constructor TGameConstraint.create(
       gsName:string;
       gsType:EConstraintType;
-      gsRegions:TRegions;
-      gsRepeats:boolean=false);
+      gsRegions:TRegions);
 begin
+  createGUID(fId);
   fName:=gsName;
   fType:=gsType;
   fRegions:=gsRegions;
