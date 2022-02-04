@@ -73,7 +73,8 @@ begin
   else startNode:= parent;
   foundNode := findInXml(startNode, nodeName, findTextValue);
   if (foundNode = nil) and (addIfNotFound) then
-    addNode(document,startNode.TextContent,nodeName);
+    foundNode:= addNode(document,startNode.TextContent,nodeName);
+  result:= foundNode;
 end;
 
 function getNode(document: TXMLDocument; node: TDOMNode;

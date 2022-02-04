@@ -103,6 +103,7 @@ begin
     newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
     end;
+  //add constraints
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

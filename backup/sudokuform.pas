@@ -93,14 +93,14 @@ begin
     begin
     regionCells:=getCells(-1,col,-1);
     regionName:='Col'+(col+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
     end;
   for box:=0 to 8 do
     begin
     regionCells:=getCells(-1,-1,box);
     regionName:='Box'+(box+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
     end;
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');

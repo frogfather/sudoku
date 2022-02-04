@@ -28,7 +28,7 @@ uses
     function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
     procedure setCells(cells: TCells; candidates:TIntArray);
     function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
-    function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;numbers:TSudokuNumbers):TXMLDocument;
+    function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
     function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
     function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
     property version: string read fVersion;
@@ -179,7 +179,7 @@ function TSudokuGame.addCellsToDocument(
   gameCells: TCells):TXMLDocument;
 var
   cellIndex:integer;
-  cellNode,cellNumberNode:TDOMNode;
+  cellNode,cellNumbersNode:TDOMNode;
   curCell:TCell;
 begin
   for cellIndex:=0 to pred(length(gameCells)) do
@@ -193,22 +193,22 @@ begin
     addChildToNode(document,cellNode,'value',curCell.value.ToString);
     addChildToNode(document,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
     addChildToNode(document,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-    cellNumberNode:=addChildToNode(document,cellNode,'cell-numbers');
-    addCellNumbersToDocument(document,cellNumberNode,curCell.candidates);
+    cellNumbersNode:=addChildToNode(document,cellNode,'cell-numbers');
+    addCellNumbersToDocument(document,cellNumbersNode,curCell.candidates);
     end;
   result:=document;
 end;
 
-function TSudokuGame.addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;numbers:TSudokuNumbers):TXMLDocument;
+function TSudokuGame.addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
 var
   index:integer;
   cellNumberNode:TDOMNode;
 begin
-  for index:= 0 to pred(length(numbers)) do
+  for index:= 0 to pred(length(cellNumbers)) do
     begin
     cellNumberNode:= addChildToNode(document,cellNumbersNode,'cell-number');
-    addChildToNode(document,cellNumberNode, numbers[index].value.ToString);
-    addChildToNode(document,cellNumberNode, numbers[index].available.ToString);
+    addChildToNode(document,cellNumberNode, 'cell-number-value',cellNumbers[index].value.ToString);
+    addChildToNode(document,cellNumberNode, 'cell-number-available',cellNumbers[index].available.ToString);
     end;
   result:=document;
 end;
