@@ -56,9 +56,9 @@ var
   game:TSudokuGame;
   newConstraint:iConstraint;
   row,col,box:integer;
-  constraintCells:TCells;
   regionCells:TCells;
   newRegion:TRegion;
+  newRegions:TRegions;
   regionName:string;
 
   function getCells(row,col,box:integer):TCells;
@@ -88,6 +88,7 @@ begin
     regionName:='Row'+(row+1).ToString;
     newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for col:=0 to 8 do
     begin
@@ -103,6 +104,8 @@ begin
     newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
     end;
+  //add constraints
+
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

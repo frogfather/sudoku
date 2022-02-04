@@ -259,7 +259,7 @@ begin
     writeStr(typeString,currConstraint.getType);
     constraintNode:= addChildToNode(baseGameDocument,parent,'constraint');
     //All constraint types will have id, name, type, regions
-    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId.ToString);
     addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
     addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
     constraintRegions:= currConstraint.getRegions;

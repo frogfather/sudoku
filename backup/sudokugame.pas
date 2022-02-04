@@ -207,8 +207,8 @@ begin
   for index:= 0 to pred(length(cellNumbers)) do
     begin
     cellNumberNode:= addChildToNode(document,cellNumbersNode,'cell-number');
-    addChildToNode(document,cellNumberNode, cellNumbers[index].value.ToString);
-    addChildToNode(document,cellNumberNode, cellNumbers[index].available.ToString);
+    addChildToNode(document,cellNumberNode, 'cell-number-value',cellNumbers[index].value.ToString);
+    addChildToNode(document,cellNumberNode, 'cell-number-available',cellNumbers[index].available.ToString);
     end;
   result:=document;
 end;
