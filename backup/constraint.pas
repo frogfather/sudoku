@@ -29,10 +29,10 @@ type
     fType: EConstraintType;
     fRegions: TRegions;
     public
-    function getId: string;
-    function getName:string;
-    function getType:EConstraintType;
-    function getRegions:TRegions;
+    property id:string read fId;
+    property name: string read fName;
+    property constraintType: EConstraintType read fType;
+    property regions: TRegions read fRegions;
     constructor create(
       gsName:string;
       gsType:EConstraintType;
@@ -40,7 +40,7 @@ type
       gsRepeats:boolean=false);
   end;
 
-  TGameConstraints = array of IConstraint;
+  TConstraints = array of IConstraint;
 
   { TTargetConstraint }
   //row, column, box, cage, arrow
@@ -77,26 +77,6 @@ begin
 end;
 
 { TGameConstraint }
-
-function TGameConstraint.getId: string;
-begin
-  result:=fId;
-end;
-
-function TGameConstraint.getName: string;
-begin
-  result:=fName;
-end;
-
-function TGameConstraint.getType: EConstraintType;
-begin
-  result:=fType;
-end;
-
-function TGameConstraint.getRegions: TRegions;
-begin
-  result:=fRegions;
-end;
 
 constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsRegions:TRegions;gsRepeats:boolean=false);
 begin

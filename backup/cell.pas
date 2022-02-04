@@ -21,6 +21,7 @@ type
     public
     constructor create(aOwner:TObject;initValue:integer=-1);
     property value: integer read fValue;
+    property available:boolean read fAvailable;
   end;
 
   TSudokuNumbers = array of TSudokuNumber;
@@ -81,7 +82,7 @@ begin
 end;
 
 { TCell }
-
+//For new game: cellId is a new GUID
 constructor TCell.create(row, column, box: integer;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
@@ -106,6 +107,7 @@ begin
   fValue:=value;
 end;
 
+//For game loaded from file: cellId is from saved data
 constructor TCell.create(row, column, box: integer; id: TGUID;
   candidates: TIntArray; edgeMarks: TIntArray; centreMarks: TIntArray;
   value: integer);
