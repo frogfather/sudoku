@@ -14,6 +14,7 @@ type
   TGameTest= class(TTestCase)
   private
     fGame:TSudokuGame;
+    fDocument:TXMLDocument;
   protected
     procedure SetUp; override;
     procedure TearDown; override;
@@ -38,20 +39,18 @@ end;
 
 procedure TGameTest.SavedDocument;
 var
-  savedGame:TXMLDocument;
   baseGameNode:TDOMNode;
   nameNodeValue,versionNodeValue,rowsNodeValue,columnsNodeValue: string;
 begin
-  savedGame:=fGame.generateGameDocument;
-  nameNodeValue:=getNodeValue(savedGame,'name');
-  versionNodeValue:= getNodeValue(savedGame,'version');
-  baseGameNode:=getNode(savedGame,'base-game');
-  rowsNodeValue:=getNodeValue(savedGame,baseGameNode,'rows');
-  columnsNodeValue:=getNodeValue(savedGame,baseGameNode,'columns');
+  nameNodeValue:=getNodeValue(fDocument,'name');
+  versionNodeValue:= getNodeValue(fDocument,'version');
+  baseGameNode:=getNode(fDocument,'base-game');
+  rowsNodeValue:=getNodeValue(fDocument,baseGameNode,'rows');
+  columnsNodeValue:=getNodeValue(fDocument,baseGameNode,'columns');
   assertEquals('testGame', nameNodeValue);
   assertEquals(gameVersion, versionNodeValue);
   assertEquals(rowsNodeValue,'9');
-  assertEquals(columnsNodeValue,'8');
+  assertEquals(columnsNodeValue,'9');
 end;
 
 
@@ -59,6 +58,7 @@ end;
 procedure TGameTest.SetUp;
 begin
 fGame:=TSudokuGame.create('testGame',TPoint.Create(9,9));
+fDocument:=fGame.generateGameDocument;
 end;
 
 procedure TGameTest.TearDown;

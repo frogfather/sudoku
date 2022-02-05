@@ -21,7 +21,7 @@ type
   published
     procedure DefaultGameDimensions;
     procedure GameName;
-    procedure SavedDocument;
+    procedure SavedDocumentBasics;
   end;
 
 implementation
@@ -37,7 +37,7 @@ begin
   assertEquals(fGame.name,'testGame');
 end;
 
-procedure TGameTest.SavedDocument;
+procedure TGameTest.SavedDocumentBasics;
 var
   baseGameNode:TDOMNode;
   nameNodeValue,versionNodeValue,rowsNodeValue,columnsNodeValue: string;

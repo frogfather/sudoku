@@ -20,17 +20,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sudokuForm"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="46"/>
-        <CursorPos X="21" Y="59"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="41" Y="50"/>
         <UsageCount Value="75"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="sudokugame.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="5"/>
-        <CursorPos X="12" Y="9"/>
+        <TopLine Value="93"/>
+        <CursorPos X="26" Y="106"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit2>

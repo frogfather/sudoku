@@ -11,7 +11,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
       </Unit0>
       <Unit1>
         <Filename Value="sudokuform.pas"/>
@@ -20,19 +20,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sudokuForm"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="39"/>
         <CursorPos X="41" Y="50"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="sudokugame.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="93"/>
         <CursorPos X="26" Y="106"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -42,7 +41,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="77" Y="24"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
       </Unit3>
       <Unit4>
         <Filename Value="anysort.pas"/>
@@ -51,15 +50,14 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
       </Unit4>
       <Unit5>
         <Filename Value="cell.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="97"/>
-        <CursorPos X="25" Y="93"/>
-        <UsageCount Value="75"/>
+        <TopLine Value="9"/>
+        <UsageCount Value="76"/>
       </Unit5>
       <Unit6>
         <Filename Value="sudokuutil.pas"/>
@@ -67,7 +65,7 @@
         <UnitName Value="sudokuUtil"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="54" Y="14"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
       </Unit6>
       <Unit7>
         <Filename Value="fileutilities.pas"/>
@@ -76,15 +74,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3"/>
         <CursorPos X="14" Y="11"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="76"/>
       </Unit7>
       <Unit8>
         <Filename Value="constraint.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="79"/>
-        <CursorPos X="25" Y="88"/>
-        <UsageCount Value="64"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="23"/>
+        <CursorPos X="73" Y="12"/>
+        <UsageCount Value="65"/>
+        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="optionscalculator.pas"/>
@@ -93,28 +92,29 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="21"/>
         <CursorPos X="3" Y="41"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
       </Unit9>
       <Unit10>
         <Filename Value="repeat_options.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
       </Unit10>
       <Unit11>
         <Filename Value="calculate_option.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="10"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
       </Unit11>
       <Unit12>
         <Filename Value="region.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="5"/>
-        <CursorPos X="44" Y="20"/>
-        <UsageCount Value="28"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="7"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="subject.pas"/>
@@ -200,7 +200,7 @@
         <UsageCount Value="20"/>
       </Unit23>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="sudokugame.pas"/>
         <Caret Line="188" TopLine="173"/>
@@ -289,6 +289,10 @@
         <Filename Value="sudokugame.pas"/>
         <Caret Line="9" Column="34"/>
       </Position22>
+      <Position23>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="106" Column="26"/>
+      </Position23>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
