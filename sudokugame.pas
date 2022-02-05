@@ -6,10 +6,10 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM,optionsCalculator,repeat_options,region;
+  laz2_DOM, repeat_options, region;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
-
+  const gameVersion: string = '0.0.2';
   type
 
   { TSudokuGame }
@@ -25,11 +25,12 @@ uses
     fStarted:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
-    fOptionsCalculator: TOptionsCalculator;
     function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
     procedure setCells(cells: TCells; candidates:TIntArray);
+    function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
+    function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
     function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
-    function addConstraintsToDocument(baseGameDocument:TXMLDocument;constraints:TConstraints):TXMLDocument;
+    function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
     property constraints: TConstraints read fConstraints;
@@ -40,8 +41,7 @@ uses
       candidates:TIntArray=nil;
       cells:TCells=nil;
       gConstraints:TConstraints=nil);
-    constructor create(document:TXMLDocument);
-    function addCells(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
+    constructor create(document:TXMLDocument = nil);
     procedure addRegion(gameRegion:TRegion);
     procedure addConstraint(gameConstraint:iConstraint);
     function generateGameDocument:TXMLDocument;
@@ -60,7 +60,7 @@ implementation
 
 
 { TSudokuGame }
-//create without file
+// ------------ Constructors ----------------------
 constructor TSudokuGame.create(
   name:string;
   gameDimensions:TPoint;
@@ -71,6 +71,7 @@ var
   largestDimension,index:integer;
 begin
   inherited create;
+  fVersion:=gameVersion;
   fConstraints:=nil;
   fCells:=TCells.create;
   fCandidateSet:=candidates;
@@ -91,10 +92,9 @@ begin
   fStarted:=false;
   fConstraints:=constraints;
   fDocument:=nil;
-  fOptionsCalculator:= TOptionsCalculator.create(candidates);
 end;
-//create from file
-constructor TSudokuGame.create(document:TXMLDocument);
+
+constructor TSudokuGame.create(document:TXMLDocument = nil);
 var
   rows,columns:integer;
   sCandidates:string;
@@ -120,33 +120,10 @@ begin
   gameCells:= readCellsFromFile(document,candidates);
   setCells(gameCells, candidates);
   //add constraints
-  fOptionsCalculator:= TOptionsCalculator.create(candidates);
   fStarted:=false;
 end;
 
-function TSudokuGame.addCells(document:TXMLDocument;parent:TDOMNode;gameCells: TCells):TXMLDocument;
-var
-  cellIndex:integer;
-  cellNode:TDOMNode;
-  curCell:TCell;
-begin
-  for cellIndex:=0 to pred(length(gameCells)) do
-    begin
-    curCell:=gameCells[cellIndex];
-    cellNode:=addChildToNode(document,parent,'cell');
-    addChildToNode(document,cellNode,'cellId',curCell.cellId.ToString);
-    addChildToNode(document,cellNode,'row',curCell.row.ToString);
-    addChildToNode(document,cellNode,'column',curCell.col.ToString);
-    addChildToNode(document,cellNode,'box',curCell.box.ToString);
-    addChildToNode(document,cellNode,'value',curCell.value.ToString);
-    addChildToNode(document,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-    addChildToNode(document,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-    //need to convert array of sudokuNumber to xml
-    //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
-    end;
-  result:=document;
-end;
-
+//----------------- Create game
 procedure TSudokuGame.addRegion(gameRegion: TRegion);
 begin
   if started then exit;
@@ -165,6 +142,143 @@ begin
   fConstraints[pred(length(fConstraints))]:= gameConstraint;
 end;
 
+//------------ Create XML Document from game
+function TSudokuGame.generateGameDocument: TXMLDocument;
+var
+  doc:TXMLDocument;
+  cellsNode,regionsNode,constraintsNode:TDOMNode;
+begin
+  if length(fCells) = 0 then exit; //should throw error
+  doc:=TXMLDocument.Create;
+  addNode(doc,'','sudoku');
+  addNode(doc,'sudoku','name',fName);
+  addNode(doc,'sudoku','version',fVersion);
+  addNode(doc,'sudoku','base-game');
+  addNode(doc,'base-game','rows',dimensions.Y.ToString);
+  addNode(doc,'base-game','columns',dimensions.X.ToString);
+    begin
+    cellsNode:=getNode(doc,'cells',false,nil,true);
+    doc:= addCellsToDocument(doc,cellsNode, cells);
+    end;
+  if length(regions) > 0 then
+    begin
+    regionsNode:=getNode(doc,'regions',false,nil,true);
+    doc:= addRegionsToDocument(doc,regionsNode,regions);
+    end;
+  if length(constraints) > 0 then
+    begin
+    constraintsNode:=getNode(doc,'constraints',false,nil,true);
+    doc:= addConstraintsToDocument(doc, constraintsNode,constraints);
+    end;
+  fDocument:=doc;
+  result:=doc;
+end;
+
+function TSudokuGame.addCellsToDocument(
+  document:TXMLDocument;
+  parent:TDOMNode;
+  gameCells: TCells):TXMLDocument;
+var
+  cellIndex:integer;
+  cellNode,cellNumbersNode:TDOMNode;
+  curCell:TCell;
+begin
+  for cellIndex:=0 to pred(length(gameCells)) do
+    begin
+    curCell:=gameCells[cellIndex];
+    cellNode:=addChildToNode(document,parent,'cell');
+    addChildToNode(document,cellNode,'cellId',curCell.cellId.ToString);
+    addChildToNode(document,cellNode,'row',curCell.row.ToString);
+    addChildToNode(document,cellNode,'column',curCell.col.ToString);
+    addChildToNode(document,cellNode,'box',curCell.box.ToString);
+    addChildToNode(document,cellNode,'value',curCell.value.ToString);
+    addChildToNode(document,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
+    addChildToNode(document,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
+    cellNumbersNode:=addChildToNode(document,cellNode,'cell-numbers');
+    addCellNumbersToDocument(document,cellNumbersNode,curCell.candidates);
+    end;
+  result:=document;
+end;
+
+function TSudokuGame.addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
+var
+  index:integer;
+  cellNumberNode:TDOMNode;
+begin
+  for index:= 0 to pred(length(cellNumbers)) do
+    begin
+    cellNumberNode:= addChildToNode(document,cellNumbersNode,'cell-number');
+    addChildToNode(document,cellNumberNode, 'cell-number-value',cellNumbers[index].value.ToString);
+    addChildToNode(document,cellNumberNode, 'cell-number-available',cellNumbers[index].available.ToString);
+    end;
+  result:=document;
+end;
+
+function TSudokuGame.addRegionsToDocument(doc:TXMLDocument;
+  parent:TDOMNode;
+  regions:TRegions): TXMLDocument;
+var
+  index,cellIndex:integer;
+  curRegion:TRegion;
+  curCell:TCell;
+  regionNode,cellsNode,cellNode:TDOMNode;
+begin
+  if length(regions) = 0 then exit;
+  for index:= 0 to pred(length(regions)) do
+      begin
+      curRegion:=regions[index];
+      regionNode:=addChildToNode(doc,parent,'region');
+      addChildToNode(doc,regionNode,'region-name',curRegion.name);
+      addChildToNode(doc,regionNode,'region-id',curRegion.id.ToString);
+      if (length(curRegion.regionCells)>0) then
+        begin
+        cellsNode:= addChildToNode(doc,regionNode,'region-cells');
+        for cellIndex:=0 to pred(length(curRegion.regionCells)) do
+          begin
+          curCell:=curRegion.regionCells[cellIndex];
+          cellNode:=addChildToNode(doc,cellsNode,'region-cell');
+          addChildToNode(doc,cellNode,'cell-id',curCell.cellId.ToString);
+          end;
+        end;
+      end;
+  result:=doc;
+end;
+
+function TSudokuGame.addConstraintsToDocument(baseGameDocument: TXMLDocument;
+  parent:TDOMNode;
+  constraints: TConstraints): TXMLDocument;
+var
+  constraintNode,regionsNode:TDomNode;
+  currConstraint:iConstraint;
+  index,regionIndex:integer;
+  constraintRegions:TRegions;
+  typeString:String;
+begin
+  for index:=0 to pred(length(constraints)) do
+    begin
+    currConstraint:=constraints[index];
+    writeStr(typeString,currConstraint.getType);
+    constraintNode:= addChildToNode(baseGameDocument,parent,'constraint');
+    //All constraint types will have id, name, type, regions
+    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId.ToString);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
+    addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
+    constraintRegions:= currConstraint.getRegions;
+    for regionIndex:= 0 to pred(length(constraintRegions)) do
+      begin
+      regionsNode:= addChildToNode(baseGameDocument,constraintNode,'constraint-regions');
+      addChildToNode(baseGameDocument,regionsNode,'constraint-region',constraintRegions[regionIndex].id.ToString);
+      end;
+    //Specialisations
+    if (currConstraint.getType = ctTarget) then
+      begin
+      addChildToNode(baseGameDocument,constraintNode,'constraint-target',(currConstraint as TTargetConstraint).target);
+      end;
+
+    end;
+  result:=baseGameDocument;
+end;
+
 procedure TSudokuGame.saveToFile(filename: string);
 begin
   generateGameDocument;
@@ -178,7 +292,7 @@ end;
 
 procedure TSudokuGame.reset;
 begin
-
+ //TODO should re-read XML maybe
 end;
 
 function TSudokuGame.readCellsFromFile(document:TXMLDocument;candidates:TIntArray): TCells;
@@ -244,109 +358,6 @@ begin
         cellCandidates);
       end;
     end;
-end;
-
-function TSudokuGame.addRegionsToDocument(doc:TXMLDocument;
-  parent:TDOMNode;
-  regions:TRegions): TXMLDocument;
-var
-  index,cellIndex:integer;
-  curRegion:TRegion;
-  curCell:TCell;
-  regionNode,cellsNode,cellNode:TDOMNode;
-begin
-  if length(regions) = 0 then exit;
-  for index:= 0 to pred(length(regions)) do
-      begin
-      //for each region there will be a name, an id and a list of cells
-      curRegion:=regions[index];
-      regionNode:=addChildToNode(doc,parent,'region');
-      addChildToNode(doc,regionNode,'region-name',curRegion.name);
-      addChildToNode(doc,regionNode,'region-id',curRegion.id);
-      //TODO regionId should be GUID
-      //region-cells should be a list of references to cells
-      if (length(curRegion.regionCells)>0) then
-        begin
-        cellsNode:= addChildToNode(doc,regionNode,'region-cells');
-        for cellIndex:=0 to pred(length(curRegion.regionCells)) do
-          begin
-          curCell:=curRegion.regionCells[cellIndex];
-          cellNode:=addChildToNode(doc,cellsNode,'cell');
-          addChildToNode(doc,cellNode,'row',curCell.row.ToString);
-          addChildToNode(doc,cellNode,'column',curCell.col.ToString);
-          addChildToNode(doc,cellNode,'box',curCell.box.ToString);
-          addChildToNode(doc,cellNode,'value',curCell.value.ToString);
-          addChildToNode(doc,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-          addChildToNode(doc,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
-          //need to convert array of sudokuNumber to xml
-          //addChildToNode(doc,cellNode,'candidates',intArrayToCSV(curCell.candidates));
-          end;
-        end;
-      end;
-  result:=doc;
-end;
-
-function TSudokuGame.addConstraintsToDocument(baseGameDocument: TXMLDocument;
-  constraints: TConstraints): TXMLDocument;
-var
-  constraintsNode,constraintNode,candidatesNode:TDomNode;
-  currConstraint:iConstraint;
-  index:integer;
-  typeString:String;
-  propertyValue:string;
-begin
-  constraintsNode:= getNode(baseGameDocument,'constraints');
-  if constraintsNode = nil then
-     constraintsNode:= addNode(baseGameDocument,'sudoku','constraints');
-  for index:=0 to pred(length(constraints)) do
-    begin
-    currConstraint:=constraints[index];
-    writeStr(typeString,currConstraint.getType);
-    constraintNode:= addChildToNode(baseGameDocument,constraintsNode,'constraint');
-    addChildToNode(baseGameDocument,constraintNode,'constraint-type',typeString);
-    addChildToNode(baseGameDocument,constraintNode,'constraint-name',currConstraint.getName);
-    addChildToNode(baseGameDocument,constraintNode,'constraint-id',currConstraint.getId);
-    candidatesNode:=addChildToNode(baseGameDocument,constraintNode,'constraint-candidates');
-    addRegionsToDocument(baseGameDocument,candidatesNode,currConstraint.getRegions);
-    //now add any specialisations
-    if currConstraint is TTargetConstraint then
-      with currConstraint as TTargetConstraint do
-        begin
-        addChildToNode(baseGameDocument,constraintNode,'target', target);
-        end;
-    end;
-  result:=baseGameDocument;
-end;
-
-function TSudokuGame.generateGameDocument: TXMLDocument;
-var
-  doc:TXMLDocument;
-  cellsNode,regionsNode,constraintsNode:TDOMNode;
-begin
-  if length(fCells) = 0 then exit; //should throw error
-  doc:=TXMLDocument.Create;
-  addNode(doc,'','sudoku');
-  addNode(doc,'sudoku','name',fName);
-  addNode(doc,'sudoku','version',fVersion);
-  addNode(doc,'sudoku','base-game');
-  addNode(doc,'base-game','rows',dimensions.Y.ToString);
-  addNode(doc,'base-game','columns',dimensions.X.ToString);
-    begin
-    cellsNode:=getNode(doc,'cells',false,nil,true);
-    doc:= addCells(doc,cellsNode, cells);
-    end;
-  if length(regions) > 0 then
-    begin
-    regionsNode:=getNode(doc,'regions',false,nil,true);
-    doc:= addRegionsToDocument(doc,regionsNode,regions);
-    end;
-  if length(constraints) > 0 then
-    begin
-    constraintsNode:=getNode(doc,'constraints',false,nil,true);
-    doc:= addConstraintsToDocument(doc,constraints);
-    end;
-  fDocument:=doc;
-  result:=doc;
 end;
 
 end.

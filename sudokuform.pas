@@ -54,26 +54,10 @@ end;
 procedure TmainForm.Button1Click(Sender: TObject);
 var
   game:TSudokuGame;
-  newConstraint:iConstraint;
   row,col,box:integer;
-  constraintCells:TCells;
   regionCells:TCells;
   newRegion:TRegion;
   regionName:string;
-  regionId: integer;
-
-  function getUniqueId:string;
-  var
-    index:integer;
-  begin
-  regionId:=length(game.regions)+1;
-  for index:=0 to pred(length(game.regions)) do
-    begin
-    if game.regions[index].id.ToInteger >= regionId then
-      regionId := game.regions[index].id.ToInteger + 1;
-    end;
-  result:=regionId.ToString;
-  end;
 
   function getCells(row,col,box:integer):TCells;
   var
@@ -100,22 +84,25 @@ begin
     begin
     regionCells:=getCells(row,-1,-1);
     regionName:='Row'+(row+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for col:=0 to 8 do
     begin
     regionCells:=getCells(-1,col,-1);
     regionName:='Col'+(col+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for box:=0 to 8 do
     begin
     regionCells:=getCells(-1,-1,box);
     regionName:='Box'+(box+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;

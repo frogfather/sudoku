@@ -5,7 +5,7 @@ unit constraint;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,cell,region;
+  Classes, SysUtils,arrayUtils,region;
 
 type
 
@@ -13,31 +13,34 @@ type
 
   IConstraint = interface
   ['{a811cdac-7edc-4db9-be04-9b3e6cd9db26}']
-    function getId: string;
+    function getId: TGUID;
     function getName:string;
     function getType: EConstraintType;
-    function getRegions: TRegions; //cells that this constraint applies to
-
+    function getRegions: TRegions;
   end;
 
   { TGameConstraint }
 
-  TGameConstraint = class(TInterfacedObject, IConstraint)
+  TGameConstraint = class abstract (TInterfacedObject, IConstraint)
     private
-    fId: string;
+    fId: TGUID;
     fName: string;
     fType: EConstraintType;
     fRegions: TRegions;
     public
-    function getId: string;
+    function getId: TGUID;
     function getName:string;
     function getType:EConstraintType;
     function getRegions:TRegions;
     constructor create(
       gsName:string;
       gsType:EConstraintType;
-      gsRegions:TRegions;
-      gsRepeats:boolean=false);
+      gsRegions:TRegions);
+    constructor create(
+      gsId: TGUID;
+      gsName:string;
+      gsType:EConstraintType;
+      gsRegions:TRegions);
   end;
 
   TConstraints = array of IConstraint;
@@ -46,11 +49,12 @@ type
   //row, column, box, cage, arrow
   TTargetConstraint = class(TGameConstraint)
   private
-  fTarget:string;
+  fTarget:string; //target can be a number or a reference to another region
   fAllowRepeats:boolean;
   public
   property target: string read fTarget;
   constructor create(gsName:string;gsRegions:TRegions;gsTarget:string;gsRepeats:boolean=false);
+  constructor create(gsId:TGUID;gsName:string;gsRegions:TRegions;gsTarget:string;gsRepeats:boolean=false);
   end;
 
   { TRenbanConstraint }
@@ -64,21 +68,32 @@ type
 
 implementation
 
-{ TTargetConstraint }
-constructor TTargetConstraint.create(
-    gsName: string;
-    gsRegions: TRegions;
-    gsTarget: string;
-    gsRepeats:boolean=false);
-begin
-  inherited create(gsName,ctTarget,gsRegions);
-  fTarget:=gsTarget;
-  fAllowRepeats:=gsRepeats;
-end;
-
 { TGameConstraint }
 
-function TGameConstraint.getId: string;
+constructor TGameConstraint.create(
+      gsId: TGUID;
+      gsName:string;
+      gsType:EConstraintType;
+      gsRegions:TRegions);
+begin
+  fId:= gsId;
+  fName:=gsName;
+  fType:=gsType;
+  fRegions:=gsRegions;
+end;
+
+constructor TGameConstraint.create(
+      gsName:string;
+      gsType:EConstraintType;
+      gsRegions:TRegions);
+begin
+  createGUID(fId);
+  fName:=gsName;
+  fType:=gsType;
+  fRegions:=gsRegions;
+end;
+
+function TGameConstraint.getId: TGUID;
 begin
   result:=fId;
 end;
@@ -98,11 +113,27 @@ begin
   result:=fRegions;
 end;
 
-constructor TGameConstraint.create(gsName:string; gsType:EConstraintType; gsRegions:TRegions;gsRepeats:boolean=false);
+{ TTargetConstraint }
+//Created from file
+constructor TTargetConstraint.create(
+    gsId: TGUID;
+    gsName: string;
+    gsRegions: TRegions;
+    gsTarget: string;
+    gsRepeats:boolean=false);
 begin
-  fName:=gsName;
-  fType:=gsType;
-  fRegions:=gsRegions;
+  inherited create(gsId,gsName,ctTarget,gsRegions);
+  fTarget:=gsTarget;
+  fAllowRepeats:=gsRepeats;
 end;
+//Created for new game
+constructor TTargetConstraint.create(gsName: string; gsRegions: TRegions;
+  gsTarget: string; gsRepeats: boolean);
+begin
+  inherited create(gsName,ctTarget,gsRegions);
+  fTarget:=gsTarget;
+  fAllowRepeats:=gsRepeats;
+end;
+
 end.
 

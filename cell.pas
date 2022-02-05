@@ -15,12 +15,11 @@ type
     fValue:integer;
     fAvailable:boolean;
     fExclude:boolean;
-    protected
-    property available: boolean read fAvailable write fAvailable;
     property exclude: boolean read fExclude write fExclude;
     public
     constructor create(aOwner:TObject;initValue:integer=-1);
     property value: integer read fValue;
+    property available:boolean read fAvailable;
   end;
 
   TSudokuNumbers = array of TSudokuNumber;

@@ -56,24 +56,10 @@ var
   game:TSudokuGame;
   newConstraint:iConstraint;
   row,col,box:integer;
-  constraintCells:TCells;
   regionCells:TCells;
   newRegion:TRegion;
+  newRegions:TRegions;
   regionName:string;
-  regionId: integer;
-
-  function getUniqueId:string;
-  var
-    index:integer;
-  begin
-  regionId:=length(game.regions)+1;
-  for index:=0 to pred(length(game.regions)) do
-    begin
-    if game.regions[index].id.ToInteger >= regionId then
-      regionId := game.regions[index].id.ToInteger + 1;
-    end;
-  result:=regionId.ToString;
-  end;
 
   function getCells(row,col,box:integer):TCells;
   var
@@ -100,44 +86,26 @@ begin
     begin
     regionCells:=getCells(row,-1,-1);
     regionName:='Row'+(row+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for col:=0 to 8 do
     begin
     regionCells:=getCells(-1,col,-1);
     regionName:='Col'+(col+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   for box:=0 to 8 do
     begin
     regionCells:=getCells(-1,-1,box);
     regionName:='Box'+(box+1).ToString;
-    newRegion:=TRegion.create(regionName,getUniqueId,regionCells);
+    newRegion:=TRegion.create(regionName,regionCells);
     game.addRegion(newRegion);
+    game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
-  //for row:=0 to 8 do
-  //  begin
-  //  constraintCells:=getConstraintCells(row,-1,-1);
-  //  lbLog.items.add('constraint cells '+length(constraintCells).ToString);
-  //  newConstraint:=TTargetConstraint.create('row'+(row+1).ToString,constraintCells,'45');
-  //  game.addConstraint(newConstraint);
-  //  end;
-  //for col:=0 to 8 do
-  //  begin
-  //  constraintCells:=getConstraintCells(-1,col,-1);
-  //  newConstraint:=TTargetConstraint.create('col'+(col+1).ToString,constraintCells,'45');
-  //  game.addConstraint(newConstraint);
-  //  end;
-  //for box:=0 to 8 do
-  //  begin
-  //  constraintCells:=getConstraintCells(-1,-1,box);
-  //  newConstraint:=TTargetConstraint.create('box'+(box+1).ToString,constraintCells,'45');
-  //  game.addConstraint(newConstraint);
-  //  end;
-  //
-  //game.start;
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 

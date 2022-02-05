@@ -73,7 +73,7 @@ begin
   else startNode:= parent;
   foundNode := findInXml(startNode, nodeName, findTextValue);
   if (foundNode = nil) and (addIfNotFound) then
-    foundNode:= addNode(document,startNode.TextContent,nodeName);
+    foundNode:= addNode(document,startNode.NodeName,nodeName);
   result:= foundNode;
 end;
 
