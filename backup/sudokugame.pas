@@ -25,12 +25,14 @@ uses
     fStarted:boolean;
     fCandidateSet: TIntArray;
     fDocument: TXMLDocument;
+    fOnCellStateChanged:TNotifyEvent;
     function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
     procedure setCells(cells: TCells; candidates:TIntArray);
     function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
     function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
     function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
     function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
+    procedure cellChangedHandler(sender:TObject);
     property version: string read fVersion;
     property candidateSet: TIntArray read fCandidateSet;
     property constraints: TConstraints read fConstraints;
@@ -44,6 +46,7 @@ uses
     constructor create(document:TXMLDocument = nil);
     procedure addRegion(gameRegion:TRegion);
     procedure addConstraint(gameConstraint:iConstraint);
+    procedure setCellChangedHandler(handler:TNotifyEvent);
     function generateGameDocument:TXMLDocument;
     procedure saveToFile(filename:string);
     procedure start;
@@ -140,6 +143,11 @@ begin
     fConstraints:= TConstraints.create;
   setLength(fConstraints,length(fConstraints)+1);
   fConstraints[pred(length(fConstraints))]:= gameConstraint;
+end;
+
+procedure TSudokuGame.setCellChangedHandler(handler: TNotifyEvent);
+begin
+  fOnCellStateChanged:=handler;
 end;
 
 //------------ Create XML Document from game
@@ -279,6 +287,12 @@ begin
   result:=baseGameDocument;
 end;
 
+procedure TSudokuGame.cellChangedHandler(sender: TObject);
+begin
+  if (fOnCellStateChanged <> nil) then
+    fOnCellStateChanged(sender);//Sending the cell rather than the game
+end;
+
 procedure TSudokuGame.saveToFile(filename: string);
 begin
   generateGameDocument;
@@ -327,7 +341,9 @@ begin
       if sCandidates <> '' then
         cellCandidates:=candidates
       else cellCandidates:= CSVToIntArray(sCandidates);
-      output[index]:=TCell.create(row,column,box,gCellId,
+      output[index]:=TCell.create(row,column,box,
+      @cellChangedHandler,
+      gCellId,
       cellCandidates,edgeMarks,centreMarks,value);
       end;
     end else output:=nil;

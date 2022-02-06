@@ -35,6 +35,7 @@ type
     fCells:TCellDisplayArray;
     procedure initialiseView;
     procedure drawCell(sender:TObject);
+    procedure onGameCellChangedHandler(sender:TObject);
     public
     constructor create(aOwner:TComponent; dimensions:TPoint);reintroduce;
     procedure setGame(aGame:TSudokuGame);
@@ -85,7 +86,7 @@ begin
     newCd.OnPaint:=@drawCell;
     newCd.Width:=cellWidth;
     newCd.Height:=cellHeight;
-    newCd.Left:=self.Left + ((index mod 9) * cellWidth);
+    newCd.Left:=((index mod 9) * cellWidth);
     newCd.Top:=self.Top + ((index div 9) * cellHeight);
     newCd.Visible:=true;
     setLength(fCells,length(fCells)+1);
@@ -105,6 +106,17 @@ begin
      end;
 end;
 
+procedure TGameDisplay.onGameCellChangedHandler(sender: TObject);
+var
+  selectedCell:TCell;
+begin
+  writeln('onGameCellChangedHandler called');
+  if sender is TCell then
+     begin
+     selectedCell:=sender as TCell;
+     end;
+end;
+
 constructor TGameDisplay.create(aOwner:TComponent; dimensions: TPoint);
 begin
   inherited create(aOwner);
@@ -119,6 +131,7 @@ end;
 procedure TGameDisplay.setGame(aGame: TSudokuGame);
 begin
   fGame:=aGame;
+  fGame.setCellChangedHandler(@onGameCellChangedHandler);
   initialiseView;
 end;
 

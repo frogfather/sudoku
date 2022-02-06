@@ -15,8 +15,6 @@ type
     fValue:integer;
     fAvailable:boolean;
     fExclude:boolean;
-    protected
-    property available: boolean read fAvailable write fAvailable;
     property exclude: boolean read fExclude write fExclude;
     public
     constructor create(aOwner:TObject;initValue:integer=-1);
@@ -39,13 +37,16 @@ type
     fCentreMarks: TIntArray;
     fCandidates: TSudokuNumbers;
     fChangedCandidate: TSudokuNumber;
+    fOnCellChanged:TNotifyEvent;
     public
     constructor create(row, column, box: integer;
+      cellChangedHandler:TNotifyEvent;
       candidates:TIntArray;
       edgeMarks: TIntArray=nil;
       centreMarks:TIntArray=nil;
       value: integer=-1);
     constructor create(row, column, box: integer;
+      cellChangedHandler:TNotifyEvent;
       id:TGUID;
       candidates:TIntArray;
       edgeMarks: TIntArray=nil;
@@ -84,6 +85,7 @@ end;
 { TCell }
 //For new game: cellId is a new GUID
 constructor TCell.create(row, column, box: integer;
+  cellChangedHandler:TNotifyEvent;
   candidates:TIntArray;
   edgeMarks: TIntArray=nil;
   centreMarks:TIntArray=nil;
@@ -92,6 +94,7 @@ var
   sudokuNos: TSudokuNumbers;
   index:integer;
 begin
+  fOnCellChanged:=cellChangedHandler;
   createGUID(fCellId);
   fRow:=row;
   fColumn:=column;
@@ -108,13 +111,16 @@ begin
 end;
 
 //For game loaded from file: cellId is from saved data
-constructor TCell.create(row, column, box: integer; id: TGUID;
+constructor TCell.create(row, column, box: integer;
+  cellChangedHandler:TNotifyEvent;
+  id: TGUID;
   candidates: TIntArray; edgeMarks: TIntArray; centreMarks: TIntArray;
   value: integer);
 var
   sudokuNos: TSudokuNumbers;
   index:integer;
 begin
+  fOnCellChanged:=cellChangedHandler;
   fCellId:=id;
   fRow:=row;
   fColumn:=column;
@@ -133,6 +139,8 @@ end;
 procedure TCell.setValue(newValue: integer);
 begin
   fValue:=newValue;
+  if (fOnCellChanged <> nil) then
+    fOnCellChanged(self);
 end;
 
 procedure TCell.updateEdgeMarks(newValues: TIntArray);

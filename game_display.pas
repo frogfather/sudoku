@@ -35,6 +35,7 @@ type
     fCells:TCellDisplayArray;
     procedure initialiseView;
     procedure drawCell(sender:TObject);
+    procedure onGameCellChangedHandler(sender:TObject);
     public
     constructor create(aOwner:TComponent; dimensions:TPoint);reintroduce;
     procedure setGame(aGame:TSudokuGame);
@@ -105,6 +106,19 @@ begin
      end;
 end;
 
+procedure TGameDisplay.onGameCellChangedHandler(sender: TObject);
+var
+  selectedCell:TCell;
+begin
+  writeln('onGameCellChangedHandler called');
+  if sender is TCell then
+     begin
+     selectedCell:=sender as TCell;
+     writeln('Cell '+selectedCell.row.ToString+':'+selectedCell.col.toString+' changed ');
+     writeln('New value '+selectedCell.value.ToString);
+     end;
+end;
+
 constructor TGameDisplay.create(aOwner:TComponent; dimensions: TPoint);
 begin
   inherited create(aOwner);
@@ -119,6 +133,7 @@ end;
 procedure TGameDisplay.setGame(aGame: TSudokuGame);
 begin
   fGame:=aGame;
+  fGame.setCellChangedHandler(@onGameCellChangedHandler);
   initialiseView;
 end;
 
