@@ -10,7 +10,7 @@ uses
   laz2_DOM,
   laz2_XMLRead,
   laz2_XMLUtils,
-  typInfo;
+  typInfo,game_display;
 
 type
 
@@ -23,7 +23,7 @@ type
     od1: TOpenDialog;
     procedure bLoadClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-
+    procedure FormCreate(Sender: TObject);
   private
 
   public
@@ -33,6 +33,7 @@ type
 var
   mainForm: TmainForm;
   sudoku:TSudokuGame;
+  gameDisplay:TGameDisplay;
 
 implementation
 
@@ -104,9 +105,18 @@ begin
     game.addRegion(newRegion);
     game.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
+  gameDisplay.setGame(game);
   game.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
 end;
 
+procedure TmainForm.FormCreate(Sender: TObject);
+begin
+  gameDisplay:=TGameDisplay.create(self,TPoint.create(400,400));
+  gameDisplay.Parent:=mainForm;
+  gameDisplay.Left:=30;
+  gameDisplay.Color:=clDefault;
+  gameDisplay.Visible:=true;
+end;
 
 end.
 

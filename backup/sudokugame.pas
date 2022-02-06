@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM,repeat_options,region;
+  laz2_DOM, repeat_options, region;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
   const gameVersion: string = '0.0.2';
@@ -41,7 +41,7 @@ uses
       candidates:TIntArray=nil;
       cells:TCells=nil;
       gConstraints:TConstraints=nil);
-    constructor create(document:TXMLDocument);
+    constructor create(document:TXMLDocument = nil);
     procedure addRegion(gameRegion:TRegion);
     procedure addConstraint(gameConstraint:iConstraint);
     function generateGameDocument:TXMLDocument;
@@ -94,7 +94,7 @@ begin
   fDocument:=nil;
 end;
 
-constructor TSudokuGame.create(document:TXMLDocument);
+constructor TSudokuGame.create(document:TXMLDocument = nil);
 var
   rows,columns:integer;
   sCandidates:string;

@@ -3,10 +3,6 @@ DoExitAsm ()
 { echo "An error occurred while assembling $1"; exit 1; }
 DoExitLink ()
 { echo "An error occurred while linking $1"; exit 1; }
-echo Assembling sudokugame
-/Library/Developer/CommandLineTools/usr/bin/clang -c -o /Users/cloudsoft/Code/sudoku/lib/x86_64-darwin/sudokugame.o  -arch x86_64 -mmacosx-version-min=10.8 -x assembler /Users/cloudsoft/Code/sudoku/lib/x86_64-darwin/sudokugame.s
-if [ $? != 0 ]; then DoExitAsm sudokugame; fi
-rm /Users/cloudsoft/Code/sudoku/lib/x86_64-darwin/sudokugame.s
 echo Assembling sudokuform
 /Library/Developer/CommandLineTools/usr/bin/clang -c -o /Users/cloudsoft/Code/sudoku/lib/x86_64-darwin/sudokuform.o  -arch x86_64 -mmacosx-version-min=10.8 -x assembler /Users/cloudsoft/Code/sudoku/lib/x86_64-darwin/sudokuform.s
 if [ $? != 0 ]; then DoExitAsm sudokuform; fi
