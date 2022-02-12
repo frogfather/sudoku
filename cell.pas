@@ -5,7 +5,7 @@ unit cell;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils;
+  Classes, SysUtils,arrayUtils,customcell;
 type
 
   TProcHandler = procedure();
@@ -38,6 +38,13 @@ type
     fCandidates: TSudokuNumbers;
     fChangedCandidate: TSudokuNumber;
     fOnCellChanged:TNotifyEvent;
+    protected
+    function getValue:integer;
+    function getRow:integer;
+    function getCol:integer;
+    function getBox:integer;
+    function getEdgeMarks:TIntArray;
+    function getCentreMarks:TIntArray;
     public
     constructor create(row, column, box: integer;
       cellChangedHandler:TNotifyEvent;
@@ -52,15 +59,14 @@ type
       edgeMarks: TIntArray=nil;
       centreMarks:TIntArray=nil;
       value: integer=-1);
-
     procedure setValue(newValue:integer);
     procedure updateEdgeMarks(newValues:TIntArray);
     procedure updateCentreMarks(newValues:TIntArray);
     property cellId: TGUID read fCellId;
-    property row: integer read fRow;
-    property col: integer read fColumn;
-    property box: integer read fBox;
-    property value: integer read fValue;
+    property row: integer read getRow;
+    property col: integer read getCol;
+    property box: integer read getBox;
+    property value: integer read getValue;
     property centreMarks: TIntArray read fCentreMarks;
     property edgeMarks: TIntArray read fEdgeMarks;
     property candidates:TSudokuNumbers read fCandidates;
@@ -80,6 +86,36 @@ begin
   fValue:= initValue;
   fAvailable:= true;
   fExclude:= false;
+end;
+
+function TCell.getValue: integer;
+begin
+  result:=fValue;
+end;
+
+function TCell.getRow: integer;
+begin
+  result:=fRow;
+end;
+
+function TCell.getCol: integer;
+begin
+  result:=fColumn;
+end;
+
+function TCell.getBox: integer;
+begin
+  result:=fBox;
+end;
+
+function TCell.getEdgeMarks: TIntArray;
+begin
+  result:=fEdgeMarks;
+end;
+
+function TCell.getCentreMarks: TIntArray;
+begin
+  result:=fCentreMarks;
 end;
 
 { TCell }

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM, repeat_options, region;
+  laz2_DOM, repeat_options, region,gameInterface;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
   const gameVersion: string = '0.0.2';
@@ -14,49 +14,51 @@ uses
 
   { TSudokuGame }
 
-  TSudokuGame = class(TInterfacedObject)
+  TSudokuGame = class(TInterfacedObject,ISudokuGame)
     private
-    fName:string;
-    fVersion:string;
-    fDimensions:TPoint;
-    fCells: TCells;
-    fRegions:TRegions;
-    fConstraints:TConstraints;
-    fStarted:boolean;
-    fCandidateSet: TIntArray;
-    fDocument: TXMLDocument;
-    fOnCellStateChanged:TNotifyEvent;
-    function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
-    procedure setCells(cells: TCells; candidates:TIntArray);
-    function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
-    function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
-    function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
-    function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
-    procedure cellChangedHandler(sender:TObject);
-    property version: string read fVersion;
-    property candidateSet: TIntArray read fCandidateSet;
-    property constraints: TConstraints read fConstraints;
+      fName:string;
+      fVersion:string;
+      fDimensions:TPoint;
+      fCells: TCells;
+      fRegions:TRegions;
+      fConstraints:TConstraints;
+      fStarted:boolean;
+      fCandidateSet: TIntArray;
+      fDocument: TXMLDocument;
+      fOnCellStateChanged:TNotifyEvent;
+      function findCell(row,col:integer):TCell;
+      function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
+      procedure setCells(cells: TCells; candidates:TIntArray);
+      function addCellsToDocument(document:TXMLDocument;parent:TDOMNode;gameCells:TCells):TXMLDocument;
+      function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
+      function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
+      function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
+      procedure cellChangedHandler(sender:TObject);
+      property version: string read fVersion;
+      property candidateSet: TIntArray read fCandidateSet;
+      property constraints: TConstraints read fConstraints;
     public
-    constructor create(
-      name:string;
-      gameDimensions:TPoint;
-      candidates:TIntArray=nil;
-      cells:TCells=nil;
-      gConstraints:TConstraints=nil);
-    constructor create(document:TXMLDocument = nil);
-    procedure addRegion(gameRegion:TRegion);
-    procedure addConstraint(gameConstraint:iConstraint);
-    procedure setCellChangedHandler(handler:TNotifyEvent);
-    function generateGameDocument:TXMLDocument;
-    procedure saveToFile(filename:string);
-    procedure start;
-    procedure reset;
-    property cells:TCells read fCells;
-    property name:string read fName;
-    property regions:TRegions read fRegions;
-    property started:boolean read fStarted;
-    property dimensions:TPoint read fDimensions;
-    property document: TXMLDocument read fDocument;
+      constructor create(
+        name:string;
+        gameDimensions:TPoint;
+        candidates:TIntArray=nil;
+        cells:TCells=nil;
+        gConstraints:TConstraints=nil);
+      constructor create(document:TXMLDocument = nil);
+      procedure addRegion(gameRegion:TRegion);
+      procedure addConstraint(gameConstraint:iConstraint);
+      procedure setCellChangedHandler(handler:TNotifyEvent);
+      procedure gameInputKeyPressHandler(Sender: TObject; var Key: Word; Shift: TShiftState);
+      function generateGameDocument:TXMLDocument;
+      procedure saveToFile(filename:string);
+      procedure start;
+      procedure reset;
+      property cells:TCells read fCells;
+      property name:string read fName;
+      property regions:TRegions read fRegions;
+      property started:boolean read fStarted;
+      property dimensions:TPoint read fDimensions;
+      property document: TXMLDocument read fDocument;
   end;
 
 implementation
@@ -309,6 +311,21 @@ begin
  //TODO should re-read XML maybe
 end;
 
+function TSudokuGame.findCell(row, col: integer): TCell;
+var
+  index:integer;
+begin
+  result:=nil;
+  for index:= 0 to pred(length(fCells)) do
+    begin
+    if (fCells[index].row = row) and (fCells[index].col = col) then
+      begin
+      result:=fCells[index];
+      exit;
+      end;
+    end;
+end;
+
 function TSudokuGame.readCellsFromFile(document:TXMLDocument;candidates:TIntArray): TCells;
 var
   cellsNode,cellNode:TDOMNode;
@@ -371,7 +388,30 @@ begin
       box:=(3*(rowIndex div 3)) + (colIndex div 3) + 1;
       fCells[(rowIndex * dimensions.X) + colIndex]
         := TCell.create(rowIndex+1,colIndex+1,box,
+        @cellChangedHandler,
         cellCandidates);
+      end;
+    end;
+end;
+
+procedure TSudokuGame.gameInputKeyPressHandler(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  cell:TCell;
+
+begin
+  //receives the cell that changed
+  if sender is ICellDisplay then with sender as ICellDisplay do
+    begin
+    cell:=findCell(getRow,getCol);
+    //find the cell and update it with the value
+    if cell <> nil then
+      begin
+      if (cell.value <> key) then
+        begin
+        cell.setValue(key);
+        if Assigned(fOnCellStateChanged) then fOnCellStateChanged(cell);
+        end;
       end;
     end;
 end;

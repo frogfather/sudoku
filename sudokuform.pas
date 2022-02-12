@@ -26,6 +26,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure GameDisplayKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 
   public
@@ -119,10 +120,26 @@ end;
 procedure TmainForm.FormCreate(Sender: TObject);
 begin
   gameDisplay:=TGameDisplay.create(self,TPoint.create(400,400));
-  gameDisplay.Parent:=mainForm;
+  gameDisplay.Parent:=self;
   gameDisplay.Left:=30;
   gameDisplay.Color:=clDefault;
   gameDisplay.Visible:=true;
+  gameDisplay.Caption:='';
+
+end;
+
+procedure TmainForm.GameDisplayKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  index:integer;
+begin
+  lbLog.items.add(sender.ClassName+' is sender');
+    if sender is TCellDisplay then with sender as TCellDisplay do
+  lbLog.items.add('cell display key '+chr(key)+': '+name);
+  if sudoku <> nil then
+    begin
+    //set value on game not display!
+    end;
 end;
 
 end.

@@ -8,7 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, sudokuForm, sudokugame, cell, sudokuUtil, constraint,
-  optionsCalculator, repeat_options, calculate_option, region, game_display;
+  optionsCalculator, repeat_options, calculate_option, region, game_display,
+  gameDisplayInterface, customcell;
 
 {$R *.res}
 
