@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,controls,ExtCtrls,sudokuGame,graphics,arrayUtils,cell,
   customcell,
-  gameDisplayInterface;
+  gameDisplayInterface,sudokuGameInterface;
 
 type
 
@@ -51,11 +51,9 @@ type
 
   TGameDisplay = class(TCustomPanel,IGameDisplay)
     private
-      fGame:TSudokuGame;
       fCells:TCellDisplayArray;
       fOnGameKeyDown:TKeyEvent;
-      procedure initialiseView;
-      //receives input from the game regarding changes to the state
+      procedure initialiseView(aGame: ISudokuGame);
       procedure onGameCellChangedHandler(sender:TObject);
       function getCell(row,col:integer):TCellDisplay;
     protected
@@ -97,8 +95,8 @@ procedure TCellDisplay.setValue(newValue: String);
 begin
   if fValue <> newValue then
     begin
-
     fValue:=newValue;
+    self.fPaintBox.Refresh;
     end;
 end;
 
@@ -161,7 +159,7 @@ end;
 
 { TGameDisplay }
 
-procedure TGameDisplay.initialiseView;
+procedure TGameDisplay.initialiseView(aGame: ISudokuGame);
 var
   index,numCells:integer;
   thisCell: TCell;
@@ -169,15 +167,15 @@ var
   displayWidth,displayHeight:integer;
   cellWidth,cellHeight:integer;
 begin
-  if fGame = nil then exit;
+  if aGame = nil then exit;
   displayWidth:= self.Width;
   displayHeight:= self.Height;
-  cellWidth:=displayWidth div fGame.dimensions.X;
-  cellHeight:=displayHeight div fGame.dimensions.Y;
-  numCells:= fGame.dimensions.X * fGame.dimensions.Y;
+  cellWidth:=displayWidth div aGame.dimensions.X;
+  cellHeight:=displayHeight div aGame.dimensions.Y;
+  numCells:= aGame.dimensions.X * aGame.dimensions.Y;
   for index:= 0 to pred(numCells) do
     begin
-    thisCell:=fGame.cells[index];
+    thisCell:=aGame.cells[index];
     newCd:=TCellDisplay.Create(self, thisCell.Row, thisCell.Col, thisCell.Box );
     newCd.Parent:= self;
     newCd.OnCellKeyDown:=@gameCellKeyDown;
@@ -236,19 +234,17 @@ begin
   height:=dimensions.Y;
   width:= dimensions.X;
   fCells:=TCellDisplayArray.create;
-  fGame:=nil;
   name:='myGameDisplay';
   caption:='';
 end;
 
 procedure TGameDisplay.setGame(aGame: TSudokuGame);
 begin
-  fGame:=aGame;
   //assign onGameCellChangedHandler method in this class to the notify event
   //in the game
-  fGame.setCellChangedHandler(@onGameCellChangedHandler);
+  aGame.setCellChangedHandler(@onGameCellChangedHandler);
   //assigns the notify event for a key press in this class to the handler in the game
-  onGameKeyDown:=@fGame.gameInputKeyPressHandler;
+  onGameKeyDown:=@aGame.gameInputKeyPressHandler;
   initialiseView;
 end;
 

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM, repeat_options, region,gameDisplayInterface;
+  laz2_DOM, repeat_options, region,gameDisplayInterface,sudokuGameInterface;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
   const gameVersion: string = '0.0.2';
@@ -33,6 +33,8 @@ uses
       function addCellNumbersToDocument(document:TXMLDocument;cellNumbersNode:TDOMNode;cellNumbers:TSudokuNumbers):TXMLDocument;
       function addRegionsToDocument(doc:TXMLDocument;parent:TDOMNode;regions:TRegions):TXMLDocument;
       function addConstraintsToDocument(baseGameDocument:TXMLDocument; parent:TDOMNode; constraints:TConstraints):TXMLDocument;
+      function getDimensions:TPoint;
+      function getCells:TCells;
       procedure cellChangedHandler(sender:TObject);
       property version: string read fVersion;
       property candidateSet: TIntArray read fCandidateSet;
@@ -53,11 +55,11 @@ uses
       procedure saveToFile(filename:string);
       procedure start;
       procedure reset;
-      property cells:TCells read fCells;
+      property cells:TCells read getCells;
       property name:string read fName;
       property regions:TRegions read fRegions;
       property started:boolean read fStarted;
-      property dimensions:TPoint read fDimensions;
+      property dimensions:TPoint read getDimensions;
       property document: TXMLDocument read fDocument;
   end;
 
@@ -182,6 +184,16 @@ begin
     end;
   fDocument:=doc;
   result:=doc;
+end;
+
+function TSudokuGame.getDimensions: TPoint;
+begin
+  result:=fDimensions;
+end;
+
+function TSudokuGame.getCells: TCells;
+begin
+  result:=fCells;
 end;
 
 function TSudokuGame.addCellsToDocument(
@@ -314,11 +326,17 @@ end;
 function TSudokuGame.findCell(row, col: integer): TCell;
 var
   index:integer;
+  cellAtIndex:TCell;
 begin
   result:=nil;
   for index:= 0 to pred(length(fCells)) do
     begin
-    if (fCells[index].row = row) and (fCells[index].col = col) then
+    cellAtIndex:=fCells[index];
+    if cellAtIndex = nil then
+      begin
+      writeln('oops');
+      end else
+    if (cellAtIndex.row = row) and (cellAtIndex.col = col) then
       begin
       result:=fCells[index];
       exit;
@@ -398,12 +416,14 @@ procedure TSudokuGame.gameInputKeyPressHandler(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
   cell:TCell;
-
+  cellRow,cellCol:integer;
 begin
   //receives the cell that changed
   if sender is ICellDisplay then with sender as ICellDisplay do
     begin
-    cell:=findCell(getRow,getCol);
+    cellRow:=getRow;
+    cellCol:=getCol;
+    cell:=findCell(cellRow,cellCol);
     //find the cell and update it with the value
     if cell <> nil then
       begin

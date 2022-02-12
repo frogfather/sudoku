@@ -5,7 +5,7 @@ unit gameDisplayInterface;
 interface
 
 uses
-  Classes, SysUtils,controls;
+  Classes, SysUtils,controls,laz2_DOM;
 
 type
 
