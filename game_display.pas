@@ -95,7 +95,11 @@ end;
 
 procedure TCellDisplay.setValue(newValue: String);
 begin
-  if fValue <> newValue then fValue:=newValue;
+  if fValue <> newValue then
+    begin
+    fValue:=newValue;
+    self.fPaintBox.Refresh;
+    end;
 end;
 
 procedure TCellDisplay.CellClickHandler(Sender: TObject);

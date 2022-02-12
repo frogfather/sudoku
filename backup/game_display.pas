@@ -84,7 +84,6 @@ begin
      begin
      canvas.Font.Size:=24;
      textHt:=canvas.TextHeight(self.fValue);
-     cellHt:=canvas.Height;
      textWth:=canvas.TextWidth(self.fValue);
      mainValLeft:=(canvas.Width - textWth) div 2;
      mainValTop:=(canvas.Height - textHt) div 2;
@@ -96,7 +95,11 @@ end;
 
 procedure TCellDisplay.setValue(newValue: String);
 begin
-  if fValue <> newValue then fValue:=newValue;
+  if fValue <> newValue then
+    begin
+
+    fValue:=newValue;
+    end;
 end;
 
 procedure TCellDisplay.CellClickHandler(Sender: TObject);
