@@ -82,6 +82,7 @@ begin
   if sender is TPaintbox then
        with sender as TPaintbox do
      begin
+     //Should show centre/edge marks if no main value
      canvas.Font.Size:=24;
      textHt:=canvas.TextHeight(self.fValue);
      textWth:=canvas.TextWidth(self.fValue);
@@ -97,8 +98,8 @@ procedure TCellDisplay.setValue(newValue: String);
 begin
   if fValue <> newValue then
     begin
-
     fValue:=newValue;
+    self.fPaintBox.Refresh;
     end;
 end;
 

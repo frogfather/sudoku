@@ -407,6 +407,8 @@ begin
     //find the cell and update it with the value
     if cell <> nil then
       begin
+      if (key = 8) and (shift = [])
+        then cell.setValue(-1); //clear
       if (cell.value <> key)
         then cell.setValue(key);
       end;

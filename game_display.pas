@@ -82,6 +82,7 @@ begin
   if sender is TPaintbox then
        with sender as TPaintbox do
      begin
+     //Should show centre/edge marks if no main value
      canvas.Font.Size:=24;
      textHt:=canvas.TextHeight(self.fValue);
      textWth:=canvas.TextWidth(self.fValue);
@@ -226,6 +227,8 @@ end;
 procedure TGameDisplay.gameCellKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+  //TODO need to communicate mode: normal, centre, edge.
+  //Maybe need our own event handler for this.
   //fOnGameKeyDown is set to a method in the game
   if Assigned(fOnGameKeyDown) then fOnGameKeyDown(sender, key, shift);
 end;

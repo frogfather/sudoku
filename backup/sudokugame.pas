@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,arrayUtils,cell,constraint,sudokuUtil,
-  laz2_DOM, repeat_options, region,gameInterface;
+  laz2_DOM, repeat_options, region,gameDisplayInterface;
 
   const defaultDimensions: TPoint = (X:9; Y:9);
   const gameVersion: string = '0.0.2';
@@ -407,11 +407,8 @@ begin
     //find the cell and update it with the value
     if cell <> nil then
       begin
-      if (cell.value <> key) then
-        begin
-        cell.setValue(key);
-        if Assigned(fOnCellStateChanged) then fOnCellStateChanged(cell);
-        end;
+      if (cell.value <> key)
+        then cell.setValue(key);
       end;
     end;
 end;
