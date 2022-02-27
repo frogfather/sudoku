@@ -122,9 +122,10 @@ begin
   gameDisplay:=TGameDisplay.create(self,TPoint.create(400,400));
   gameDisplay.Parent:=self;
   gameDisplay.Left:=30;
+  gameDisplay.Anchors:=[akRight,akBottom,akLeft,akTop];
   gameDisplay.Color:=clDefault;
   gameDisplay.Visible:=true;
-  gameDisplay.Caption:='Test';
+  gameDisplay.Caption:='';
 
 end;
 
