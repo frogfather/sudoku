@@ -5,7 +5,7 @@ unit cell;
 interface
 
 uses
-  Classes, SysUtils,arrayUtils,customGame;
+  Classes, SysUtils,arrayUtils,customcell;
 type
 
   TProcHandler = procedure();
@@ -67,8 +67,8 @@ type
     property col: integer read getCol;
     property box: integer read getBox;
     property value: integer read getValue;
-    property centreMarks: TIntArray read fCentreMarks;
-    property edgeMarks: TIntArray read fEdgeMarks;
+    property centreMarks: TIntArray read fCentreMarks write fCentreMarks;
+    property edgeMarks: TIntArray read fEdgeMarks write fEdgeMarks;
     property candidates:TSudokuNumbers read fCandidates;
     property changedCandidate: TSudokuNumber read fChangedCandidate;
   end;

@@ -12,6 +12,9 @@ uses
   const gameVersion: string = '0.0.2';
   type
 
+  { EGameMode }
+  EInputMode = (imNormal, imEdge, imCentre);
+
   { TSudokuGame }
 
   TSudokuGame = class(TInterfacedObject,ISudokuGame)
@@ -26,6 +29,7 @@ uses
       fCandidateSet: TIntArray;
       fDocument: TXMLDocument;
       fOnCellStateChanged:TNotifyEvent;
+      fInputMode: EInputMode;
       function findCell(row,col:integer):TCell;
       function readCellsFromFile(document:TXMLDocument;candidates:TIntArray):TCells;
       procedure setCells(cells: TCells; candidates:TIntArray);
@@ -49,16 +53,19 @@ uses
       procedure addConstraint(gameConstraint:iConstraint);
       procedure setCellChangedHandler(handler:TNotifyEvent);
       procedure gameInputKeyPressHandler(Sender: TObject; var Key: Word; Shift: TShiftState);
+      procedure modeSwitchKeyPressHandler(Sender: TObject; var Key: Word; Shift: TShiftState);
       function generateGameDocument:TXMLDocument;
       procedure saveToFile(filename:string);
       procedure start;
       procedure reset;
+      function getCell(row,column:integer):TCell;
       property cells:TCells read fCells;
       property name:string read fName;
       property regions:TRegions read fRegions;
       property started:boolean read fStarted;
       property dimensions:TPoint read fDimensions;
       property document: TXMLDocument read fDocument;
+      property inputMode: EInputMode read fInputMode;
   end;
 
 implementation
@@ -82,6 +89,7 @@ begin
   fCandidateSet:=candidates;
   fName:=name;
   fDimensions:=gameDimensions;
+  fInputMode:=imNormal;
   setLength(fCells,dimensions.X * dimensions.Y);
   if (candidates = nil) and (dimensions <> defaultDimensions) then
     begin
@@ -311,6 +319,16 @@ begin
  //TODO should re-read XML maybe
 end;
 
+function TSudokuGame.getCell(row, column: integer): TCell;
+var
+  cellId:integer;
+begin
+  for cellId:= 0 to pred(length(fCells)) do
+    begin
+
+    end;
+end;
+
 function TSudokuGame.findCell(row, col: integer): TCell;
 var
   index:integer;
@@ -398,19 +416,70 @@ procedure TSudokuGame.gameInputKeyPressHandler(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
   cell:TCell;
-
+  eventInputMode: EInputMode;
+  numbersToUpdate: TIntArray;
 begin
   //receives the cell that changed
+
+  if (shift = [ssCtrl]) then eventInputMode:=imEdge
+    else eventInputMode:=inputMode;
   if sender is ICellDisplay then with sender as ICellDisplay do
     begin
     cell:=findCell(getRow,getCol);
-    //find the cell and update it with the value
+    //find the cell and update it with the value depending on mode
     if cell <> nil then
       begin
-      if (cell.value <> key)
-        then cell.setValue(key);
-      end;
+      if (key = 8) then
+        begin
+          case eventInputMode of
+           imNormal: cell.setValue(-1);
+           imCentre:
+             begin
+               numbersToUpdate := cell.centreMarks;
+               deleteFromArray(numbersToUpdate,key);
+               cell.updateCentreMarks(numbersToUpdate);
+             end;
+           imEdge:
+             begin
+               numbersToUpdate:= cell.edgeMarks;
+               deleteFromArray(numbersToUpdate,key);
+               cell.updateEdgeMarks(numbersToUpdate);
+             end;
+           end;
+        end else if isCandidate(fCandidateSet, key) then
+        begin
+          case eventInputMode of
+           imNormal: cell.setValue(key);
+           imCentre:
+             begin
+               numbersToUpdate := cell.centreMarks;
+               toggleNumber(numbersToUpdate,key);
+               cell.updateCentreMarks(numbersToUpdate);
+             end;
+           imEdge:
+             begin
+               numbersToUpdate:= cell.edgeMarks;
+               toggleNumber(numbersToUpdate,key);
+               cell.updateEdgeMarks(numbersToUpdate);
+             end;
+           end;
+        end;
     end;
+  end;
+
+end;
+
+procedure TSudokuGame.modeSwitchKeyPressHandler(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  //Handles change from normal/centre/edge marking
+  //Need to choose keys for this - eg ssShift, ssAlt and N, C, E
+  if (shift <> [ssShift, ssAlt]) then exit;
+  case key of
+    78: fInputMode:= imNormal;
+    67: fInputMode:= imCentre;
+    69: fInputMode:= imEdge;
+  end;
 end;
 
 end.

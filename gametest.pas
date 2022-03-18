@@ -5,7 +5,8 @@ unit gameTest;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,sudokuGame,sudokuUtil,laz2_DOM;
+  Classes, SysUtils, fpcunit, testutils, testregistry,
+  sudokuGame,sudokuUtil,arrayUtils,laz2_DOM,controls,game_display;
 
 type
 
@@ -15,6 +16,8 @@ type
   private
     fGame:TSudokuGame;
     fDocument:TXMLDocument;
+    fModeSwitchEvent: TKeyEvent;
+    fKeyPressEvent: TKeyEvent;
   protected
     procedure SetUp; override;
     procedure TearDown; override;
@@ -22,6 +25,7 @@ type
     procedure DefaultGameDimensions;
     procedure GameName;
     procedure SavedDocumentBasics;
+    procedure SwitchMode;
   end;
 
 implementation
@@ -53,11 +57,48 @@ begin
   assertEquals(columnsNodeValue,'9');
 end;
 
+procedure TGameTest.SwitchMode;
+const
+  number1:word = 49;
+  number2:word = 50;
+  letterC:word = 67;
+  letterE:word = 69;
+  letterN:word = 78;
+var
+  cellZero: TCellDisplay;
+  actualInputMode: string;
+begin
+  fModeSwitchEvent:=@fGame.modeSwitchKeyPressHandler;
+  fKeyPressEvent:=@fGame.gameInputKeyPressHandler;
+  //We need a cell to act as sender
+  cellZero:=TCellDisplay.create(nil,1,1,1);
+  assertEquals(0,length(fGame.cells[0].centreMarks));
+  assertEquals(0,length(fGame.cells[0].edgeMarks));
+  assertEquals(-1,fGame.cells[0].value);
+
+  fKeyPressEvent(cellZero, number1, []);
+  assertEquals(49,fGame.cells[0].value);
+
+    //78: fInputMode:= imNormal;
+    //67: fInputMode:= imCentre;
+    //69: fInputMode:= imEdge;
+  fModeSwitchEvent(self, letterE, [ssShift,ssAlt]);
+  writeStr(actualInputMode,fGame.inputMode);
+  assertEquals('imEdge',actualInputMode);
+  fKeyPressEvent(cellZero, number2, []);
+  assertEquals(49,fGame.cells[0].value);
+  assertEquals(1,length(fGame.cells[0].edgeMarks));
+  assertEquals(50,fGame.cells[0].edgeMarks[0]);
+end;
+
 
 
 procedure TGameTest.SetUp;
+var
+  candidates: TIntArray;
 begin
-fGame:=TSudokuGame.create('testGame',TPoint.Create(9,9));
+candidates:=TIntArray.create(1,2,3,4,5,6,7,8,9);
+fGame:=TSudokuGame.create('testGame',TPoint.Create(9,9), candidates);
 fDocument:=fGame.generateGameDocument;
 end;
 

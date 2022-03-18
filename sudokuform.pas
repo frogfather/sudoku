@@ -19,16 +19,16 @@ type
   TmainForm = class(TForm)
     bLoad: TButton;
     Button1: TButton;
-    Button2: TButton;
+    bMode: TButton;
+    cbMode: TComboBox;
     lbLog: TListBox;
     od1: TOpenDialog;
     procedure bLoadClick(Sender: TObject);
+    procedure bModeClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure GameDisplayKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
-
+    fOnModeSwitchInput: TKeyEvent;
   public
 
   end;
@@ -55,6 +55,17 @@ begin
     end;
 end;
 
+procedure TmainForm.bModeClick(Sender: TObject);
+var
+  modeKey:word;
+begin
+  if cbMode.itemIndex = 0 then modeKey:=78
+  else if cbMode.itemIndex = 1 then modeKey:= 67
+  else if cbMode.itemindex = 2 then modeKey:= 69;
+  fOnModeSwitchInput(self, modeKey, [ssShift,ssAlt]);
+end;
+
+//Create a sample game
 procedure TmainForm.Button1Click(Sender: TObject);
 var
   row,col,box:integer;
@@ -82,7 +93,8 @@ var
     end;
 
 begin
-  sudoku:=TSudokuGame.create('myGame',TPoint.Create(9,9));
+  if (sudoku <> nil) then exit;
+  sudoku:=TSudokuGame.create('myGame',TPoint.Create(9,9),TIntArray.create(1,2,3,4,5,6,7,8,9));
   for row:=0 to 8 do
     begin
     regionCells:=getCells(row,-1,-1);
@@ -108,13 +120,8 @@ begin
     sudoku.addConstraint(TTargetConstraint.create(regionName,TRegions.create(newRegion),'45'));
     end;
   gameDisplay.setGame(sudoku);
+  fOnModeSwitchInput:= @sudoku.modeSwitchKeyPressHandler;
   sudoku.saveToFile('/Users/cloudsoft/Code/sudoku/myGame.xml');
-end;
-
-procedure TmainForm.Button2Click(Sender: TObject);
-begin
-  if sudoku = nil then exit;
-  sudoku.cells[3].setValue(4);
 end;
 
 procedure TmainForm.FormCreate(Sender: TObject);
@@ -127,20 +134,6 @@ begin
   gameDisplay.Visible:=true;
   gameDisplay.Caption:='';
 
-end;
-
-procedure TmainForm.GameDisplayKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-var
-  index:integer;
-begin
-  lbLog.items.add(sender.ClassName+' is sender');
-    if sender is TCellDisplay then with sender as TCellDisplay do
-  lbLog.items.add('cell display key '+chr(key)+': '+name);
-  if sudoku <> nil then
-    begin
-    //set value on game not display!
-    end;
 end;
 
 end.

@@ -77,21 +77,45 @@ implementation
 
 procedure TCellDisplay.drawCell(sender: TObject);
 var
-  mainValLeft,mainValTop:integer;
-  textHt,textWth:integer;
+  sText:string;
+  textLeft,textTop:integer;
+  textHeight,textWidth:integer;
+  edgeValLeft,edgeValTop:integer;
+  edgeValHeight, edgeValWidth:integer;
+  edgeMarkId:integer;
+  gameCell:TCell;
 begin
   if sender is TPaintbox then
        with sender as TPaintbox do
      begin
-     //Should show centre/edge marks if no main value
-     canvas.Font.Height:= (canvas.Height * 9) div 10;
-     textHt:=canvas.TextHeight(self.fValue);
-     textWth:=canvas.TextWidth(self.fValue);
-     mainValLeft:=(canvas.Width - textWth) div 2;
-     mainValTop:=(canvas.Height - textHt) div 2;
+     //get the cell from the game corresponding to this cell
+     gameCell:=(self.Parent as TGameDisplay).fGame.getCell(self.row,self.col);
+     if (gameCell = nil) then exit;
+     //draw the rectangle regardless
      canvas.brush.Color:=clDefault;
      canvas.Rectangle(0,0,canvas.Width,canvas.Height);
-     canvas.TextOut(mainValLeft,mainValTop,self.fValue);
+     sText:=gameCell.value.ToString;
+     if (gameCell.value <> -1) then
+        begin
+        canvas.Font.Height:= (canvas.Height * 8) div 10; //80% of box
+        textHeight:=canvas.TextHeight(sText);
+        textWidth:=canvas.TextWidth(sText);
+        textLeft:=(canvas.Width - textWidth) div 2;
+        textTop:=(canvas.Height - textHeight) div 2;
+        canvas.TextOut(textLeft,textTop,text);
+        end else if (length(gameCell.edgeMarks) > 0)
+           or (length(gameCell.centreMarks) > 0) then
+        begin
+        for edgeMarkId:= 0 to pred(length(gameCell.edgeMarks)) do
+          begin
+          sText:=gameCell.edgeMarks[edgeMarkId].ToString;
+          canvas.Font.Height:= canvas.Height div 5; //20% of box
+          textHeight:=canvas.TextHeight(sText);
+          textWidth:=canvas.TextWidth(sText);
+          textLeft:=((canvas.Width div 5)*(edgeMarkId mod 5));
+          textTop:=(canvas.Height - textHeight)*(edgeMarkId div 5);
+          end;
+        end;
      end;
 end;
 

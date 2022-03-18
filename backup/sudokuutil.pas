@@ -36,6 +36,8 @@ type
     function loadAndValidate(filename:string):TXMLDocument;
     function addConstraints(baseGameDocument:TXMLDocument;constraints:TDOMNodeArray):TXMLDocument;
     function addChildToNode(doc:TXMLDocument;parent:TDOMNode;child:string;textValue:string=''):TDOMNode;
+    procedure toggleNumber(var a: TIntArray; item: integer);
+    function isCandidate(a: TIntArray; item:integer):boolean;
 implementation
 { TSudokuUtil }
 
@@ -73,7 +75,7 @@ begin
   else startNode:= parent;
   foundNode := findInXml(startNode, nodeName, findTextValue);
   if (foundNode = nil) and (addIfNotFound) then
-    foundNode:= addNode(document,startNode.TextContent,nodeName);
+    foundNode:= addNode(document,startNode.NodeName,nodeName);
   result:= foundNode;
 end;
 
@@ -264,6 +266,22 @@ begin
     end;
   parent.AppendChild(newNode);
   result:=newNode;
+end;
+
+//remove the item if it's there, add if it isn't
+procedure toggleNumber(var a: TIntArray; item: integer);
+begin
+  if (positionInArray(a, item)) = -1
+    then addToArray(a,item)
+    else deleteFromArray(a,item);
+end;
+
+function isCandidate(a: TIntArray; item: integer): boolean;
+var
+  character:char;
+begin
+  character:=chr(item);
+  result:= positionInArray(a, character.toInt) > -1;
 end;
 
 end.

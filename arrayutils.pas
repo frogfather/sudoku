@@ -31,6 +31,7 @@ function arrPos(arrInput:TStringArray; element:string):integer;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
+function positionInArray(input: TIntArray; item: integer):integer;
 procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
@@ -350,6 +351,22 @@ begin
     for index:=0 to pred(length(strArray)) do
       output[index]:= strArray[index].ToInteger;
     result:=output;
+    end;
+end;
+
+function positionInArray(input: TIntArray; item: integer): integer;
+var
+  index:integer;
+begin
+  result:=-1;
+  if length(input) = 0 then exit;
+  for index:=0 to pred(length(input)) do
+    begin
+    if input[index] = item then
+      begin
+      result:=index;
+      exit;
+      end;
     end;
 end;
 

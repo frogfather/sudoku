@@ -31,18 +31,33 @@ object mainForm: TmainForm
     Height = 25
     Top = 423
     Width = 75
-    Caption = 'Button1'
+    Caption = 'Set game'
     OnClick = Button1Click
     TabOrder = 2
   end
-  object Button2: TButton
-    Left = 574
+  object bMode: TButton
+    Left = 40
     Height = 25
-    Top = 424
+    Top = 423
     Width = 75
-    Caption = 'Button2'
-    OnClick = Button2Click
+    Caption = 'Mode'
+    OnClick = bModeClick
     TabOrder = 3
+  end
+  object cbMode: TComboBox
+    Left = 152
+    Height = 20
+    Top = 428
+    Width = 100
+    ItemHeight = 19
+    ItemIndex = 0
+    Items.Strings = (
+      'Normal'
+      'Centre'
+      'Edge'
+    )
+    TabOrder = 4
+    Text = 'Normal'
   end
   object od1: TOpenDialog
     Left = 26

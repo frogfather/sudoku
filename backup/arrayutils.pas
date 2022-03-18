@@ -341,12 +341,16 @@ var
   index:integer;
 begin
   //should check these are integers
-  strArray:=input.Split(',');
-  output:=TIntArray.create;
-  setLength(output,length(strArray));
-  for index:=0 to pred(length(strArray)) do
-    output[index]:= strArray[index].ToInteger;
-  result:=output;
+  result:=nil;
+  if pos(',',input) > 0 then
+    begin
+    strArray:=input.Split(',');
+    output:=TIntArray.create;
+    setLength(output,length(strArray));
+    for index:=0 to pred(length(strArray)) do
+      output[index]:= strArray[index].ToInteger;
+    result:=output;
+    end;
 end;
 
 procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
