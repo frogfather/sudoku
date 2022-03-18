@@ -15,15 +15,12 @@ type
   TCellDisplay = class(TCustomPanel,ICellDisplay)
   private
   fPaintBox:TPaintbox;
-  fValue: string;
-  fEdgeMarks: TIntArray;
   fCentreMarks: TIntArray;
   fRow:integer;
   fColumn:integer;
   fBox:integer;
   fOnCellKeyDown: TKeyEvent;
   procedure drawCell(sender:TObject);
-  procedure setValue(newValue:String);
   protected
     //intercepts onClick event of the parent object
     procedure CellClickHandler(Sender: TObject);
@@ -80,8 +77,6 @@ var
   sText:string;
   textLeft,textTop:integer;
   textHeight,textWidth:integer;
-  edgeValLeft,edgeValTop:integer;
-  edgeValHeight, edgeValWidth:integer;
   edgeMarkId:integer;
   gameCell:TCell;
 begin
@@ -94,7 +89,7 @@ begin
      //draw the rectangle regardless
      canvas.brush.Color:=clDefault;
      canvas.Rectangle(0,0,canvas.Width,canvas.Height);
-     text:=gameCell.value.ToString;
+     sText:=chr(gameCell.value);
      if (gameCell.value <> -1) then
         begin
         canvas.Font.Height:= (canvas.Height * 8) div 10; //80% of box
@@ -102,30 +97,22 @@ begin
         textWidth:=canvas.TextWidth(sText);
         textLeft:=(canvas.Width - textWidth) div 2;
         textTop:=(canvas.Height - textHeight) div 2;
-        canvas.TextOut(textLeft,textTop,text);
+        canvas.TextOut(textLeft,textTop,sText);
         end else if (length(gameCell.edgeMarks) > 0)
            or (length(gameCell.centreMarks) > 0) then
         begin
         for edgeMarkId:= 0 to pred(length(gameCell.edgeMarks)) do
           begin
-          sText:=gameCell.edgeMarks[edgeMarkId].ToString;
+          sText:= chr(gameCell.edgeMarks[edgeMarkId]);
           canvas.Font.Height:= canvas.Height div 5; //20% of box
           textHeight:=canvas.TextHeight(sText);
           textWidth:=canvas.TextWidth(sText);
-          textLeft:=((canvas.Width div 5)*(edgeMarkId mod 5));
-          textTop:=(canvas.Height - textHeight)*(edgeMarkId div 5);
+          textLeft:=(canvas.Width div 10 + ((canvas.Width div 5)*(edgeMarkId mod 5)));
+          textTop:=(((canvas.Height div 10) * (1 -(2* (edgeMarkId div 5)))) + ((canvas.Height - textHeight)*(edgeMarkId div 5)));
+          canvas.TextOut(textLeft,textTop,sText);
           end;
         end;
      end;
-end;
-
-procedure TCellDisplay.setValue(newValue: String);
-begin
-  if fValue <> newValue then
-    begin
-    fValue:=newValue;
-    self.fPaintBox.Refresh;
-    end;
 end;
 
 procedure TCellDisplay.CellClickHandler(Sender: TObject);
@@ -160,7 +147,6 @@ begin
   fRow:=cRow;
   fColumn:=cCol;
   fBox:=cBox;
-  fValue:='';
   fEdgeMarks:=TIntArray.create;
   fCentreMarks:=TIntArray.create;
 end;
@@ -231,7 +217,7 @@ begin
      begin
      selectedCellDisplay:=getCell(row,col);
      if (selectedCellDisplay <> nil) then
-        selectedCellDisplay.setValue(chr(value));
+        selectedCellDisplay.Repaint;
      end;
     end;
 

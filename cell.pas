@@ -60,8 +60,8 @@ type
       centreMarks:TIntArray=nil;
       value: integer=-1);
     procedure setValue(newValue:integer);
-    procedure updateEdgeMarks(newValues:TIntArray);
-    procedure updateCentreMarks(newValues:TIntArray);
+    procedure updateEdgeMarks(var newValues:TIntArray);
+    procedure updateCentreMarks(var newValues:TIntArray);
     property cellId: TGUID read fCellId;
     property row: integer read getRow;
     property col: integer read getCol;
@@ -179,14 +179,14 @@ begin
     fOnCellChanged(self);
 end;
 
-procedure TCell.updateEdgeMarks(newValues: TIntArray);
+procedure TCell.updateEdgeMarks(var newValues: TIntArray);
 begin
   fEdgeMarks:=newValues;
   if (fOnCellChanged <> nil) then
     fOnCellChanged(self);
 end;
 
-procedure TCell.updateCentreMarks(newValues: TIntArray);
+procedure TCell.updateCentreMarks(var newValues: TIntArray);
 begin
   fCentreMarks:=newValues;
   if (fOnCellChanged <> nil) then

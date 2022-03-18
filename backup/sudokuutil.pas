@@ -270,10 +270,13 @@ end;
 
 //remove the item if it's there, add if it isn't
 procedure toggleNumber(var a: TIntArray; item: integer);
+var
+  arrPos:Integer;
 begin
-  if (positionInArray(a, item)) = -1
+  arrPos:= positionInArray(a,item);
+  if arrPos = -1
     then addToArray(a,item)
-    else deleteFromArray(a,item);
+    else deleteFromArray(a, arrPos);
 end;
 
 function isCandidate(a: TIntArray; item: integer): boolean;
@@ -281,7 +284,7 @@ var
   character:char;
 begin
   character:=chr(item);
-  result:= positionInArray(a, character.toInt) > -1;
+  result:= positionInArray(a, strToInt(character)) > -1;
 end;
 
 end.

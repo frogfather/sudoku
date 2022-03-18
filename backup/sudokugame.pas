@@ -323,9 +323,14 @@ function TSudokuGame.getCell(row, column: integer): TCell;
 var
   cellId:integer;
 begin
+  result:=nil;
   for cellId:= 0 to pred(length(fCells)) do
     begin
-
+    if (fCells[cellId].row = row) and (fCells[cellId].col = column) then
+      begin
+      result:=fCells[cellId];
+      exit;
+      end;
     end;
 end;
 
@@ -420,51 +425,37 @@ var
   numbersToUpdate: TIntArray;
 begin
   //receives the cell that changed
-
   if (shift = [ssCtrl]) then eventInputMode:=imEdge
     else eventInputMode:=inputMode;
   if sender is ICellDisplay then with sender as ICellDisplay do
     begin
     cell:=findCell(getRow,getCol);
     //find the cell and update it with the value depending on mode
-    if cell <> nil then
+    if cell = nil then exit;
+    if (key = 8) then
       begin
-      if (key = 8) then
-        begin
-          case eventInputMode of
-           imNormal: cell.setValue(-1);
-           imCentre:
-             begin
-               numbersToUpdate := cell.centreMarks;
-               deleteFromArray(numbersToUpdate,key);
-               cell.updateCentreMarks(numbersToUpdate);
-             end;
-           imEdge:
-             begin
-               numbersToUpdate:= cell.edgeMarks;
-               deleteFromArray(numbersToUpdate,key);
-               cell.updateEdgeMarks(numbersToUpdate);
-             end;
+      if (eventInputMode = imNormal) then
+         cell.setValue(-1);
+      end else if isCandidate(fCandidateSet, key) then
+      begin
+        case eventInputMode of
+         imNormal: cell.setValue(key);
+         imCentre:
+           begin
+           if (cell.value = -1) then exit;
+           numbersToUpdate := cell.centreMarks;
+           toggleNumber(numbersToUpdate,key);
+           cell.updateCentreMarks(numbersToUpdate);
            end;
-        end else if isCandidate(fCandidateSet, key) then
-        begin
-          case eventInputMode of
-           imNormal: cell.setValue(key);
-           imCentre:
-             begin
-               numbersToUpdate := cell.centreMarks;
-               toggleNumber(numbersToUpdate,key);
-               cell.updateCentreMarks(numbersToUpdate);
-             end;
-           imEdge:
-             begin
-               numbersToUpdate:= cell.edgeMarks;
-               toggleNumber(numbersToUpdate,key);
-               cell.updateEdgeMarks(numbersToUpdate);
-             end;
+         imEdge:
+           begin
+           if (cell.value = -1) then exit;
+           numbersToUpdate:= cell.edgeMarks;
+           toggleNumber(numbersToUpdate,key);
+           cell.updateEdgeMarks(numbersToUpdate);
            end;
-        end;
-    end;
+         end;
+      end;
   end;
 
 end;
