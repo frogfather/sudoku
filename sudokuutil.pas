@@ -274,8 +274,8 @@ var
   arrPos:Integer;
 begin
   arrPos:= positionInArray(a,item);
-  if arrPos = -1
-    then addToArray(a,item)
+  if a.indexOf(item) = -1
+    then a.push(item)
     else deleteFromArray(a, arrPos);
 end;
 

@@ -6,7 +6,6 @@ interface
 
 uses
   Classes, SysUtils,controls,ExtCtrls,sudokuGame,graphics,arrayUtils,cell,
-  customcell,
   gameDisplayInterface;
 
 type
@@ -77,8 +76,9 @@ var
   sText:string;
   textLeft,textTop:integer;
   textHeight,textWidth:integer;
-  edgeMarkId:integer;
+  edgeMarkId,centreMarkId:integer;
   gameCell:TCell;
+  leftMargin,topMargin:integer;
 begin
   if sender is TPaintbox then
        with sender as TPaintbox do
@@ -101,14 +101,28 @@ begin
         end else if (length(gameCell.edgeMarks) > 0)
            or (length(gameCell.centreMarks) > 0) then
         begin
+        leftMargin:= canvas.Width div 10;
+        topMargin:= canvas.Height div 20;
         for edgeMarkId:= 0 to pred(length(gameCell.edgeMarks)) do
           begin
           sText:= chr(gameCell.edgeMarks[edgeMarkId]);
-          canvas.Font.Height:= canvas.Height div 5; //20% of box
+          canvas.Font.Height:= canvas.Height div 6; //20% of box
           textHeight:=canvas.TextHeight(sText);
           textWidth:=canvas.TextWidth(sText);
-          textLeft:=(canvas.Width div 10 + ((canvas.Width div 5)*(edgeMarkId mod 5)));
-          textTop:=(((canvas.Height div 10) * (1 -(2* (edgeMarkId div 5)))) + ((canvas.Height - textHeight)*(edgeMarkId div 5)));
+          textLeft:=(leftMargin + ((canvas.Width div 5)*(edgeMarkId mod 5)));
+          textTop:=((topMargin * (1 -(2* (edgeMarkId div 5)))) + ((canvas.Height - textHeight)*(edgeMarkId div 5)));
+          canvas.TextOut(textLeft,textTop,sText);
+          end;
+        leftMargin:= canvas.Width div 5;
+        topMargin:= canvas.Height div 5;
+        for centreMarkId:= 0 to pred(length(gameCell.centreMarks)) do
+          begin
+          sText:= chr(gameCell.centreMarks[centreMarkId]);
+          canvas.Font.Height:=canvas.Height div 5;
+          textHeight:=canvas.TextHeight(sText);
+          textWidth:=canvas.TextWidth(sText);
+          textLeft:=(leftMargin + ((canvas.Width div 5)*(centreMarkId mod 3)));
+          textTop:=(topMargin + ((canvas.Height div 5) * (centreMarkId div 3)));
           canvas.TextOut(textLeft,textTop,sText);
           end;
         end;
@@ -239,6 +253,8 @@ var
   index:integer;
   cellWidth,cellheight:integer;
 begin
+  //Try to keep aspect ratio
+  self.height:=self.Width;
   //resize all the cells
   if (fGame = nil) then exit;
   cellWidth:=self.width div fGame.dimensions.X;
@@ -249,7 +265,7 @@ begin
     width:= cellWidth;
     Height:= cellHeight;
     Left:=((index mod 9) * cellWidth);
-    Top:=self.Top + ((index div 9) * cellHeight);
+    Top:=(index div 9) * cellHeight;
     repaint;
     WriteLn('w: '+cellWidth.toString+' h: '+cellHeight.ToString);
     end;

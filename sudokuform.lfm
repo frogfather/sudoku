@@ -1,63 +1,53 @@
 object mainForm: TmainForm
-  Left = 227
-  Height = 486
-  Top = 149
-  Width = 892
+  Left = 200
+  Height = 716
+  Top = 55
+  Width = 1069
   Caption = 'mainForm'
-  ClientHeight = 486
-  ClientWidth = 892
+  ClientHeight = 716
+  ClientWidth = 1069
   KeyPreview = True
   OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
   object lbLog: TListBox
-    Left = 536
-    Height = 376
-    Top = 24
-    Width = 336
+    Left = 0
+    Height = 80
+    Top = 636
+    Width = 1069
+    Align = alBottom
     ItemHeight = 0
     TabOrder = 0
   end
-  object bLoad: TButton
-    Left = 797
-    Height = 25
-    Top = 423
-    Width = 75
-    Caption = 'Load'
-    OnClick = bLoadClick
+  object Panel1: TPanel
+    Left = 888
+    Height = 56
+    Top = 576
+    Width = 153
+    Anchors = [akLeft, akRight, akBottom]
+    ClientHeight = 56
+    ClientWidth = 153
     TabOrder = 1
-  end
-  object Button1: TButton
-    Left = 696
-    Height = 25
-    Top = 423
-    Width = 75
-    Caption = 'Set game'
-    OnClick = Button1Click
-    TabOrder = 2
-  end
-  object bMode: TButton
-    Left = 40
-    Height = 25
-    Top = 423
-    Width = 75
-    Caption = 'Mode'
-    OnClick = bModeClick
-    TabOrder = 3
-  end
-  object cbMode: TComboBox
-    Left = 152
-    Height = 20
-    Top = 428
-    Width = 100
-    ItemHeight = 19
-    ItemIndex = 0
-    Items.Strings = (
-      'Normal'
-      'Centre'
-      'Edge'
-    )
-    TabOrder = 4
-    Text = 'Normal'
+    object cbMode: TComboBox
+      Left = 32
+      Height = 20
+      Top = 24
+      Width = 100
+      Anchors = [akTop, akRight]
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Name = '.SF NS'
+      ItemHeight = 25
+      ItemIndex = 0
+      Items.Strings = (
+        'Normal'
+        'Centre'
+        'Edge'
+      )
+      OnChange = cbModeChange
+      ParentFont = False
+      TabOrder = 0
+      Text = 'Normal'
+    end
   end
   object od1: TOpenDialog
     Left = 26

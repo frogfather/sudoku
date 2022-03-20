@@ -283,8 +283,12 @@ function isCandidate(a: TIntArray; item: integer): boolean;
 var
   character:char;
 begin
-  character:=chr(item);
-  result:= positionInArray(a, strToInt(character)) > -1;
+  try
+    character:=chr(item);
+    result:= positionInArray(a, strToInt(character)) > -1;
+  except
+    result:=false;
+  end;
 end;
 
 end.

@@ -1,7 +1,8 @@
 unit arrayUtils;
 
 {$mode objfpc}{$H+}
-
+{$MODESWITCH ADVANCEDRECORDS}
+{$modeswitch TypeHelpers}
 interface
 
 uses
@@ -19,6 +20,23 @@ type
   T2DStringArray = array of array of string;
   TColours = array of TColor;
 
+  { TIntArrayHelper }
+
+  TIntArrayHelper = type helper for TIntArray
+  function size: integer;
+  function push(element:integer):integer;
+  function indexOf(element:integer):integer;
+  function splice(index:integer; deleteCount:integer=0; newItems: TIntArray=nil):TIntArray;
+  end;
+
+  { TInt64ArrayHelper }
+
+  TInt64ArrayHelper = type helper for TInt64Array
+  function size: integer;
+  function push(element:int64):integer;
+  function indexOf(element:int64):integer;
+  end;
+
 procedure addToArray(var arrInput:TStringArray; item:string;index:integer=-1);
 procedure addToArray(var arrInput:TIntArray;item:integer;index:integer=-1);
 procedure addToArray(var arrInput:TInt64Array;item:int64;index:integer=-1);
@@ -31,6 +49,7 @@ function arrPos(arrInput:TStringArray; element:string):integer;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
+function positionInArray(input: TIntArray; item: integer):integer;
 procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
@@ -353,6 +372,22 @@ begin
     end;
 end;
 
+function positionInArray(input: TIntArray; item: integer): integer;
+var
+  index:integer;
+begin
+  result:=-1;
+  if length(input) = 0 then exit;
+  for index:=0 to pred(length(input)) do
+    begin
+    if input[index] = item then
+      begin
+      result:=index;
+      exit;
+      end;
+    end;
+end;
+
 procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
 begin
   if ascending then
@@ -398,6 +433,96 @@ begin
   for index:=0 to pred(length(charArray)) do
     output:=output+charArray[index];
   str:=output;
+end;
+
+{ TInt64ArrayHelper }
+
+function TInt64ArrayHelper.size: integer;
+begin
+  result:= length(self);
+end;
+
+function TInt64ArrayHelper.push(element: int64): integer;
+begin
+  setLength(self, length(self)+1);
+  self[length(self)]:=element;
+  result:=self.size;
+end;
+
+function TInt64ArrayHelper.indexOf(element: int64): integer;
+var
+  index:integer;
+begin
+  result:=-1;
+  for index:= 0 to pred(length(self)) do
+    if (self[index]=element) then
+      begin
+      result:=index;
+      exit;
+      end;
+end;
+
+{ TIntArrayHelper }
+
+function TIntArrayHelper.size: integer;
+begin
+  result:=length(self);
+end;
+
+function TIntArrayHelper.push(element: integer): integer;
+begin
+  setLength(self, length(self)+1);
+  self[length(self)]:=element;
+  result:=self.size;
+end;
+
+function TIntArrayHelper.indexOf(element: integer): integer;
+var
+  index:integer;
+begin
+  result:=-1;
+  for index:= 0 to pred(length(self)) do
+    if (self[index]=element) then
+      begin
+      result:=index;
+      exit;
+      end;
+end;
+
+function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
+  ): TIntArray;
+var
+  adjustedCount:integer;
+  adjustedIndex,adjustIndex:integer;
+begin
+ //if index is greater than or equal to the size of the array then adjust it
+  if (index > self.size) then adjustedIndex:= pred(self.size)
+    else adjustedIndex:= index;
+  //TODO - if index is negative should start at end of array
+
+  //if the delete adjustedCount would take us off the end of the array then adjust it
+  if (deleteCount > self.size - adjustedIndex) then
+    adjustedCount:= self.size - adjustedIndex
+      else adjustedCount:= adjustedCount;
+
+  //TODO return deleted elements
+   for adjustIndex:= adjustedIndex to pred(self.size - adjustedCount) do
+     self[adjustIndex]:= self[adjustIndex + adjustedCount];
+   setLength(self, self.size - adjustedCount);
+
+   if (newItems <> nil) then
+     begin
+     setLength(self, self.size + newItems.size);
+
+     for adjustIndex:= pred(self.size) downTo adjustedIndex + 1 do
+       self[adjustIndex]:= self[adjustIndex - newItems.size];
+
+     for adjustIndex:= 0 to pred(newItems.size) do
+       self[index+adjustIndex]:= newItems[adjustIndex];
+     end;
+
+   result:= TIntArray.create //TODO return deleted items
+
 end;
 
 end.

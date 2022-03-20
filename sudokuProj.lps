@@ -11,7 +11,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="122"/>
       </Unit0>
       <Unit1>
         <Filename Value="sudokuform.pas"/>
@@ -21,29 +21,29 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sudokuForm"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="47"/>
-        <CursorPos X="54" Y="65"/>
-        <UsageCount Value="117"/>
+        <TopLine Value="53"/>
+        <CursorPos Y="65"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="sudokugame.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="436"/>
-        <CursorPos X="29" Y="452"/>
-        <UsageCount Value="117"/>
+        <CursorPos X="18" Y="440"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="arrayutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="arrayUtils"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="98"/>
-        <CursorPos X="45" Y="105"/>
-        <UsageCount Value="117"/>
+        <TopLine Value="490"/>
+        <CursorPos X="47" Y="495"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -53,7 +53,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="122"/>
       </Unit4>
       <Unit5>
         <Filename Value="cell.pas"/>
@@ -61,7 +61,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="175"/>
         <CursorPos Y="187"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -70,8 +70,8 @@
         <UnitName Value="sudokuUtil"/>
         <EditorIndex Value="1"/>
         <TopLine Value="269"/>
-        <CursorPos X="5" Y="288"/>
-        <UsageCount Value="117"/>
+        <CursorPos X="24" Y="278"/>
+        <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -81,7 +81,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3"/>
         <CursorPos X="14" Y="11"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="122"/>
       </Unit7>
       <Unit8>
         <Filename Value="constraint.pas"/>
@@ -89,7 +89,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="73" Y="12"/>
-        <UsageCount Value="106"/>
+        <UsageCount Value="111"/>
       </Unit8>
       <Unit9>
         <Filename Value="optionscalculator.pas"/>
@@ -97,35 +97,34 @@
         <UnitName Value="optionsCalculator"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="31" Y="8"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="76"/>
       </Unit9>
       <Unit10>
         <Filename Value="repeat_options.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="70"/>
+        <UsageCount Value="75"/>
       </Unit10>
       <Unit11>
         <Filename Value="calculate_option.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="10"/>
-        <UsageCount Value="70"/>
+        <UsageCount Value="75"/>
       </Unit11>
       <Unit12>
         <Filename Value="region.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
-        <UsageCount Value="70"/>
+        <UsageCount Value="75"/>
       </Unit12>
       <Unit13>
         <Filename Value="game_display.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="131"/>
-        <CursorPos X="13" Y="147"/>
-        <UsageCount Value="61"/>
+        <CursorPos X="75" Y="8"/>
+        <UsageCount Value="66"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -135,14 +134,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="13" Y="14"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="40"/>
       </Unit14>
       <Unit15>
         <Filename Value="customcell.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="10"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="38"/>
       </Unit15>
       <Unit16>
         <Filename Value="subject.pas"/>
@@ -289,124 +288,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="cell.pas"/>
-        <Caret Line="184" TopLine="175"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="109" TopLine="94"/>
       </Position1>
       <Position2>
-        <Filename Value="cell.pas"/>
-        <Caret Line="185" TopLine="175"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="110" TopLine="94"/>
       </Position2>
       <Position3>
-        <Filename Value="cell.pas"/>
-        <Caret Line="186" TopLine="175"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="104" TopLine="94"/>
       </Position3>
       <Position4>
-        <Filename Value="cell.pas"/>
-        <Caret Line="187" TopLine="175"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="106" TopLine="94"/>
       </Position4>
       <Position5>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="451" Column="43" TopLine="442"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="107" TopLine="94"/>
       </Position5>
       <Position6>
-        <Filename Value="game_display.pas"/>
-        <Caret Line="264" TopLine="253"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="108" TopLine="94"/>
       </Position6>
       <Position7>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="451" Column="45" TopLine="442"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="114" TopLine="106"/>
       </Position7>
       <Position8>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="274" Column="27" TopLine="263"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="64" TopLine="53"/>
       </Position8>
       <Position9>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="276" TopLine="263"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="120" TopLine="111"/>
       </Position9>
       <Position10>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="109" Column="9" TopLine="98"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="122" TopLine="113"/>
       </Position10>
       <Position11>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="452" Column="23" TopLine="442"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="123" TopLine="113"/>
       </Position11>
       <Position12>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="39" Column="15" TopLine="28"/>
+        <Filename Value="sudokuform.pas"/>
+        <Caret Line="64" TopLine="53"/>
       </Position12>
       <Position13>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="276" Column="43" TopLine="265"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="23" Column="28" TopLine="6"/>
       </Position13>
       <Position14>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="279" Column="35" TopLine="265"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="23" Column="31" TopLine="7"/>
       </Position14>
       <Position15>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="452" TopLine="442"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="5" Column="26"/>
       </Position15>
       <Position16>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="453" TopLine="442"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="26" Column="15" TopLine="13"/>
       </Position16>
       <Position17>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="451" Column="42" TopLine="442"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="431" Column="24" TopLine="411"/>
       </Position17>
       <Position18>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="452" TopLine="442"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="429" Column="11" TopLine="413"/>
       </Position18>
       <Position19>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="451" Column="43" TopLine="442"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="32" Column="9" TopLine="10"/>
       </Position19>
       <Position20>
-        <Filename Value="game_display.pas"/>
-        <Caret Line="18" Column="25" TopLine="11"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="27" Column="42" TopLine="17"/>
       </Position20>
       <Position21>
-        <Filename Value="game_display.pas"/>
-        <Caret Line="17" Column="23" TopLine="13"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="34" Column="14" TopLine="21"/>
       </Position21>
       <Position22>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="440" TopLine="427"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="28" Column="16" TopLine="16"/>
       </Position22>
       <Position23>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="450" TopLine="439"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="36" Column="15" TopLine="19"/>
       </Position23>
       <Position24>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="451" TopLine="439"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="29" Column="16" TopLine="22"/>
       </Position24>
       <Position25>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="452" TopLine="439"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="492" Column="64" TopLine="481"/>
       </Position25>
       <Position26>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="438" Column="27" TopLine="429"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="496" Column="14" TopLine="485"/>
       </Position26>
       <Position27>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="40" Column="14" TopLine="29"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="492" Column="51" TopLine="481"/>
       </Position27>
       <Position28>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="287" TopLine="268"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="524" Column="29" TopLine="505"/>
       </Position28>
       <Position29>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="440" TopLine="429"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="29" Column="41" TopLine="15"/>
       </Position29>
       <Position30>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="288" Column="5" TopLine="269"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="495" Column="9" TopLine="494"/>
       </Position30>
     </JumpHistory>
     <RunParams>
@@ -415,6 +414,15 @@
     </RunParams>
   </ProjectSession>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sudokuform.pas"/>
+        <Line Value="120"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="2">
       <Item1>
         <Expression Value="gameCell"/>
