@@ -22,7 +22,9 @@ type
     procedure push;
     procedure indexOf;
     procedure spliceRemove;
+    procedure spliceInsert;
     procedure spliceReplace;
+    procedure spliceReturn;
   end;
 
 implementation
@@ -63,7 +65,7 @@ begin
   assertEquals(-1,fArray.indexOf(4));
 end;
 
-procedure arrayUtilsTest.spliceReplace;
+procedure arrayUtilsTest.spliceInsert;
 var
   spliceArray:TIntArray;
 begin
@@ -75,6 +77,25 @@ begin
   assertEquals(23,fArray[4]);
   assertEquals(17,fArray[5]);
   assertEquals(5,fArray[6]);
+end;
+
+procedure arrayUtilsTest.spliceReplace;
+var
+  spliceArray:TIntArray;
+begin
+  spliceArray:=TIntArray.create(23,17);
+  fArray.splice(4,2,spliceArray);
+  //result should be [1,2,3,4,23,17,7,8,9,10]
+  assertEquals(10,fArray.size);
+  assertEquals(4,fArray[3]);
+  assertEquals(23,fArray[4]);
+  assertEquals(17,fArray[5]);
+  assertEquals(7,fArray[6]);
+end;
+
+procedure arrayUtilsTest.spliceReturn;
+begin
+  fArray.splice(4,2);
 end;
 
 

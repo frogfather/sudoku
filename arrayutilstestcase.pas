@@ -24,6 +24,7 @@ type
     procedure spliceRemove;
     procedure spliceInsert;
     procedure spliceReplace;
+    procedure spliceReturn;
   end;
 
 implementation
@@ -90,6 +91,18 @@ begin
   assertEquals(23,fArray[4]);
   assertEquals(17,fArray[5]);
   assertEquals(7,fArray[6]);
+end;
+
+procedure arrayUtilsTest.spliceReturn;
+var
+  deletedItems: TIntArray;
+begin
+  deletedItems:= fArray.splice(4,2);
+  //returned value should be [5,6]
+  assertEquals(2,length(deletedItems));
+  assertEquals(5,deletedItems[0]);
+  assertEquals(6,deletedItems[1]);
+
 end;
 
 

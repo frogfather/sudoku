@@ -36,6 +36,7 @@ type
   function size: integer;
   function push(element:int64):integer;
   function indexOf(element:int64):integer;
+  function splice(index:integer; deleteCount:integer=0;newItems: TInt64Array=nil):TInt64Array;
   end;
 
   { TStringArrayHelper }
@@ -43,6 +44,7 @@ type
   function size: integer;
   function push(element: string):integer;
   function indexOf(element:string):integer;
+  function splice(index:integer; deleteCount: integer=0; newItems: TStringArray=nil):TStringArray;
   end;
 
 procedure addToArray(var arrInput:TStringArray; item:string;index:integer=-1);
@@ -417,9 +419,11 @@ begin
     normalizedCount:= high(aArray) - normalizedIndex
       else normalizedCount:= deleteCount;
 
-  //TODO return deleted elements
    if(deleteCount > 0) then
      begin
+     //add the items that are to be deleted to the result array
+     for adjustIndex:=normalizedIndex to normalizedIndex + pred(normalizedCount) do
+       insert(aArray[adjustIndex],result,length(result));
      for adjustIndex:= normalizedIndex to pred(length(aArray) - normalizedCount) do
        aArray[adjustIndex]:= aArray[adjustIndex + normalizedCount];
      setLength(aArray, length(aArray) - normalizedCount);
@@ -435,8 +439,6 @@ begin
      for adjustIndex:= 0 to high(newItems) do
        aArray[index+adjustIndex]:= newItems[adjustIndex];
      end;
-
-   result:= TIntArray.create //TODO return deleted items
 end;
 
 { TStringArrayHelper }
@@ -448,8 +450,7 @@ end;
 
 function TStringArrayHelper.push(element: string): integer;
 begin
-  setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
@@ -457,6 +458,14 @@ function TStringArrayHelper.indexOf(element: string): integer;
 begin
   result:= specialize getIndex<string>(element,self);
 end;
+
+function TStringArrayHelper.splice(index: integer; deleteCount: integer;
+  newItems: TStringArray): TStringArray;
+begin
+  result:= specialize splice<string>(self,index,deleteCount, newItems);
+end;
+
+
 
 { TInt64ArrayHelper }
 
@@ -467,14 +476,19 @@ end;
 
 function TInt64ArrayHelper.push(element: int64): integer;
 begin
-  setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
 function TInt64ArrayHelper.indexOf(element: int64): integer;
 begin
   result:= specialize getIndex<int64>(element,self);
+end;
+
+function TInt64ArrayHelper.splice(index: integer; deleteCount: integer;
+  newItems: TInt64Array): TInt64Array;
+begin
+  result:= specialize splice<int64>(self,index,deleteCount,newItems);
 end;
 
 { TIntArrayHelper }
@@ -486,8 +500,7 @@ end;
 
 function TIntArrayHelper.push(element: integer): integer;
 begin
-  setLength(self, length(self)+1);
-  self[self.size - 1]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
