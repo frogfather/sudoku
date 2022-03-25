@@ -8,6 +8,7 @@ interface
 uses
   Classes, SysUtils,anysort,graphics,fgl;
 type
+  generic Tarray<T> = array of T;
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -37,6 +38,13 @@ type
   function indexOf(element:int64):integer;
   end;
 
+  { TStringArrayHelper }
+  TStringArrayHelper = type helper for TStringArray
+  function size: integer;
+  function push(element: string):integer;
+  function indexOf(element:string):integer;
+  end;
+
 procedure addToArray(var arrInput:TStringArray; item:string;index:integer=-1);
 procedure addToArray(var arrInput:TIntArray;item:integer;index:integer=-1);
 procedure addToArray(var arrInput:TInt64Array;item:int64;index:integer=-1);
@@ -44,12 +52,9 @@ function deleteFromArray(var arrInput:TStringArray; index: integer):string;
 function deleteFromArray(var arrInput:TIntArray; index: integer):integer;
 function removeBlankEntriesFromArray(arrInput: TIntArray):TIntArray;
 function toIntArray(arrInput: TStringArray):TIntArray;
-function arrPos(arrInput:TIntArray; element:integer):integer;
-function arrPos(arrInput:TStringArray; element:string):integer;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
-function positionInArray(input: TIntArray; item: integer):integer;
 procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
@@ -184,38 +189,6 @@ begin
       end;
     end;
   result:=output;
-end;
-
-function arrPos(arrInput: TIntArray; element: integer): integer;
-var
-  index:integer;
-begin
-  result:=-1;
-  if length(arrInput) = 0 then exit;
-  for index:=0 to pred(length(arrInput)) do
-    begin
-    if (arrInput[index] = element) then
-      begin
-      result:=index;
-      exit;
-      end;
-    end;
-end;
-
-function arrPos(arrInput: TStringArray; element: string): integer;
-var
-  index:integer;
-begin
-  result:=-1;
-  if length(arrInput) = 0 then exit;
-  for index:=0 to pred(length(arrInput)) do
-    begin
-    if (arrInput[index] = element) then
-      begin
-      result:=index;
-      exit;
-      end;
-    end;
 end;
 
 function containsCharacters(toSearch, toFind: String): boolean;
@@ -372,22 +345,6 @@ begin
     end;
 end;
 
-function positionInArray(input: TIntArray; item: integer): integer;
-var
-  index:integer;
-begin
-  result:=-1;
-  if length(input) = 0 then exit;
-  for index:=0 to pred(length(input)) do
-    begin
-    if input[index] = item then
-      begin
-      result:=index;
-      exit;
-      end;
-    end;
-end;
-
 procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
 begin
   if ascending then
@@ -434,6 +391,72 @@ begin
     output:=output+charArray[index];
   str:=output;
 end;
+{ Generic functions for arrays }
+
+generic function GetIndex<T>(aItem:T; aArr: array of T): SizeInt;
+begin
+  for Result := 0 to High(aArr) do
+    if aArr[Result] = aItem then
+      Exit;
+  Result := -1;
+end;
+
+generic function splice<T>(var aArray: specialize TArray<T>; index, deleteCount: sizeInt; var newItems: specialize TArray<T>
+  ): specialize TArray<T>;
+var
+  normalizedCount, normalizedIndex, adjustIndex:sizeInt;
+begin
+ result:= specialize TArray<T>.create;
+ //if index is greater than or equal to the size of the array then adjust it
+  if (index > high(aArray)) then normalizedIndex:= high(aArray)
+    else normalizedIndex:= index;
+  //TODO - if index is negative should start at end of array
+
+  //if the delete normalizedCount would take us off the end of the array then adjust it
+  if (deleteCount > high(aArray) - normalizedIndex) then
+    normalizedCount:= high(aArray) - normalizedIndex
+      else normalizedCount:= deleteCount;
+
+  //TODO return deleted elements
+   if(deleteCount > 0) then
+     begin
+     for adjustIndex:= normalizedIndex to pred(high(aArray) - normalizedCount) do
+       aArray[adjustIndex]:= aArray[adjustIndex + normalizedCount];
+     setLength(aArray, high(aArray) - normalizedCount);
+     end;
+
+   if (newItems <> nil) then
+     begin
+     setLength(aArray, high(aArray) + high(newItems));
+
+     for adjustIndex:= high(aArray) downTo normalizedIndex + 1 do
+       aArray[adjustIndex]:= aArray[adjustIndex - high(newItems)];
+
+     for adjustIndex:= 0 to high(newItems) do
+       aArray[index+adjustIndex]:= newItems[adjustIndex];
+     end;
+
+   result:= TIntArray.create //TODO return deleted items
+end;
+
+{ TStringArrayHelper }
+
+function TStringArrayHelper.size: integer;
+begin
+  result:= length(self);
+end;
+
+function TStringArrayHelper.push(element: string): integer;
+begin
+  setLength(self, length(self)+1);
+  self[length(self)]:=element;
+  result:=self.size;
+end;
+
+function TStringArrayHelper.indexOf(element: string): integer;
+begin
+  result:= specialize getIndex<string>(element,self);
+end;
 
 { TInt64ArrayHelper }
 
@@ -450,16 +473,8 @@ begin
 end;
 
 function TInt64ArrayHelper.indexOf(element: int64): integer;
-var
-  index:integer;
 begin
-  result:=-1;
-  for index:= 0 to pred(length(self)) do
-    if (self[index]=element) then
-      begin
-      result:=index;
-      exit;
-      end;
+  result:= specialize getIndex<int64>(element,self);
 end;
 
 { TIntArrayHelper }
@@ -472,21 +487,13 @@ end;
 function TIntArrayHelper.push(element: integer): integer;
 begin
   setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  self[self.size - 1]:=element;
   result:=self.size;
 end;
 
 function TIntArrayHelper.indexOf(element: integer): integer;
-var
-  index:integer;
 begin
-  result:=-1;
-  for index:= 0 to pred(length(self)) do
-    if (self[index]=element) then
-      begin
-      result:=index;
-      exit;
-      end;
+  result:= specialize getIndex<integer>(element,self);
 end;
 
 function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
@@ -503,12 +510,15 @@ begin
   //if the delete adjustedCount would take us off the end of the array then adjust it
   if (deleteCount > self.size - adjustedIndex) then
     adjustedCount:= self.size - adjustedIndex
-      else adjustedCount:= adjustedCount;
+      else adjustedCount:= deleteCount;
 
   //TODO return deleted elements
-   for adjustIndex:= adjustedIndex to pred(self.size - adjustedCount) do
-     self[adjustIndex]:= self[adjustIndex + adjustedCount];
-   setLength(self, self.size - adjustedCount);
+   if(deleteCount > 0) then
+     begin
+     for adjustIndex:= adjustedIndex to pred(self.size - adjustedCount) do
+       self[adjustIndex]:= self[adjustIndex + adjustedCount];
+     setLength(self, self.size - adjustedCount);
+     end;
 
    if (newItems <> nil) then
      begin

@@ -3,7 +3,7 @@ program sudokuTest;
 {$mode objfpc}{$H+}
 
 uses
-  Interfaces, Forms, GuiTestRunner, gameTest;
+  Interfaces, Forms, GuiTestRunner, gameTest, arrayUtilsTestCase;
 
 {$R *.res}
 

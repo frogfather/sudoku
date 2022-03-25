@@ -273,9 +273,9 @@ procedure toggleNumber(var a: TIntArray; item: integer);
 var
   arrPos:Integer;
 begin
-  arrPos:= positionInArray(a,item);
+  arrPos:= a.indexOf(item);
   if arrPos = -1
-    then addToArray(a,item)
+    then a.push(item)
     else deleteFromArray(a, arrPos);
 end;
 

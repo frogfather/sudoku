@@ -64,6 +64,7 @@ const
   letterC:word = 67;
   letterE:word = 69;
   letterN:word = 78;
+  deleteKey:word = 8;
 var
   cellZero: TCellDisplay;
   actualInputMode: string;
@@ -82,11 +83,13 @@ begin
     //78: fInputMode:= imNormal;
     //67: fInputMode:= imCentre;
     //69: fInputMode:= imEdge;
+  fKeyPressEvent(cellZero, deleteKey,[]);
+  assertEquals(-1,fGame.cells[0].value);
   fModeSwitchEvent(self, letterE, [ssShift,ssAlt]);
   writeStr(actualInputMode,fGame.inputMode);
   assertEquals('imEdge',actualInputMode);
   fKeyPressEvent(cellZero, number2, []);
-  assertEquals(49,fGame.cells[0].value);
+
   assertEquals(1,length(fGame.cells[0].edgeMarks));
   assertEquals(50,fGame.cells[0].edgeMarks[0]);
 end;

@@ -48,60 +48,59 @@
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="arrayutils.pas"/>
+        <Filename Value="anysort.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="arrayUtils"/>
       </Unit3>
       <Unit4>
-        <Filename Value="anysort.pas"/>
+        <Filename Value="cell.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="cell.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
         <Filename Value="sudokuutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sudokuUtil"/>
-      </Unit6>
-      <Unit7>
+      </Unit5>
+      <Unit6>
         <Filename Value="fileutilities.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="fileUtilities"/>
-      </Unit7>
-      <Unit8>
+      </Unit6>
+      <Unit7>
         <Filename Value="constraint.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit8>
-      <Unit9>
+      </Unit7>
+      <Unit8>
         <Filename Value="optionscalculator.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="optionsCalculator"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="repeat_options.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit9>
       <Unit10>
-        <Filename Value="repeat_options.pas"/>
+        <Filename Value="calculate_option.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit10>
       <Unit11>
-        <Filename Value="calculate_option.pas"/>
+        <Filename Value="region.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit11>
       <Unit12>
-        <Filename Value="region.pas"/>
+        <Filename Value="game_display.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="game_display.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit13>
-      <Unit14>
         <Filename Value="gamedisplayinterface.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gameDisplayInterface"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="customcell.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit14>
       <Unit15>
-        <Filename Value="customcell.pas"/>
+        <Filename Value="../fpc_common/arrayutils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit15>
     </Units>
@@ -113,6 +112,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../fpc_common"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -5,8 +5,7 @@ unit game_display;
 interface
 
 uses
-  Classes, SysUtils,controls,ExtCtrls,sudokuGame,graphics,arrayUtils,cell,
-  customcell,
+  Classes, SysUtils,controls,ExtCtrls,sudokuGame,graphics,cell,
   gameDisplayInterface;
 
 type

@@ -273,8 +273,8 @@ procedure toggleNumber(var a: TIntArray; item: integer);
 var
   arrPos:Integer;
 begin
-  arrPos:= positionInArray(a,item);
-  if a.indexOf(item) = -1
+  arrPos:= a.indexOf(item);
+  if arrPos = -1
     then a.push(item)
     else deleteFromArray(a, arrPos);
 end;
@@ -285,7 +285,7 @@ var
 begin
   try
     character:=chr(item);
-    result:= positionInArray(a, strToInt(character)) > -1;
+    result:= a.indexOf(strToInt(character)) > -1;
   except
     result:=false;
   end;

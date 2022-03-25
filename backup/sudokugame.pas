@@ -442,14 +442,14 @@ begin
          imNormal: cell.setValue(key);
          imCentre:
            begin
-           if (cell.value = -1) then exit;
+           if (cell.value <> -1) then exit;
            numbersToUpdate := cell.centreMarks;
            toggleNumber(numbersToUpdate,key);
            cell.updateCentreMarks(numbersToUpdate);
            end;
          imEdge:
            begin
-           if (cell.value = -1) then exit;
+           if (cell.value <> -1) then exit;
            numbersToUpdate:= cell.edgeMarks;
            toggleNumber(numbersToUpdate,key);
            cell.updateEdgeMarks(numbersToUpdate);

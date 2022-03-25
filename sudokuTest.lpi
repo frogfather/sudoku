@@ -32,7 +32,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="sudokuTest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -55,6 +55,11 @@
         <Filename Value="game_display.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="arrayutilstestcase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="arrayUtilsTestCase"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

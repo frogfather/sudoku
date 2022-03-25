@@ -472,7 +472,7 @@ end;
 function TIntArrayHelper.push(element: integer): integer;
 begin
   setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  self[self.size - 1]:=element;
   result:=self.size;
 end;
 
@@ -492,7 +492,7 @@ end;
 function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
   ): TIntArray;
 var
-  adjustedCount:integer;
+  adjustedCount:integer;  //TODO rename these!
   adjustedIndex,adjustIndex:integer;
 begin
  //if index is greater than or equal to the size of the array then adjust it
@@ -503,7 +503,7 @@ begin
   //if the delete adjustedCount would take us off the end of the array then adjust it
   if (deleteCount > self.size - adjustedIndex) then
     adjustedCount:= self.size - adjustedIndex
-      else adjustedCount:= adjustedCount;
+      else adjustedCount:= deleteCount;
 
   //TODO return deleted elements
    for adjustIndex:= adjustedIndex to pred(self.size - adjustedCount) do
