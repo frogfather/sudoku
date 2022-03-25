@@ -144,8 +144,8 @@
         <UnitName Value="arrayUtils"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="398"/>
-        <CursorPos X="22" Y="409"/>
+        <TopLine Value="484"/>
+        <CursorPos X="69" Y="502"/>
         <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -303,123 +303,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sudokuform.pas"/>
-        <Caret Line="64" TopLine="53"/>
+        <Caret Line="9" Column="46"/>
       </Position1>
       <Position2>
-        <Filename Value="sudokuform.pas"/>
-        <Caret Line="9" Column="46"/>
-      </Position2>
-      <Position3>
         <Filename Value="game_display.pas"/>
         <Caret Line="8" Column="63"/>
+      </Position2>
+      <Position3>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="438" Column="63" TopLine="428"/>
       </Position3>
       <Position4>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="438" Column="63" TopLine="428"/>
+        <Caret Line="462" Column="42" TopLine="446"/>
       </Position4>
       <Position5>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="462" Column="42" TopLine="446"/>
+        <Caret Line="441" Column="5" TopLine="434"/>
       </Position5>
       <Position6>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="441" Column="5" TopLine="434"/>
+        <Caret Line="439" Column="56" TopLine="433"/>
       </Position6>
       <Position7>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="439" Column="56" TopLine="433"/>
+        <Caret Line="442" Column="31" TopLine="429"/>
       </Position7>
       <Position8>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="442" Column="31" TopLine="429"/>
+        <Caret Line="463" Column="43" TopLine="450"/>
       </Position8>
       <Position9>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="463" Column="43" TopLine="450"/>
+        <Caret Line="439" Column="39" TopLine="430"/>
       </Position9>
       <Position10>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="439" Column="39" TopLine="430"/>
+        <Caret Line="443" Column="25" TopLine="434"/>
       </Position10>
       <Position11>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="443" Column="25" TopLine="434"/>
+        <Caret Line="9" Column="36"/>
       </Position11>
       <Position12>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="9" Column="36"/>
+        <Caret Line="441" TopLine="430"/>
       </Position12>
       <Position13>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="441" TopLine="430"/>
+        <Caret Line="373" Column="5" TopLine="372"/>
       </Position13>
       <Position14>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="373" Column="5" TopLine="372"/>
+        <Caret Line="51" Column="48" TopLine="41"/>
       </Position14>
       <Position15>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="51" Column="48" TopLine="41"/>
-      </Position15>
-      <Position16>
         <Filename Value="sudokuutil.pas"/>
         <Caret Line="279" Column="10" TopLine="265"/>
+      </Position15>
+      <Position16>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="186" Column="5" TopLine="186"/>
       </Position16>
       <Position17>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="186" Column="5" TopLine="186"/>
+        <Caret Line="44" Column="44" TopLine="28"/>
       </Position17>
       <Position18>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="44" Column="44" TopLine="28"/>
+        <Caret Line="192" Column="5" TopLine="43"/>
       </Position18>
       <Position19>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="192" Column="5" TopLine="43"/>
+        <Caret Line="404" Column="55"/>
       </Position19>
       <Position20>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="55"/>
+        <Caret Line="408" Column="5" TopLine="398"/>
       </Position20>
       <Position21>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="408" Column="5" TopLine="398"/>
+        <Caret Line="407" Column="35" TopLine="396"/>
       </Position21>
       <Position22>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="407" Column="35" TopLine="396"/>
+        <Caret Line="404" Column="61" TopLine="400"/>
       </Position22>
       <Position23>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="400"/>
+        <Caret Line="410" Column="64" TopLine="399"/>
       </Position23>
       <Position24>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="410" Column="64" TopLine="399"/>
+        <Caret Line="404" Column="61" TopLine="393"/>
       </Position24>
       <Position25>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="393"/>
+        <Caret Line="416" Column="35" TopLine="404"/>
       </Position25>
       <Position26>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="416" Column="35" TopLine="404"/>
+        <Caret Line="429" Column="53" TopLine="419"/>
       </Position26>
       <Position27>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="429" Column="53" TopLine="419"/>
+        <Caret Line="424" Column="40" TopLine="413"/>
       </Position27>
       <Position28>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="424" Column="40" TopLine="413"/>
+        <Caret Line="432" Column="65" TopLine="420"/>
       </Position28>
       <Position29>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="432" Column="65" TopLine="420"/>
+        <Caret Line="409" Column="27" TopLine="398"/>
       </Position29>
       <Position30>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="409" Column="27" TopLine="398"/>
+        <Caret Line="502" Column="43" TopLine="484"/>
       </Position30>
     </JumpHistory>
     <RunParams>

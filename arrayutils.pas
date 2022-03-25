@@ -420,17 +420,17 @@ begin
   //TODO return deleted elements
    if(deleteCount > 0) then
      begin
-     for adjustIndex:= normalizedIndex to pred(high(aArray) - normalizedCount) do
+     for adjustIndex:= normalizedIndex to pred(length(aArray) - normalizedCount) do
        aArray[adjustIndex]:= aArray[adjustIndex + normalizedCount];
-     setLength(aArray, high(aArray) - normalizedCount);
+     setLength(aArray, length(aArray) - normalizedCount);
      end;
 
    if (newItems <> nil) then
      begin
-     setLength(aArray, high(aArray) + high(newItems));
+     setLength(aArray, length(aArray) + length(newItems));
 
      for adjustIndex:= high(aArray) downTo normalizedIndex + 1 do
-       aArray[adjustIndex]:= aArray[adjustIndex - high(newItems)];
+       aArray[adjustIndex]:= aArray[adjustIndex - length(newItems)];
 
      for adjustIndex:= 0 to high(newItems) do
        aArray[index+adjustIndex]:= newItems[adjustIndex];
@@ -498,41 +498,8 @@ end;
 
 function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
   ): TIntArray;
-var
-  adjustedCount:integer;  //TODO rename these!
-  adjustedIndex,adjustIndex:integer;
 begin
- //if index is greater than or equal to the size of the array then adjust it
-  if (index > self.size) then adjustedIndex:= pred(self.size)
-    else adjustedIndex:= index;
-  //TODO - if index is negative should start at end of array
-
-  //if the delete adjustedCount would take us off the end of the array then adjust it
-  if (deleteCount > self.size - adjustedIndex) then
-    adjustedCount:= self.size - adjustedIndex
-      else adjustedCount:= deleteCount;
-
-  //TODO return deleted elements
-   if(deleteCount > 0) then
-     begin
-     for adjustIndex:= adjustedIndex to pred(self.size - adjustedCount) do
-       self[adjustIndex]:= self[adjustIndex + adjustedCount];
-     setLength(self, self.size - adjustedCount);
-     end;
-
-   if (newItems <> nil) then
-     begin
-     setLength(self, self.size + newItems.size);
-
-     for adjustIndex:= pred(self.size) downTo adjustedIndex + 1 do
-       self[adjustIndex]:= self[adjustIndex - newItems.size];
-
-     for adjustIndex:= 0 to pred(newItems.size) do
-       self[index+adjustIndex]:= newItems[adjustIndex];
-     end;
-
-   result:= TIntArray.create //TODO return deleted items
-
+ result:= specialize splice<integer>(self,index,deleteCount,newItems);
 end;
 
 end.
