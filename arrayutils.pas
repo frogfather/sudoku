@@ -395,7 +395,7 @@ begin
 end;
 { Generic functions for arrays }
 
-generic function GetIndex<T>(aItem:T; aArr: array of T): SizeInt;
+generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
 begin
   for Result := 0 to High(aArr) do
     if aArr[Result] = aItem then
