@@ -285,7 +285,7 @@ var
 begin
   try
     character:=chr(item);
-    result:= positionInArray(a, strToInt(character)) > -1;
+    result:= a.indexOf(strToInt(character)) > -1;
   except
     result:=false;
   end;

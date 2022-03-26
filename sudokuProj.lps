@@ -55,9 +55,10 @@
         <Filename Value="sudokuutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sudokuUtil"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="272"/>
-        <CursorPos X="44" Y="288"/>
+        <TopLine Value="267"/>
+        <CursorPos X="27" Y="279"/>
         <UsageCount Value="159"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -142,10 +143,9 @@
       <Unit16>
         <Filename Value="arrayutils.pas"/>
         <UnitName Value="arrayUtils"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="26"/>
-        <CursorPos X="31" Y="39"/>
+        <TopLine Value="74"/>
+        <CursorPos X="29" Y="86"/>
         <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -383,119 +383,127 @@
         <UsageCount Value="10"/>
       </Unit49>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="441" Column="5" TopLine="434"/>
+        <Caret Line="442" Column="31" TopLine="429"/>
       </Position1>
       <Position2>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="439" Column="56" TopLine="433"/>
+        <Caret Line="463" Column="43" TopLine="450"/>
       </Position2>
       <Position3>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="442" Column="31" TopLine="429"/>
+        <Caret Line="439" Column="39" TopLine="430"/>
       </Position3>
       <Position4>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="463" Column="43" TopLine="450"/>
+        <Caret Line="443" Column="25" TopLine="434"/>
       </Position4>
       <Position5>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="439" Column="39" TopLine="430"/>
+        <Caret Line="9" Column="36"/>
       </Position5>
       <Position6>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="443" Column="25" TopLine="434"/>
+        <Caret Line="441" TopLine="430"/>
       </Position6>
       <Position7>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="9" Column="36"/>
+        <Caret Line="373" Column="5" TopLine="372"/>
       </Position7>
       <Position8>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="441" TopLine="430"/>
+        <Caret Line="51" Column="48" TopLine="41"/>
       </Position8>
       <Position9>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="373" Column="5" TopLine="372"/>
+        <Filename Value="sudokuutil.pas"/>
+        <Caret Line="279" Column="10" TopLine="265"/>
       </Position9>
       <Position10>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="51" Column="48" TopLine="41"/>
+        <Caret Line="186" Column="5" TopLine="186"/>
       </Position10>
       <Position11>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="279" Column="10" TopLine="265"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="44" Column="44" TopLine="28"/>
       </Position11>
       <Position12>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="186" Column="5" TopLine="186"/>
+        <Caret Line="192" Column="5" TopLine="43"/>
       </Position12>
       <Position13>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="44" Column="44" TopLine="28"/>
+        <Caret Line="404" Column="55"/>
       </Position13>
       <Position14>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="192" Column="5" TopLine="43"/>
+        <Caret Line="408" Column="5" TopLine="398"/>
       </Position14>
       <Position15>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="55"/>
+        <Caret Line="407" Column="35" TopLine="396"/>
       </Position15>
       <Position16>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="408" Column="5" TopLine="398"/>
+        <Caret Line="404" Column="61" TopLine="400"/>
       </Position16>
       <Position17>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="407" Column="35" TopLine="396"/>
+        <Caret Line="410" Column="64" TopLine="399"/>
       </Position17>
       <Position18>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="400"/>
+        <Caret Line="404" Column="61" TopLine="393"/>
       </Position18>
       <Position19>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="410" Column="64" TopLine="399"/>
+        <Caret Line="416" Column="35" TopLine="404"/>
       </Position19>
       <Position20>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="393"/>
+        <Caret Line="429" Column="53" TopLine="419"/>
       </Position20>
       <Position21>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="416" Column="35" TopLine="404"/>
+        <Caret Line="424" Column="40" TopLine="413"/>
       </Position21>
       <Position22>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="429" Column="53" TopLine="419"/>
+        <Caret Line="432" Column="65" TopLine="420"/>
       </Position22>
       <Position23>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="424" Column="40" TopLine="413"/>
+        <Caret Line="409" Column="27" TopLine="398"/>
       </Position23>
       <Position24>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="432" Column="65" TopLine="420"/>
+        <Caret Line="502" Column="43" TopLine="484"/>
       </Position24>
       <Position25>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="409" Column="27" TopLine="398"/>
+        <Filename Value="sudokugame.pas"/>
+        <Caret Line="69" Column="23" TopLine="51"/>
       </Position25>
       <Position26>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="502" Column="43" TopLine="484"/>
+        <Caret Line="14" Column="30" TopLine="7"/>
       </Position26>
       <Position27>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="69" Column="23" TopLine="51"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="64" Column="81" TopLine="44"/>
       </Position27>
       <Position28>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="14" Column="30" TopLine="7"/>
+        <Caret Line="49" TopLine="38"/>
       </Position28>
+      <Position29>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="72" Column="34" TopLine="60"/>
+      </Position29>
+      <Position30>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="86" Column="29" TopLine="74"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

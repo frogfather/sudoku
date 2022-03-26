@@ -276,7 +276,7 @@ begin
   arrPos:= a.indexOf(item);
   if arrPos = -1
     then a.push(item)
-    else deleteFromArray(a, arrPos);
+    else a.splice(arrPos,1);
 end;
 
 function isCandidate(a: TIntArray; item: integer): boolean;

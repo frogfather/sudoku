@@ -47,11 +47,6 @@ type
   function splice(index:integer; deleteCount: integer=0; newItems: TStringArray=nil):TStringArray;
   end;
 
-procedure addToArray(var arrInput:TStringArray; item:string;index:integer=-1);
-procedure addToArray(var arrInput:TIntArray;item:integer;index:integer=-1);
-procedure addToArray(var arrInput:TInt64Array;item:int64;index:integer=-1);
-function deleteFromArray(var arrInput:TStringArray; index: integer):string;
-function deleteFromArray(var arrInput:TIntArray; index: integer):integer;
 function removeBlankEntriesFromArray(arrInput: TIntArray):TIntArray;
 function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
@@ -66,81 +61,6 @@ implementation
 
 const strChars: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-procedure addToArray(var arrInput: TStringArray; item: string; index: integer);
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[index]:=item;
-end;
-
-procedure addToArray(var arrInput: TIntArray; item: integer; index: integer
-  );
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[index]:=item;
-end;
-
-procedure addToArray(var arrInput: TInt64Array; item: int64; index: integer);
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[lastItemIndex]:=item;
-end;
-
-function deleteFromArray(var arrInput: TStringArray; index: integer):string;
-var
-  position:integer;
-begin
-  result:='';
-  if (index < 0) or (index >= length(arrInput)) then exit;
-  result:=arrInput[index];
-  for position:=index to length(arrInput) - 1 do
-    begin
-      if (position+1 < length(arrInput))
-        then arrInput[position]:=arrInput[position + 1];
-    end;
-  setLength(arrInput, length(arrInput) -1);
-end;
-
-function deleteFromArray(var arrInput: TIntArray; index: integer):integer;
-var
-  position:integer;
-begin
- if (index < 0) or (index >= length(arrInput)) then exit;
- result:=arrInput[index];
-  for position:=index to length(arrInput) - 1 do
-    begin
-      if (position+1 < length(arrInput))
-        then arrInput[position]:=arrInput[position + 1];
-    end;
-  setLength(arrInput, length(arrInput) -1);
-end;
-
 function removeBlankEntriesFromArray(arrInput: TStringArray): TStringArray;
 var
   index: integer;
@@ -149,7 +69,7 @@ begin
   for index:= pred(length(arrInput)) downto 0 do
     begin
       if (length(arrInput[index]) = 0) then
-        deleteFromArray(arrInput,index);
+        arrInput.splice(index,1);
     end;
   result:=arrInput;
 end;
@@ -163,7 +83,7 @@ begin
     try
      arrInput[index].ToString;
     except
-     deleteFromArray(arrInput,index);
+     arrInput.splice(index,1);
     end;
   result:=arrInput;
 end;
