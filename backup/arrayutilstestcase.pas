@@ -94,8 +94,15 @@ begin
 end;
 
 procedure arrayUtilsTest.spliceReturn;
+var
+  deletedItems: TIntArray;
 begin
-  fArray.splice(4,2);
+  deletedItems:= fArray.splice(4,2);
+  //returned value should be [5,6]
+  assertEquals(2,length(deletedItems));
+  assertEquals(5,deletedItems[0]);
+  assertEquals(6,deletedItems[1]);
+
 end;
 
 

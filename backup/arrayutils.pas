@@ -9,6 +9,7 @@ uses
   Classes, SysUtils,anysort,graphics,fgl;
 type
   generic Tarray<T> = array of T;
+
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -28,6 +29,7 @@ type
   function push(element:integer):integer;
   function indexOf(element:integer):integer;
   function splice(index:integer; deleteCount:integer=0; newItems: TIntArray=nil):TIntArray;
+  function sort(ascending:Boolean):TIntArray;
   end;
 
   { TInt64ArrayHelper }
@@ -44,101 +46,22 @@ type
   function size: integer;
   function push(element: string):integer;
   function indexOf(element:string):integer;
+  function splice(index:integer; deleteCount: integer=0; newItems: TStringArray=nil):TStringArray;
   end;
 
-procedure addToArray(var arrInput:TStringArray; item:string;index:integer=-1);
-procedure addToArray(var arrInput:TIntArray;item:integer;index:integer=-1);
-procedure addToArray(var arrInput:TInt64Array;item:int64;index:integer=-1);
-function deleteFromArray(var arrInput:TStringArray; index: integer):string;
-function deleteFromArray(var arrInput:TIntArray; index: integer):integer;
 function removeBlankEntriesFromArray(arrInput: TIntArray):TIntArray;
 function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
-procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
-procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
-procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
-procedure sort(var str: string; count: Integer;ascending:boolean=true);
-procedure sort(var arr: array of char; count: Integer; ascending:boolean=true);
+procedure intSort(var arr: array of integer; count: Integer; ascending:boolean=true);
+procedure int64Sort(var arr: array of int64; count: Integer; ascending:boolean=true);
+procedure stringArrSort(var arr: array of string; count: Integer; ascending:boolean=true);
+procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
+procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
 implementation
 
 const strChars: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-procedure addToArray(var arrInput: TStringArray; item: string; index: integer);
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[index]:=item;
-end;
-
-procedure addToArray(var arrInput: TIntArray; item: integer; index: integer
-  );
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[index]:=item;
-end;
-
-procedure addToArray(var arrInput: TInt64Array; item: int64; index: integer);
-var
-  pos,lastItemIndex:integer;
-begin
-  //if index is -1 add at the end
-  setLength(arrInput,length(arrInput)+1);
-  lastItemIndex:= pred(length(arrInput));
-  if (index = -1) then index:=lastItemIndex; //insert at end
-  for pos:=lastItemIndex downto index do
-    begin
-    if (pos > 0) then arrInput[pos]:=arrInput[pos-1];
-    end;
-  arrInput[lastItemIndex]:=item;
-end;
-
-function deleteFromArray(var arrInput: TStringArray; index: integer):string;
-var
-  position:integer;
-begin
-  result:='';
-  if (index < 0) or (index >= length(arrInput)) then exit;
-  result:=arrInput[index];
-  for position:=index to length(arrInput) - 1 do
-    begin
-      if (position+1 < length(arrInput))
-        then arrInput[position]:=arrInput[position + 1];
-    end;
-  setLength(arrInput, length(arrInput) -1);
-end;
-
-function deleteFromArray(var arrInput: TIntArray; index: integer):integer;
-var
-  position:integer;
-begin
- if (index < 0) or (index >= length(arrInput)) then exit;
- result:=arrInput[index];
-  for position:=index to length(arrInput) - 1 do
-    begin
-      if (position+1 < length(arrInput))
-        then arrInput[position]:=arrInput[position + 1];
-    end;
-  setLength(arrInput, length(arrInput) -1);
-end;
 
 function removeBlankEntriesFromArray(arrInput: TStringArray): TStringArray;
 var
@@ -148,7 +71,7 @@ begin
   for index:= pred(length(arrInput)) downto 0 do
     begin
       if (length(arrInput[index]) = 0) then
-        deleteFromArray(arrInput,index);
+        arrInput.splice(index,1);
     end;
   result:=arrInput;
 end;
@@ -162,7 +85,7 @@ begin
     try
      arrInput[index].ToString;
     except
-     deleteFromArray(arrInput,index);
+     arrInput.splice(index,1);
     end;
   result:=arrInput;
 end;
@@ -346,15 +269,15 @@ begin
     end;
 end;
 
-procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
+procedure intSort(var arr: array of integer; count: Integer; ascending: boolean);
 begin
-  if ascending then
+ if ascending then
     anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntAsc)
   else
     anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntDesc)
 end;
 
-procedure sort(var arr: array of int64; count: Integer; ascending: boolean);
+procedure int64Sort(var arr: array of int64; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(Int64), @CompareInt64Asc)
@@ -362,7 +285,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(Int64), @CompareInt64Desc)
 end;
 
-procedure sort(var arr: array of string; count: Integer; ascending: boolean);
+procedure stringArrSort(var arr: array of string; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(string), @CompareStrAsc)
@@ -370,7 +293,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(string), @CompareStrDesc)
 end;
 
-procedure sort(var arr: array of char; count: Integer; ascending: boolean);
+procedure stringSort(var arr: array of char; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharAsc)
@@ -378,14 +301,14 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
-procedure sort(var str: string; count: Integer; ascending: boolean);
+procedure stringSort(var str: string; count: Integer; ascending: boolean);
 var
   charArray:TCharArray;
   index:integer;
   output:string;
 begin
   charArray:=str.ToCharArray;
-  sort(charArray,count,ascending);
+  charArrSort(charArray,count,ascending);
   //convert it back to a string. If there's a method for this I can't find it.
   output:='';
   for index:=0 to pred(length(charArray)) do
@@ -394,7 +317,16 @@ begin
 end;
 { Generic functions for arrays }
 
-generic function GetIndex<T>(aItem:T; aArr: array of T): SizeInt;
+generic function genericSort<T>(var aArr: specialize TArray<T>; comparatorAsc, comparatorDesc: TCompareFunc; count: Integer; ascending:boolean=true): specialize TArray<T>;
+begin
+  if ascending then
+    anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
+  else
+    anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
+  result:=aArr;
+end;
+
+generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
 begin
   for Result := 0 to High(aArr) do
     if aArr[Result] = aItem then
@@ -418,7 +350,6 @@ begin
     normalizedCount:= high(aArray) - normalizedIndex
       else normalizedCount:= deleteCount;
 
-  //TODO return deleted elements
    if(deleteCount > 0) then
      begin
      //add the items that are to be deleted to the result array
@@ -450,8 +381,7 @@ end;
 
 function TStringArrayHelper.push(element: string): integer;
 begin
-  setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
@@ -459,6 +389,14 @@ function TStringArrayHelper.indexOf(element: string): integer;
 begin
   result:= specialize getIndex<string>(element,self);
 end;
+
+function TStringArrayHelper.splice(index: integer; deleteCount: integer;
+  newItems: TStringArray): TStringArray;
+begin
+  result:= specialize splice<string>(self,index,deleteCount, newItems);
+end;
+
+
 
 { TInt64ArrayHelper }
 
@@ -469,8 +407,7 @@ end;
 
 function TInt64ArrayHelper.push(element: int64): integer;
 begin
-  setLength(self, length(self)+1);
-  self[length(self)]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
@@ -494,8 +431,7 @@ end;
 
 function TIntArrayHelper.push(element: integer): integer;
 begin
-  setLength(self, length(self)+1);
-  self[self.size - 1]:=element;
+  insert(element,self,length(self));
   result:=self.size;
 end;
 
@@ -504,10 +440,16 @@ begin
   result:= specialize getIndex<integer>(element,self);
 end;
 
-function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
-  ): TIntArray;
+function TIntArrayHelper.splice(index: integer; deleteCount: integer;
+  newItems: TIntArray): TIntArray;
 begin
  result:= specialize splice<integer>(self,index,deleteCount,newItems);
+end;
+
+function TIntArrayHelper.sort(ascending: Boolean):TIntArray;
+begin
+  intSort(self, pred(length(self)),ascending);
+  result:=self;
 end;
 
 end.

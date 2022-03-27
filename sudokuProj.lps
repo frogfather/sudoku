@@ -37,10 +37,9 @@
       <Unit3>
         <Filename Value="anysort.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="66" Y="10"/>
         <UsageCount Value="161"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="cell.pas"/>
@@ -143,7 +142,8 @@
         <UnitName Value="arrayUtils"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <CursorPos X="41" Y="9"/>
+        <TopLine Value="28"/>
+        <CursorPos X="95" Y="41"/>
         <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -180,10 +180,9 @@
       <Unit21>
         <Filename Value="../observer_pattern/observertest.pas"/>
         <UnitName Value="observerTest"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="20" Y="14"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="/Applications/Lazarus/components/lazutils/laz2_dom.pas"/>
@@ -394,7 +393,7 @@
         <UsageCount Value="21"/>
       </Unit51>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="arrayutils.pas"/>
         <Caret Line="72" Column="34" TopLine="60"/>
@@ -452,41 +451,37 @@
         <Caret Line="323" Column="45" TopLine="315"/>
       </Position14>
       <Position15>
-        <Filename Value="anysort.pas"/>
-        <Caret Line="60" Column="82" TopLine="53"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="319" Column="105" TopLine="313"/>
       </Position15>
       <Position16>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="319" Column="105" TopLine="313"/>
+        <Caret Line="9" Column="26"/>
       </Position16>
       <Position17>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="9" Column="26"/>
+        <Caret Line="319" Column="101" TopLine="311"/>
       </Position17>
       <Position18>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="319" Column="101" TopLine="311"/>
+        <Caret Line="325" Column="60" TopLine="315"/>
       </Position18>
       <Position19>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="325" Column="60" TopLine="315"/>
+        <Caret Line="32" Column="16" TopLine="24"/>
       </Position19>
       <Position20>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="32" Column="16" TopLine="24"/>
+        <Caret Line="451" Column="12" TopLine="439"/>
       </Position20>
       <Position21>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="451" Column="12" TopLine="439"/>
+        <Caret Line="32" Column="45" TopLine="24"/>
       </Position21>
       <Position22>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="32" Column="45" TopLine="24"/>
-      </Position22>
-      <Position23>
-        <Filename Value="arrayutils.pas"/>
         <Caret Line="270" Column="5" TopLine="270"/>
-      </Position23>
+      </Position22>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

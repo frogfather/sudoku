@@ -54,10 +54,11 @@ function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
-procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
-procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
-procedure sort(var str: string; count: Integer;ascending:boolean=true);
-procedure sort(var arr: array of char; count: Integer; ascending:boolean=true);
+procedure intSort(var arr: array of integer; count: Integer; ascending:boolean=true);
+procedure int64Sort(var arr: array of int64; count: Integer; ascending:boolean=true);
+procedure stringArrSort(var arr: array of string; count: Integer; ascending:boolean=true);
+procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
+procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
 implementation
 
 const strChars: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -268,7 +269,15 @@ begin
     end;
 end;
 
-procedure sort(var arr: array of int64; count: Integer; ascending: boolean);
+procedure intSort(var arr: array of integer; count: Integer; ascending: boolean);
+begin
+ if ascending then
+    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntAsc)
+  else
+    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntDesc)
+end;
+
+procedure int64Sort(var arr: array of int64; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(Int64), @CompareInt64Asc)
@@ -276,7 +285,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(Int64), @CompareInt64Desc)
 end;
 
-procedure sort(var arr: array of string; count: Integer; ascending: boolean);
+procedure stringArrSort(var arr: array of string; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(string), @CompareStrAsc)
@@ -284,7 +293,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(string), @CompareStrDesc)
 end;
 
-procedure sort(var arr: array of char; count: Integer; ascending: boolean);
+procedure charArrSort(var arr: array of char; count: Integer; ascending: boolean);
 begin
  if ascending then
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharAsc)
@@ -292,14 +301,14 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
-procedure sort(var str: string; count: Integer; ascending: boolean);
+procedure stringSort(var str: string; count: Integer; ascending: boolean);
 var
   charArray:TCharArray;
   index:integer;
   output:string;
 begin
   charArray:=str.ToCharArray;
-  sort(charArray,count,ascending);
+  charArrSort(charArray,count,ascending);
   //convert it back to a string. If there's a method for this I can't find it.
   output:='';
   for index:=0 to pred(length(charArray)) do
@@ -439,7 +448,8 @@ end;
 
 function TIntArrayHelper.sort(ascending: Boolean):TIntArray;
 begin
-  result:= specialize genericSort<integer>(self, @compareIntAsc, @compareIntDesc, self.size, ascending);
+  intSort(self, pred(length(self)),ascending);
+  result:=self;
 end;
 
 end.

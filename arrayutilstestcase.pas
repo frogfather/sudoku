@@ -25,6 +25,7 @@ type
     procedure spliceInsert;
     procedure spliceReplace;
     procedure spliceReturn;
+    procedure sort;
   end;
 
 implementation
@@ -103,6 +104,15 @@ begin
   assertEquals(5,deletedItems[0]);
   assertEquals(6,deletedItems[1]);
 
+end;
+
+procedure arrayUtilsTest.sort;
+var
+  unsortedArray,sortedArray: TIntArray;
+begin
+  unsortedArray:=TIntArray.create(7,1,8,23,5,12,55,102,2);
+  sortedArray:=unsortedArray.sort(true);
+  assertEquals(1,sortedArray[0]);
 end;
 
 
