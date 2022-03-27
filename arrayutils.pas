@@ -9,6 +9,7 @@ uses
   Classes, SysUtils,anysort,graphics,fgl;
 type
   generic Tarray<T> = array of T;
+
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -28,6 +29,7 @@ type
   function push(element:integer):integer;
   function indexOf(element:integer):integer;
   function splice(index:integer; deleteCount:integer=0; newItems: TIntArray=nil):TIntArray;
+  function sort(ascending:Boolean):TIntArray;
   end;
 
   { TInt64ArrayHelper }
@@ -52,7 +54,6 @@ function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
-procedure sort(var arr: array of Integer; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure sort(var arr: array of string; count: Integer; ascending:boolean=true);
 procedure sort(var str: string; count: Integer;ascending:boolean=true);
@@ -267,14 +268,6 @@ begin
     end;
 end;
 
-procedure sort(var arr: array of Integer; count: Integer;ascending:boolean=true);
-begin
-  if ascending then
-    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntAsc)
-  else
-    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntDesc)
-end;
-
 procedure sort(var arr: array of int64; count: Integer; ascending: boolean);
 begin
  if ascending then
@@ -314,6 +307,15 @@ begin
   str:=output;
 end;
 { Generic functions for arrays }
+
+generic function genericSort<T>(var aArr: specialize TArray<T>; comparatorAsc, comparatorDesc: TCompareFunc; count: Integer; ascending:boolean=true): specialize TArray<T>;
+begin
+  if ascending then
+    anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
+  else
+    anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
+  result:=aArr;
+end;
 
 generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
 begin
@@ -429,10 +431,15 @@ begin
   result:= specialize getIndex<integer>(element,self);
 end;
 
-function TIntArrayHelper.splice(index, deleteCount: integer; newItems: TIntArray
-  ): TIntArray;
+function TIntArrayHelper.splice(index: integer; deleteCount: integer;
+  newItems: TIntArray): TIntArray;
 begin
  result:= specialize splice<integer>(self,index,deleteCount,newItems);
+end;
+
+function TIntArrayHelper.sort(ascending: Boolean):TIntArray;
+begin
+  result:= specialize genericSort<integer>(self, @compareIntAsc, @compareIntDesc, self.size, ascending);
 end;
 
 end.

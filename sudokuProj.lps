@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="50">
+    <Units Count="52">
       <Unit0>
         <Filename Value="sudokuProj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -11,7 +11,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="161"/>
       </Unit0>
       <Unit1>
         <Filename Value="sudokuform.pas"/>
@@ -22,26 +22,25 @@
         <UnitName Value="sudokuForm"/>
         <EditorIndex Value="2"/>
         <CursorPos X="46" Y="9"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="sudokugame.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="254"/>
-        <CursorPos X="23" Y="268"/>
-        <UsageCount Value="159"/>
+        <TopLine Value="10"/>
+        <CursorPos X="76" Y="11"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="anysort.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="159"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="66" Y="10"/>
+        <UsageCount Value="161"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="cell.pas"/>
@@ -49,17 +48,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="175"/>
         <CursorPos Y="187"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="161"/>
       </Unit4>
       <Unit5>
         <Filename Value="sudokuutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sudokuUtil"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="267"/>
+        <TopLine Value="241"/>
         <CursorPos X="27" Y="279"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -69,7 +67,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3"/>
         <CursorPos X="14" Y="11"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="161"/>
       </Unit6>
       <Unit7>
         <Filename Value="constraint.pas"/>
@@ -77,7 +75,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="73" Y="12"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="150"/>
       </Unit7>
       <Unit8>
         <Filename Value="optionscalculator.pas"/>
@@ -85,34 +83,34 @@
         <UnitName Value="optionsCalculator"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="31" Y="8"/>
-        <UsageCount Value="113"/>
+        <UsageCount Value="115"/>
       </Unit8>
       <Unit9>
         <Filename Value="repeat_options.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="114"/>
       </Unit9>
       <Unit10>
         <Filename Value="calculate_option.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="10"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="114"/>
       </Unit10>
       <Unit11>
         <Filename Value="region.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="114"/>
       </Unit11>
       <Unit12>
         <Filename Value="game_display.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="63" Y="8"/>
-        <UsageCount Value="103"/>
+        <UsageCount Value="105"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -122,14 +120,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="8"/>
         <CursorPos X="13" Y="14"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="79"/>
       </Unit13>
       <Unit14>
         <Filename Value="customcell.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="10"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="77"/>
       </Unit14>
       <Unit15>
         <Filename Value="../fpc_common/arrayutils.pas"/>
@@ -138,14 +136,14 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="59"/>
       </Unit15>
       <Unit16>
         <Filename Value="arrayutils.pas"/>
         <UnitName Value="arrayUtils"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="74"/>
-        <CursorPos X="29" Y="86"/>
+        <CursorPos X="41" Y="9"/>
         <UsageCount Value="122"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -182,10 +180,10 @@
       <Unit21>
         <Filename Value="../observer_pattern/observertest.pas"/>
         <UnitName Value="observerTest"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="45" Y="19"/>
-        <UsageCount Value="6"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="20" Y="14"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="/Applications/Lazarus/components/lazutils/laz2_dom.pas"/>
@@ -382,128 +380,113 @@
         <TopLine Value="27"/>
         <UsageCount Value="10"/>
       </Unit49>
+      <Unit50>
+        <Filename Value="comparable.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="47" Y="14"/>
+        <UsageCount Value="21"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="comparer.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="33"/>
+        <CursorPos X="54" Y="24"/>
+        <UsageCount Value="21"/>
+      </Unit51>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="442" Column="31" TopLine="429"/>
+        <Caret Line="72" Column="34" TopLine="60"/>
       </Position1>
       <Position2>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="463" Column="43" TopLine="450"/>
+        <Caret Line="86" Column="29" TopLine="74"/>
       </Position2>
       <Position3>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="439" Column="39" TopLine="430"/>
+        <Caret Line="55" Column="13" TopLine="44"/>
       </Position3>
       <Position4>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="443" Column="25" TopLine="434"/>
+        <Caret Line="318" Column="54" TopLine="310"/>
       </Position4>
       <Position5>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="9" Column="36"/>
+        <Caret Line="321" Column="17" TopLine="312"/>
       </Position5>
       <Position6>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="441" TopLine="430"/>
+        <Caret Line="322" Column="46" TopLine="312"/>
       </Position6>
       <Position7>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="373" Column="5" TopLine="372"/>
+        <Caret Line="321" Column="9" TopLine="307"/>
       </Position7>
       <Position8>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="51" Column="48" TopLine="41"/>
+        <Caret Line="334" Column="58" TopLine="322"/>
       </Position8>
       <Position9>
-        <Filename Value="sudokuutil.pas"/>
-        <Caret Line="279" Column="10" TopLine="265"/>
+        <Filename Value="arrayutils.pas"/>
+        <Caret Line="12" Column="26" TopLine="7"/>
       </Position9>
       <Position10>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="186" Column="5" TopLine="186"/>
+        <Caret Line="13" Column="7" TopLine="4"/>
       </Position10>
       <Position11>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="44" Column="44" TopLine="28"/>
+        <Caret Line="325" Column="69" TopLine="311"/>
       </Position11>
       <Position12>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="192" Column="5" TopLine="43"/>
+        <Caret Line="323" Column="68" TopLine="315"/>
       </Position12>
       <Position13>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="55"/>
+        <Caret Line="319" Column="71" TopLine="311"/>
       </Position13>
       <Position14>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="408" Column="5" TopLine="398"/>
+        <Caret Line="323" Column="45" TopLine="315"/>
       </Position14>
       <Position15>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="407" Column="35" TopLine="396"/>
+        <Filename Value="anysort.pas"/>
+        <Caret Line="60" Column="82" TopLine="53"/>
       </Position15>
       <Position16>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="400"/>
+        <Caret Line="319" Column="105" TopLine="313"/>
       </Position16>
       <Position17>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="410" Column="64" TopLine="399"/>
+        <Caret Line="9" Column="26"/>
       </Position17>
       <Position18>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="404" Column="61" TopLine="393"/>
+        <Caret Line="319" Column="101" TopLine="311"/>
       </Position18>
       <Position19>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="416" Column="35" TopLine="404"/>
+        <Caret Line="325" Column="60" TopLine="315"/>
       </Position19>
       <Position20>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="429" Column="53" TopLine="419"/>
+        <Caret Line="32" Column="16" TopLine="24"/>
       </Position20>
       <Position21>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="424" Column="40" TopLine="413"/>
+        <Caret Line="451" Column="12" TopLine="439"/>
       </Position21>
       <Position22>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="432" Column="65" TopLine="420"/>
+        <Caret Line="32" Column="45" TopLine="24"/>
       </Position22>
       <Position23>
         <Filename Value="arrayutils.pas"/>
-        <Caret Line="409" Column="27" TopLine="398"/>
+        <Caret Line="270" Column="5" TopLine="270"/>
       </Position23>
-      <Position24>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="502" Column="43" TopLine="484"/>
-      </Position24>
-      <Position25>
-        <Filename Value="sudokugame.pas"/>
-        <Caret Line="69" Column="23" TopLine="51"/>
-      </Position25>
-      <Position26>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="14" Column="30" TopLine="7"/>
-      </Position26>
-      <Position27>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="64" Column="81" TopLine="44"/>
-      </Position27>
-      <Position28>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="49" TopLine="38"/>
-      </Position28>
-      <Position29>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="72" Column="34" TopLine="60"/>
-      </Position29>
-      <Position30>
-        <Filename Value="arrayutils.pas"/>
-        <Caret Line="86" Column="29" TopLine="74"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
