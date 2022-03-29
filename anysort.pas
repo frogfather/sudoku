@@ -63,6 +63,7 @@ var
 begin
   if Count <= 1 then Exit; // should be more than 1 to be sortable
   SetLength(buf, Stride*2);
+
   AnyQuickSort(Arr, start, Count-1+start, Stride, compareFunc, buf[0], buf[Stride]);
 end;
 

@@ -10,6 +10,7 @@ uses
 type
   generic Tarray<T> = array of T;
 
+
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -29,7 +30,7 @@ type
   function push(element:integer):integer;
   function indexOf(element:integer):integer;
   function splice(index:integer; deleteCount:integer=0; newItems: TIntArray=nil):TIntArray;
-  function sort(ascending:Boolean):TIntArray;
+  function sort(ascending:Boolean=true):TIntArray;
   end;
 
   { TInt64ArrayHelper }
@@ -39,6 +40,7 @@ type
   function push(element:int64):integer;
   function indexOf(element:int64):integer;
   function splice(index:integer; deleteCount:integer=0;newItems: TInt64Array=nil):TInt64Array;
+  function sort(ascending:Boolean=true):TInt64Array;
   end;
 
   { TStringArrayHelper }
@@ -47,6 +49,7 @@ type
   function push(element: string):integer;
   function indexOf(element:string):integer;
   function splice(index:integer; deleteCount: integer=0; newItems: TStringArray=nil):TStringArray;
+  function sort(ascending:Boolean=true):TStringArray;
   end;
 
 function removeBlankEntriesFromArray(arrInput: TIntArray):TIntArray;
@@ -61,6 +64,7 @@ procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
 procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
 implementation
 
+//TODO Use ascii values instead of this
 const strChars: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 function removeBlankEntriesFromArray(arrInput: TStringArray): TStringArray;
@@ -132,6 +136,7 @@ begin
     end;
 end;
 
+{ Comparer functions for sort methods }
 function CompareInt64Asc(const d1,d2): integer;
 var
   i1 : int64 absolute d1;
@@ -301,6 +306,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
+//Converts the string to an array of characters and sort it
 procedure stringSort(var str: string; count: Integer; ascending: boolean);
 var
   charArray:TCharArray;
@@ -317,13 +323,15 @@ begin
 end;
 { Generic functions for arrays }
 
-generic function genericSort<T>(var aArr: specialize TArray<T>; comparatorAsc, comparatorDesc: TCompareFunc; count: Integer; ascending:boolean=true): specialize TArray<T>;
+generic procedure genericSort<T>(
+        var aArr: specialize TArray<T>;
+        comparatorAsc, comparatorDesc: TCompareFunc;
+        count: Integer; ascending:boolean=true);
 begin
   if ascending then
     anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
   else
     anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
-  result:=aArr;
 end;
 
 generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
@@ -396,6 +404,12 @@ begin
   result:= specialize splice<string>(self,index,deleteCount, newItems);
 end;
 
+function TStringArrayHelper.sort(ascending: Boolean): TStringArray;
+begin
+  stringArrSort(self, length(self),ascending);
+  result:=self;
+end;
+
 
 
 { TInt64ArrayHelper }
@@ -420,6 +434,12 @@ function TInt64ArrayHelper.splice(index: integer; deleteCount: integer;
   newItems: TInt64Array): TInt64Array;
 begin
   result:= specialize splice<int64>(self,index,deleteCount,newItems);
+end;
+
+function TInt64ArrayHelper.sort(ascending: Boolean): TInt64Array;
+begin
+  int64Sort(self, length(self),ascending);
+  result:=self;
 end;
 
 { TIntArrayHelper }
@@ -448,7 +468,7 @@ end;
 
 function TIntArrayHelper.sort(ascending: Boolean):TIntArray;
 begin
-  intSort(self, pred(length(self)),ascending);
+  intSort(self, length(self),ascending);
   result:=self;
 end;
 
