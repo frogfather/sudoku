@@ -127,7 +127,7 @@ begin
   fDimensions.Y:= rows;
   sCandidates:=getNodeValue(document,'candidates');
   if (sCandidates <> '') then
-    candidates:=toIntArray(sCandidates.Split(','))
+    candidates:= sCandidates.Split(',').toIntArray;
   else candidates:= TIntArray.create(1,2,3,4,5,6,7,8,9);
   fCandidateSet:= candidates;
   gameCells:= readCellsFromFile(document,candidates);
@@ -210,8 +210,8 @@ begin
     addChildToNode(document,cellNode,'column',curCell.col.ToString);
     addChildToNode(document,cellNode,'box',curCell.box.ToString);
     addChildToNode(document,cellNode,'value',curCell.value.ToString);
-    addChildToNode(document,cellNode,'edgeMarks',intArrayToCSV(curCell.edgeMarks));
-    addChildToNode(document,cellNode,'centre-marks',intArrayToCSV(curCell.centreMarks));
+    addChildToNode(document,cellNode,'edgeMarks',curCell.edgeMarks.toCSV());
+    addChildToNode(document,cellNode,'centre-marks',curCell.centreMarks.toCSV);
     cellNumbersNode:=addChildToNode(document,cellNode,'cell-numbers');
     addCellNumbersToDocument(document,cellNumbersNode,curCell.candidates);
     end;
