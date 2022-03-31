@@ -9,7 +9,7 @@ uses
   Classes, SysUtils,anysort,graphics,fgl;
 type
   generic Tarray<T> = array of T;
-  generic TCompareFunc<T> = function (const elem1, elem2): T;
+  generic TCompareFunc<T> = function (const elem1, elem2:T): T;
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -57,7 +57,7 @@ function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
 function intArrayToCSV(input:TIntArray):string;
 function CSVToIntArray(input:string):TIntArray;
-procedure intSort(var arr: array of integer; count: Integer; ascending:boolean=true);
+//procedure intSort(var arr: array of integer; count: Integer; ascending:boolean=true);
 procedure int64Sort(var arr: array of int64; count: Integer; ascending:boolean=true);
 procedure stringArrSort(var arr: array of string; count: Integer; ascending:boolean=true);
 procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
@@ -158,20 +158,14 @@ begin
   else Result:=1;
 end;
 
-function CompareIntAsc(const d1,d2): integer;
-var
-  i1 : integer absolute d1;
-  i2 : integer absolute d2;
+function CompareIntAsc(const i1,i2: integer): integer;
 begin
   if i1=i2 then Result:=0
   else if i1<i2 then Result:=-1
   else Result:=1;
 end;
 
-function CompareIntDesc(const d1,d2): integer;
-var
-  i1 : integer absolute d1;
-  i2 : integer absolute d2;
+function CompareIntDesc(const i1,i2: integer): integer;
 begin
   if i1=i2 then Result:=0
   else if i1>i2 then Result:=-1
@@ -276,13 +270,13 @@ begin
     end;
 end;
 
-procedure intSort(var arr: array of integer; count: Integer; ascending: boolean);
-begin
- if ascending then
-    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntAsc)
-  else
-    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntDesc)
-end;
+//procedure intSort(var arr: array of integer; count: Integer; ascending: boolean);
+//begin
+// if ascending then
+//    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntAsc)
+//  else
+//    anysort.AnySort(arr, Count, sizeof(Integer), @CompareIntDesc)
+//end;
 
 procedure int64Sort(var arr: array of int64; count: Integer; ascending: boolean);
 begin
@@ -359,9 +353,10 @@ generic procedure genericSort<T>(
         ascending:boolean=true);
 var
   comparator: specialize TCompareFunc<T>;
+  swapBuf,medBuf: T;
 begin
   if ascending then comparator:= comparatorAsc else comparator:= comparatorDesc;
-  specialize gSort<T>(aArr, comparator, 0, pred(length(aArr)),T,T)
+  specialize gSort<T>(aArr, comparator, 0, pred(length(aArr)),swapBuf,medBuf)
 end;
 
 generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
@@ -498,7 +493,7 @@ end;
 
 function TIntArrayHelper.sort(ascending: Boolean):TIntArray;
 begin
-  intSort(self, length(self),ascending);
+  specialize genericSort<Integer>(self, @CompareIntAsc,@CompareIntDesc, ascending);
   result:=self;
 end;
 
