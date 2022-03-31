@@ -62,7 +62,8 @@ procedure int64Sort(var arr: array of int64; count: Integer; ascending:boolean=t
 procedure stringArrSort(var arr: array of string; count: Integer; ascending:boolean=true);
 procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
 procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
-generic procedure gSort<T>(var arr: specialize TArray<T>; CompareFunc: specialize TCompareFunc<T>);
+generic procedure gSort<T>(var arr: specialize TArray<T>; CompareFunc: specialize TCompareFunc<T>;idxL,idxH:integer;
+  swapBuffer,medBuffer: T);
 implementation
 
 //TODO Use ascii values instead of this
@@ -307,9 +308,32 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
-generic procedure gSort<T>(var arr: specialize TArray<T>;CompareFunc: specialize TCompareFunc<T>);
+generic procedure gSort<T>(var arr: specialize TArray<T>;
+  CompareFunc: specialize TCompareFunc<T>;
+  idxL,idxH:integer;
+  swapBuffer,medBuffer: T);
+var
+  li,hi : Integer; //index
+  mi    : Integer; //middle index: low + high div 2
 begin
-
+  li:=idxL;
+  hi:=idxH;
+  mi:=(li+hi) div 2;
+  medBuffer:=arr[mi];
+  repeat
+    while CompareFunc( arr[li], medBuffer) < 0 do inc(li);
+    while CompareFunc( medBuffer, arr[hi] ) < 0 do dec(hi);
+    if li <= hi then
+      begin
+      swapBuffer:= arr[li];
+      arr[li]:=arr[hi];
+      arr[hi]:=swapBuffer;
+      inc(li);
+      dec(hi);
+    end;
+  until li>hi;
+  if hi>idxL then specialize gSort<T>(Arr, CompareFunc, idxL, hi, SwapBuffer, MedBuffer);
+  if li<idxH then specialize gSort<T>(Arr, CompareFunc, li, idxH, SwapBuffer, MedBuffer);
 end;
 
 //Converts the string to an array of characters and sort it
