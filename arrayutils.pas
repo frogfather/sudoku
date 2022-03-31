@@ -9,8 +9,7 @@ uses
   Classes, SysUtils,anysort,graphics,fgl;
 type
   generic Tarray<T> = array of T;
-
-
+  generic TCompareFunc<T> = function (const elem1, elem2): T;
   //Looks like the built in TintegerArray is a static array
   //so let's define our own dynamic integer array
   TIntArray = array of integer;
@@ -52,6 +51,7 @@ type
   function sort(ascending:Boolean=true):TStringArray;
   end;
 
+
 function removeBlankEntriesFromArray(arrInput: TIntArray):TIntArray;
 function toIntArray(arrInput: TStringArray):TIntArray;
 function containsCharacters(toSearch,toFind:String):boolean;
@@ -62,6 +62,7 @@ procedure int64Sort(var arr: array of int64; count: Integer; ascending:boolean=t
 procedure stringArrSort(var arr: array of string; count: Integer; ascending:boolean=true);
 procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
 procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
+generic procedure gSort<T>(var arr: specialize TArray<T>; CompareFunc: specialize TCompareFunc<T>);
 implementation
 
 //TODO Use ascii values instead of this
@@ -306,6 +307,11 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
+generic procedure gSort<T>(var arr: specialize TArray<T>;CompareFunc: specialize TCompareFunc<T>);
+begin
+
+end;
+
 //Converts the string to an array of characters and sort it
 procedure stringSort(var str: string; count: Integer; ascending: boolean);
 var
@@ -323,16 +329,16 @@ begin
 end;
 { Generic functions for arrays }
 
-generic procedure genericSort<T>(
-        var aArr: specialize TArray<T>;
-        comparatorAsc, comparatorDesc: TCompareFunc;
-        count: Integer; ascending:boolean=true);
-begin
-  if ascending then
-    anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
-  else
-    anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
-end;
+//generic procedure genericSort<T>(
+//        var aArr: specialize TArray<T>;
+//        comparatorAsc, comparatorDesc: TCompareFunc;
+//        count: Integer; ascending:boolean=true);
+//begin
+//  if ascending then
+//    anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
+//  else
+//    anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
+//end;
 
 generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
 begin

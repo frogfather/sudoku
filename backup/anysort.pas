@@ -71,6 +71,7 @@ type
 var
   buf: TByteArray;
 begin
+  buf:=TByteArray.create;
   if Count <= 1 then Exit; // should be more than 1 to be sortable
   SetLength(buf, Stride*2);
   //for an integer buf will then have a length of 8/ We pass the first element as

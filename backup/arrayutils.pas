@@ -64,6 +64,7 @@ procedure stringSort(var str: string; count: Integer;ascending:boolean=true);
 procedure charArrSort(var arr: array of char; count: Integer; ascending:boolean=true);
 implementation
 
+//TODO Use ascii values instead of this
 const strChars: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 function removeBlankEntriesFromArray(arrInput: TStringArray): TStringArray;
@@ -135,6 +136,7 @@ begin
     end;
 end;
 
+{ Comparer functions for sort methods }
 function CompareInt64Asc(const d1,d2): integer;
 var
   i1 : int64 absolute d1;
@@ -156,7 +158,7 @@ end;
 
 function CompareIntAsc(const d1,d2): integer;
 var
-  i1 : integer absolute d1;
+  i1 : integer absolute d1;//this causes i1 to be at the same memory address as d1
   i2 : integer absolute d2;
 begin
   if i1=i2 then Result:=0
@@ -304,6 +306,7 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
+//Converts the string to an array of characters and sort it
 procedure stringSort(var str: string; count: Integer; ascending: boolean);
 var
   charArray:TCharArray;
