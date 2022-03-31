@@ -308,6 +308,23 @@ begin
     anysort.AnySort(arr, Count, sizeof(char), @CompareCharDesc)
 end;
 
+//Converts the string to an array of characters and sort it
+procedure stringSort(var str: string; count: Integer; ascending: boolean);
+var
+  charArray:TCharArray;
+  index:integer;
+  output:string;
+begin
+  charArray:=str.ToCharArray;
+  charArrSort(charArray,count,ascending);
+  //convert it back to a string. If there's a method for this I can't find it.
+  output:='';
+  for index:=0 to pred(length(charArray)) do
+    output:=output+charArray[index];
+  str:=output;
+end;
+{ Generic functions for arrays }
+
 generic procedure gSort<T>(var arr: specialize TArray<T>;
   CompareFunc: specialize TCompareFunc<T>;
   idxL,idxH:integer;
@@ -336,33 +353,16 @@ begin
   if li<idxH then specialize gSort<T>(Arr, CompareFunc, li, idxH, SwapBuffer, MedBuffer);
 end;
 
-//Converts the string to an array of characters and sort it
-procedure stringSort(var str: string; count: Integer; ascending: boolean);
+generic procedure genericSort<T>(
+        var aArr: specialize TArray<T>;
+        comparatorAsc, comparatorDesc: specialize TCompareFunc<T>;
+        ascending:boolean=true);
 var
-  charArray:TCharArray;
-  index:integer;
-  output:string;
+  comparator: specialize TCompareFunc<T>;
 begin
-  charArray:=str.ToCharArray;
-  charArrSort(charArray,count,ascending);
-  //convert it back to a string. If there's a method for this I can't find it.
-  output:='';
-  for index:=0 to pred(length(charArray)) do
-    output:=output+charArray[index];
-  str:=output;
+  if ascending then comparator:= comparatorAsc else comparator:= comparatorDesc;
+  specialize gSort<T>(aArr, comparator, 0, pred(length(aArr)),T,T)
 end;
-{ Generic functions for arrays }
-
-//generic procedure genericSort<T>(
-//        var aArr: specialize TArray<T>;
-//        comparatorAsc, comparatorDesc: TCompareFunc;
-//        count: Integer; ascending:boolean=true);
-//begin
-//  if ascending then
-//    anysort.AnySort(aArr, Count, sizeof(T), comparatorAsc)
-//  else
-//    anysort.AnySort(aArr, Count, sizeof(T), comparatorDesc);
-//end;
 
 generic function GetIndex<T>(aItem:T; aArr: specialize TArray<T>): SizeInt;
 begin
